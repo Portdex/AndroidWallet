@@ -7,6 +7,7 @@ import com.anggrayudi.storage.file.DocumentFileCompat
 import com.application.portdex.R
 import com.application.portdex.core.filePicker.FilePicker
 import com.application.portdex.core.filePicker.FilePickerImpl
+import com.application.portdex.core.utils.GenericUtils.getAddress
 import com.application.portdex.core.utils.ValidationUtils.getValidString
 import com.application.portdex.core.utils.ValidationUtils.isProfileValid
 import com.application.portdex.data.utils.Resource
@@ -109,10 +110,14 @@ class VerifyActivity : BaseActivity(), FilePicker by FilePickerImpl() {
             if (isBusiness) startWithAnim(Intent(this, LoginBusinessActivity::class.java))
             else {
                 showProgress()
+                val location = PrefUtils.getLocation()
                 val imageFile = imageUri?.let { DocumentFileCompat.fromUri(this, it) }
                 val profile = CreateProfileInfo(
                     phoneNo = number,
-                    firstName = userName
+                    firstName = userName,
+                    latitude = location?.latitude?.toString(),
+                    longitude = location?.longitude?.toString(),
+                    country = getAddress()?.countryName
                 )
                 profileViewModel.createProfile(profile, imageFile) { it.onProfileCreated() }
             }

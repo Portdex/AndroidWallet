@@ -1,7 +1,10 @@
 package com.application.portdex.core.utils
 
+import android.content.Context
 import android.graphics.Color
 import android.graphics.drawable.GradientDrawable
+import android.location.Address
+import android.location.Geocoder
 import android.view.View
 import androidx.fragment.app.FragmentActivity
 import androidx.palette.graphics.Palette
@@ -9,6 +12,7 @@ import com.application.portdex.R
 import com.application.portdex.domain.models.County
 import com.google.gson.Gson
 import com.google.gson.reflect.TypeToken
+import com.jacopo.pagury.prefs.PrefUtils
 import okhttp3.MediaType.Companion.toMediaType
 import okhttp3.RequestBody
 import okhttp3.RequestBody.Companion.toRequestBody
@@ -64,6 +68,16 @@ object GenericUtils {
         } catch (e: Exception) {
             e.printStackTrace()
             emptyList()
+        }
+    }
+
+    fun Context.getAddress(): Address? {
+        val location = PrefUtils.getLocation() ?: return null
+        val geocoder = Geocoder(this)
+        return try {
+            geocoder.getFromLocation(location.latitude, location.longitude, 1)?.firstOrNull()
+        } catch (_: Exception) {
+            null
         }
     }
 
