@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="DesignSurface">
+    <option name="filePathToZoomLevelMap">
+      <map>
+        <entry key="..\:/Mobiles/UpWork/Muhammad_Tanoli/Portdex/app/src/main/res/drawable/active_status.xml" value="0.21" />
+        <entry key="..\:/Mobiles/UpWork/Muhammad_Tanoli/Portdex/app/src/main/res/drawable/bottom_shadow.xml" value="0.21" />
+        <entry key="..\:/Mobiles/UpWork/Muhammad_Tanoli/Portdex/app/src/main/res/drawable/ic_app_logo.xml" value="0.21" />
+        <entry key="..\:/Mobiles/UpWork/Muhammad_Tanoli/Portdex/app/src/main/res/drawable/ic_flag.xml" value="0.21" />
+        <entry key="..\:/Mobiles/UpWork/Muhammad_Tanoli/Portdex/app/src/main/res/drawable/image_overlay.xml" value="0.21" />
+        <entry key="..\:/Mobiles/UpWork/Muhammad_Tanoli/Portdex/app/src/main/res/drawable/thumbnail_round.xml" value="0.21" />
+        <entry key="..\:/Mobiles/UpWork/Muhammad_Tanoli/Portdex/app/src/main/res/layout/activity_main.xml" value="0.25" />
+        <entry key="..\:/Mobiles/UpWork/Muhammad_Tanoli/Portdex/app/src/main/res/layout/buy_nft_list_view.xml" value="0.25" />
+        <entry key="..\:/Mobiles/UpWork/Muhammad_Tanoli/Portdex/app/src/main/res/layout/digital_designs_list_view.xml" value="0.24895833333333334" />
+        <entry key="..\:/Mobiles/UpWork/Muhammad_Tanoli/Portdex/app/src/main/res/layout/doctors_list_view.xml" value="0.24895833333333334" />
+        <entry key="..\:/Mobiles/UpWork/Muhammad_Tanoli/Portdex/app/src/main/res/layout/food_list_view.xml" value="0.25" />
+        <entry key="..\:/Mobiles/UpWork/Muhammad_Tanoli/Portdex/app/src/main/res/layout/fragment_home.xml" value="0.24895833333333334" />
+        <entry key="..\:/Mobiles/UpWork/Muhammad_Tanoli/Portdex/app/src/main/res/layout/fragment_home_all.xml" value="0.25" />
+        <entry key="..\:/Mobiles/UpWork/Muhammad_Tanoli/Portdex/app/src/main/res/layout/fragment_home_market.xml" value="0.25" />
+        <entry key="..\:/Mobiles/UpWork/Muhammad_Tanoli/Portdex/app/src/main/res/layout/fragment_timeline.xml" value="0.25" />
+        <entry key="..\:/Mobiles/UpWork/Muhammad_Tanoli/Portdex/app/src/main/res/layout/freelancer_list_view.xml" value="0.25" />
+        <entry key="..\:/Mobiles/UpWork/Muhammad_Tanoli/Portdex/app/src/main/res/layout/home_slider_view.xml" value="0.18671875" />
+        <entry key="..\:/Mobiles/UpWork/Muhammad_Tanoli/Portdex/app/src/main/res/layout/nearby_list_view.xml" value="0.21052631578947367" />
+        <entry key="..\:/Mobiles/UpWork/Muhammad_Tanoli/Portdex/app/src/main/res/layout/nft_list_view.xml" value="0.25" />
+        <entry key="..\:/Mobiles/UpWork/Muhammad_Tanoli/Portdex/app/src/main/res/layout/properties_list_view.xml" value="0.25" />
+        <entry key="..\:/Mobiles/UpWork/Muhammad_Tanoli/Portdex/app/src/main/res/layout/recycler_freelancer_view.xml" value="0.25" />
+        <entry key="..\:/Mobiles/UpWork/Muhammad_Tanoli/Portdex/app/src/main/res/layout/recycler_label_view.xml" value="0.25" />
+        <entry key="..\:/Mobiles/UpWork/Muhammad_Tanoli/Portdex/app/src/main/res/layout/recycler_labeled_view.xml" value="0.24895833333333334" />
+        <entry key="..\:/Mobiles/UpWork/Muhammad_Tanoli/Portdex/app/src/main/res/layout/retailer_list_view.xml" value="0.25" />
+        <entry key="..\:/Mobiles/UpWork/Muhammad_Tanoli/Portdex/app/src/main/res/layout/services_list_view.xml" value="0.25" />
+        <entry key="..\:/Mobiles/UpWork/Muhammad_Tanoli/Portdex/app/src/main/res/layout/themes_list_view.xml" value="0.25" />
+        <entry key="..\:/Mobiles/UpWork/Muhammad_Tanoli/Portdex/app/src/main/res/layout/top_designers_list_view.xml" value="0.25" />
+        <entry key="..\:/Mobiles/UpWork/Muhammad_Tanoli/Portdex/app/src/main/res/layout/top_recommended_designers_view.xml" value="0.264" />
+        <entry key="..\:/Mobiles/UpWork/Muhammad_Tanoli/Portdex/app/src/main/res/menu/home_bottom_menu.xml" value="0.25" />
+      </map>
+    </option>
+  </component>
+  <component name="ProjectRootManager" version="2" languageLevel="JDK_11" default="true" project-jdk-name="Android Studio default JDK" project-jdk-type="JavaSDK">
+    <output url="file://$PROJECT_DIR$/build/classes" />
+  </component>
+  <component name="ProjectType">
+    <option name="id" value="Android" />
+  </component>
+</project>

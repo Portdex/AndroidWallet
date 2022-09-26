@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:background="?attr/selectableItemBackground"
+    android:gravity="center"
+    android:orientation="vertical"
+    android:paddingHorizontal="@dimen/intrinsic_padding_large"
+    android:paddingVertical="@dimen/intrinsic_padding_medium">
+
+    <ImageView
+        android:id="@+id/image_view"
+        android:layout_width="36dp"
+        android:layout_height="36dp"
+        android:adjustViewBounds="true"
+        app:tint="@color/chat_tab_selector"
+        tools:ignore="ContentDescription"
+        tools:src="@drawable/ic_chat"
+        tools:tint="@color/textColorSecondaryDark" />
+
+    <com.google.android.material.textview.MaterialTextView
+        android:id="@+id/label_view"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/intrinsic_padding_small"
+        android:textColor="@color/chat_tab_selector"
+        android:textSize="12sp"
+        tools:text="@string/app_name"
+        tools:textColor="@color/textColorSecondaryDark" />
+</LinearLayout>

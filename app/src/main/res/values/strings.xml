@@ -1,0 +1,126 @@
+<resources>
+    <string name="app_name">Portdex</string>
+
+    <!--    button strings-->
+    <string name="button_chat">Chat</string>
+    <string name="button_see_all">See all</string>
+    <string name="button_login">Login</string>
+    <string name="button_ok">OK</string>
+    <string name="button_cancel">Cancel</string>
+    <string name="button_connect_with_freelancer">Connect Directly with freelancers</string>
+    <string name="button_continue_without_login">Continue without login</string>
+    <string name="button_biometric">Biometric Coming Soon</string>
+    <string name="button_continue">Continue</string>
+    <string name="button_upload_image">Upload image</string>
+    <string name="button_continues_as_business">Continue as Business</string>
+    <string name="button_manage_store">Manage store</string>
+    <string name="button_verify">Verify</string>
+    <string name="button_resend_code">Resend code</string>
+    <string name="button_proceed">Proceed</string>
+
+
+    <!--    hint strings-->
+    <string name="hint_phone_number">Phone number</string>
+    <string name="hint_enter_name">Enter Name</string>
+    <string name="hint_enter_business_name">Enter business name</string>
+
+    <!--    label strings-->
+    <string name="label_all">All</string>
+    <string name="label_loading">loading…</string>
+    <string name="label_digital_market">Digital market</string>
+    <string name="label_thing_nearby">Things from nearby</string>
+    <string name="label_retailers_real_time">Retailers - Real time orders near by</string>
+    <string name="label_freelance_service">Freelance services </string>
+    <string name="label_top_food_recommended">Top Food recommendations </string>
+    <string name="label_top_recommended_designers">Top recommended designers</string>
+    <string name="label_service_provider_near_by">Service providers near by</string>
+    <string name="label_recommended_doctors">Recommended Doctors - online stores</string>
+    <string name="label_properties_near_by">Properties near by</string>
+    <string name="label_digital_designs">Digital designs</string>
+    <string name="label_digital_nft">Create your Digital NFT</string>
+    <string name="label_themes">Themes</string>
+    <string name="label_buy_nft">Buy NFT</string>
+    <string name="label_coming_soon">Coming soon</string>
+    <string name="label_manage_bank_payments">Manage Bank Payments</string>
+    <string name="label_multi_currency">Multi-currency</string>
+    <string name="label_stable_currency_payments">Stable Currency Payments</string>
+    <string name="label_swap_crypto">Swap Crypto</string>
+    <string name="label_swap_lend_nft">Swap / Lend NFT</string>
+    <string name="label_multi_chain_defi">Multi-chain Defi</string>
+    <string name="label_staking_crypto_tax">Staking Crypto Tax</string>
+    <string name="label_subscription">Subscription</string>
+    <string name="label_purchases">Purchases</string>
+    <string name="label_buy_now_pay_later">Buy now pay Later</string>
+    <string name="label_peer_to_peer">Peer to Peer Crypto Asset Use | Coming Soon</string>
+    <string name="label_crypto_for_payment">Use crypto for payments</string>
+    <string name="label_mint_lend_swap_nft">Mint, lend, Swap, NFT</string>
+    <string name="label_access_to_finance">Access to Finance</string>
+    <string name="label_welcome_to_portdex">Welcome to Portdex</string>
+    <string name="label_enter_phone_number">Enter phone number</string>
+    <string name="label_setup_profile">Setup your Profile</string>
+    <string name="label_business_user">Are you a business user?</string>
+    <string name="label_business_profile">Business Profile</string>
+    <string name="label_business_name">Business Name</string>
+    <string name="label_or">Or</string>
+    <string name="label_categories">Categories</string>
+    <string name="label_sub_categories">Sub categories</string>
+    <string name="label_business_feed">Business feed</string>
+    <string name="label_my_feed">My feed</string>
+    <string name="label_offers_local">Offers &amp; local posts</string>
+    <string name="label_bill_payments">Bill payments</string>
+    <string name="label_my_data">My data</string>
+    <string name="label_shopping_data">Shopping data</string>
+    <string name="label_payment_transactions">Payment transactions</string>
+    <string name="label_crypto_tax">Crypto tax</string>
+    <string name="label_nft_transactions">NFT transactions</string>
+    <string name="label_defi_transactions">DeFi transactions</string>
+    <string name="label_crypto_currency_transactions">Crypto currency transactions</string>
+    <string name="label_profile">Profile</string>
+    <string name="label_cash_rewards">Cash Rewards</string>
+    <string name="label_data_rewards">Data Rewards</string>
+    <string name="label_staking_rewards">Staking Rewards</string>
+    <string name="label_stable_currency_rewards">Stable currency Rewards</string>
+    <string name="label_cryptocurrency_rewards">Cryptocurrency Rewards</string>
+    <string name="label_shopping_rewards">Shopping Rewards</string>
+    <string name="label_rewards">Rewards</string>
+    <string name="label_guest_user">Guest User</string>
+    <string name="label_enter_code">Enter the code</string>
+    <string name="label_verification_code">Verification code</string>
+    <string name="label_attention">Attention…</string>
+
+
+    <!--    error strings-->
+    <string name="error_input_required">Input required</string>
+
+    <!--    info strings-->
+    <string name="info_welcome_message">A community governed universal decentralised digital platform</string>
+    <string name="info_login_message">Connectivity | Data monetization |\nDigital Payments</string>
+    <string name="info_login_sub_message">One Stop Shop for service, data, digital payments and crypto assets.</string>
+    <string name="info_location_permission_required">Location permission is required to move forward.</string>
+    <string name="info_storage_permission_required">Storage permission is required to pick image.</string>
+    <string name="info_code_sent_successfully">Code sent successfully</string>
+    <string name="info_code_sent_to">Sent to : %s</string>
+    <string name="info_authentication_required">Authentication required to proceed forward.</string>
+
+
+    <!--    things nearby-->
+    <string name="label_service_provider">Service providers</string>
+    <string name="label_freelancers">Freelancers</string>
+    <string name="label_food_stores">Food stores</string>
+    <string name="label_retailers">Retailers</string>
+    <string name="label_doctors">Doctors</string>
+    <string name="label_property">Property</string>
+    <string name="label_digital">Digital</string>
+    <string name="label_search_local">Search Local</string>
+    <string name="label_nft">NFTs</string>
+    <string name="label_online_stores">Online stores</string>
+    <string name="label_school">School</string>
+
+
+    <!--    bottom menu-->
+    <string name="menu_home">Home</string>
+    <string name="menu_wallet">Wallet</string>
+    <string name="menu_timeline">Timeline</string>
+    <string name="menu_chat">Chat</string>
+
+</resources>

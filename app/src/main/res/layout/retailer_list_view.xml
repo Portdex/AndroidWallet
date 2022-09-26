@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical">
+
+    <ImageView
+        android:id="@+id/image_view"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:adjustViewBounds="true"
+        tools:ignore="ContentDescription"
+        tools:src="@drawable/grocery_store" />
+
+    <com.google.android.material.textview.MaterialTextView
+        android:id="@+id/label_view"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:ellipsize="end"
+        android:fontFamily="@font/roboto_regular"
+        android:gravity="center"
+        android:maxLines="2"
+        android:textColor="@color/textColorSecondaryDark"
+        android:textSize="14sp"
+        app:fontFamily="@font/roboto_regular"
+        tools:text="@string/app_name" />
+</LinearLayout>

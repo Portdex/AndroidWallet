@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layer-list xmlns:android="http://schemas.android.com/apk/res/android">
+    <item
+        android:bottom="@dimen/intrinsic_padding_small"
+        android:left="@dimen/intrinsic_padding_small"
+        android:right="@dimen/intrinsic_padding_small"
+        android:top="@dimen/intrinsic_padding_small">
+        <shape android:shape="oval">
+            <solid android:color="@color/colorPrimary" />
+        </shape>
+    </item>
+</layer-list>

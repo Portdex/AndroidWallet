@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <dimen name="intrinsic_padding_small">4dp</dimen>
+    <dimen name="intrinsic_padding_medium">8dp</dimen>
+    <dimen name="intrinsic_padding_large">16dp</dimen>
+
+    <dimen name="home_food_image_size">90dp</dimen>
+    <dimen name="home_doctor_cell_width">146dp</dimen>
+    <dimen name="home_doctor_user_image">86dp</dimen>
+    <dimen name="home_designer_image_height">160dp</dimen>
+    <dimen name="home_property_image_height">160dp</dimen>
+
+    <dimen name="home_digital_design_width">140dp</dimen>
+    <dimen name="home_theme_image_width">288dp</dimen>
+    <dimen name="home_buy_nft_cell_size">110dp</dimen>
+
+    <dimen name="wallet_cell_size">90dp</dimen>
+</resources>

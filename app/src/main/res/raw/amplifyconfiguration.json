@@ -1,0 +1,82 @@
+{
+  "UserAgent": "aws-amplify-cli/2.0",
+  "Version": "1.0",
+  "bucket": "portdex-dev-assets",
+  "region": "eu-west-2",
+  "api": {
+    "plugins": {
+      "awsAPIPlugin": {
+        "portdex": {
+          "endpointType": "GraphQL",
+          "endpoint": "https://j2xe2vacq5fbbbxrhe7gi5o3xi.appsync-api.eu-west-2.amazonaws.com/graphql",
+          "region": "eu-west-2",
+          "authorizationType": "API_KEY",
+          "apiKey": "da2-xyfm4owlg5e43b42wiq4utji5y"
+        }
+      }
+    }
+  },
+  "auth": {
+    "plugins": {
+      "awsCognitoAuthPlugin": {
+        "UserAgent": "aws-amplify-cli/0.1.0",
+        "Version": "0.1.0",
+        "IdentityManager": {
+          "Default": {}
+        },
+        "CredentialsProvider": {
+          "CognitoIdentity": {
+            "Default": {
+              "PoolId": "eu-west-2:fe9eb4b0-a617-4ce3-9151-309a56450d80",
+              "Region": "eu-west-2"
+            }
+          }
+        },
+        "CognitoUserPool": {
+          "Default": {
+            "PoolId": "eu-west-2_msfTrITU0",
+            "AppClientId": "3f3ep81lfaslkfiu382gmjgf1m",
+            "AppClientSecret": "",
+            "Region": "eu-west-2"
+          }
+        },
+        "Auth": {
+          "Default": {
+            "authenticationFlowType": "CUSTOM_AUTH",
+            "loginMechanisms": [
+              "PHONE_NUMBER"
+            ],
+            "signupAttributes": [
+              "PHONE_NUMBER"
+            ],
+            "passwordProtectionSettings": {
+              "passwordPolicyMinLength": 8,
+              "passwordPolicyCharacters": []
+            },
+            "mfaConfiguration": "ON",
+            "mfaTypes": [
+              "SMS"
+            ],
+            "verificationMechanisms": [
+              "PHONE_NUMBER"
+            ]
+          }
+        },
+        "S3TransferUtility": {
+          "Default": {
+            "bucket": "portdex-dev-assets",
+            "region": "eu-west-2"
+          }
+        }
+      }
+    }
+  },
+  "storage": {
+    "plugins": {
+      "awsS3StoragePlugin": {
+        "bucket": "portdex-dev-assets",
+        "region": "eu-west-2"
+      }
+    }
+  }
+}

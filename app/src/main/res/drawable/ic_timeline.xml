@@ -1,0 +1,22 @@
+<vector xmlns:android="http://schemas.android.com/apk/res/android"
+    android:width="24dp"
+    android:height="24dp"
+    android:viewportWidth="24"
+    android:viewportHeight="24">
+  <path
+      android:pathData="M0,0h24v24H0z"
+      android:fillColor="#fff"
+      android:fillAlpha="0.01"/>
+  <path
+      android:pathData="M4,3a1,1 0,0 0,-1 1v7.9a1,1 0,0 0,1 1h6.1a1,1 0,0 0,1 -1L11.1,4a1,1 0,0 0,-1 -1L4,3zM13.9,11.1a1,1 0,0 0,-1 1L12.9,20a1,1 0,0 0,1 1L20,21a1,1 0,0 0,1 -1v-7.9a1,1 0,0 0,-1 -1h-6.1zM12.9,4a1,1 0,0 1,1 -1L20,3a1,1 0,0 1,1 1v5.2a1,1 0,0 1,-1 1h-6.1a1,1 0,0 1,-1 -1L12.9,4zM4,13.8a1,1 0,0 0,-1 1L3,20a1,1 0,0 0,1 1h6.1a1,1 0,0 0,1 -1v-5.2a1,1 0,0 0,-1 -1L4,13.8z"
+      android:fillColor="#fff"
+      android:fillType="evenOdd"/>
+  <group>
+    <clip-path
+        android:pathData="M4,3a1,1 0,0 0,-1 1v7.9a1,1 0,0 0,1 1h6.1a1,1 0,0 0,1 -1L11.1,4a1,1 0,0 0,-1 -1L4,3zM13.9,11.1a1,1 0,0 0,-1 1L12.9,20a1,1 0,0 0,1 1L20,21a1,1 0,0 0,1 -1v-7.9a1,1 0,0 0,-1 -1h-6.1zM12.9,4a1,1 0,0 1,1 -1L20,3a1,1 0,0 1,1 1v5.2a1,1 0,0 1,-1 1h-6.1a1,1 0,0 1,-1 -1L12.9,4zM4,13.8a1,1 0,0 0,-1 1L3,20a1,1 0,0 0,1 1h6.1a1,1 0,0 0,1 -1v-5.2a1,1 0,0 0,-1 -1L4,13.8z"
+        android:fillType="evenOdd"/>
+    <path
+        android:pathData="M4,4L4,2a2,2 0,0 0,-2 2h2zM4,11.9L4,4L2,4v7.9h2zM4,11.9L2,11.9a2,2 0,0 0,2 2v-2zM10.1,11.9L4,11.9v2h6.1v-2zM10.1,11.9v2a2,2 0,0 0,2 -2h-2zM10.1,4v7.9h2L12.1,4h-2zM10.1,4h2a2,2 0,0 0,-2 -2v2zM4,4h6.1L10.1,2L4,2v2zM13.9,12.1v-2a2,2 0,0 0,-2 2h2zM13.9,20v-7.9h-2L11.9,20h2zM13.9,20h-2a2,2 0,0 0,2 2v-2zM20,20h-6.1v2L20,22v-2zM20,20v2a2,2 0,0 0,2 -2h-2zM20,12.1L20,20h2v-7.9h-2zM20,12.1h2a2,2 0,0 0,-2 -2v2zM13.9,12.1L20,12.1v-2h-6.1v2zM13.9,2a2,2 0,0 0,-2 2h2L13.9,2zM20,2h-6.1v2L20,4L20,2zM22,4a2,2 0,0 0,-2 -2v2h2zM22,9.2L22,4h-2v5.2h2zM20,11.2a2,2 0,0 0,2 -2h-2v2zM13.9,11.2L20,11.2v-2h-6.1v2zM11.9,9.2a2,2 0,0 0,2 2v-2h-2zM11.9,4v5.2h2L13.9,4h-2zM4,14.8v-2a2,2 0,0 0,-2 2h2zM4,20v-5.2L2,14.8L2,20h2zM4,20L2,20a2,2 0,0 0,2 2v-2zM10.1,20L4,20v2h6.1v-2zM10.1,20v2a2,2 0,0 0,2 -2h-2zM10.1,14.8L10.1,20h2v-5.2h-2zM10.1,14.8h2a2,2 0,0 0,-2 -2v2zM4,14.8h6.1v-2L4,12.8v2z"
+        android:fillColor="#8F8F97"/>
+  </group>
+</vector>

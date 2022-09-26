@@ -1,0 +1,113 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="@drawable/sheet_background"
+    android:gravity="center_horizontal"
+    android:orientation="vertical">
+
+    <View
+        android:id="@+id/line"
+        android:layout_width="70dp"
+        android:layout_height="4dp"
+        android:layout_gravity="center_horizontal"
+        android:layout_marginTop="@dimen/intrinsic_padding_large"
+        android:background="@drawable/sheet_line" />
+
+    <com.google.android.material.textview.MaterialTextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_horizontal"
+        android:layout_marginTop="@dimen/intrinsic_padding_large"
+        android:fontFamily="@font/roboto_bold"
+        android:text="@string/label_setup_profile"
+        android:textColor="@color/textColorPrimaryDark"
+        android:textSize="18sp"
+        app:fontFamily="@font/roboto_bold" />
+
+    <FrameLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/intrinsic_padding_large">
+
+        <androidx.cardview.widget.CardView
+            android:id="@+id/image_container"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_margin="@dimen/intrinsic_padding_large"
+            android:background="?attr/selectableItemBackground"
+            android:foreground="?attr/selectableItemBackground"
+            app:cardCornerRadius="@dimen/intrinsic_padding_large"
+            app:cardUseCompatPadding="false">
+
+            <ImageView
+                android:id="@+id/image_view"
+                android:layout_width="95dp"
+                android:layout_height="95dp"
+                android:adjustViewBounds="true"
+                android:scaleType="centerCrop"
+                android:src="@drawable/user_thumbnail"
+                tools:ignore="ContentDescription" />
+        </androidx.cardview.widget.CardView>
+
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/actionIcon"
+            style="@style/Widget.IconOnly"
+            android:layout_width="40dp"
+            android:layout_height="40dp"
+            android:layout_gravity="end"
+            app:icon="@drawable/ic_camera"
+            app:iconSize="16dp"
+            app:shapeAppearance="@style/ShapeAppearance.Round" />
+    </FrameLayout>
+
+    <com.google.android.material.textfield.TextInputLayout
+        android:id="@+id/input_name_layout"
+        style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginHorizontal="20dp"
+        android:layout_marginTop="@dimen/intrinsic_padding_medium"
+        android:hint="@string/hint_enter_name">
+
+        <com.google.android.material.textfield.TextInputEditText
+            android:id="@+id/input_name"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:inputType="textPersonName" />
+    </com.google.android.material.textfield.TextInputLayout>
+
+    <com.google.android.material.button.MaterialButton
+        android:id="@+id/btn_continue"
+        style="@style/Widget.MaterialComponents.Button"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginHorizontal="20dp"
+        android:layout_marginTop="@dimen/intrinsic_padding_large"
+        android:insetTop="0dp"
+        android:insetBottom="0dp"
+        android:text="@string/button_login"
+        android:textAllCaps="false" />
+
+    <com.google.android.material.textview.MaterialTextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginVertical="@dimen/intrinsic_padding_large"
+        android:text="@string/label_or"
+        android:textColor="@color/textColorSecondaryLight" />
+
+    <com.google.android.material.button.MaterialButton
+        android:id="@+id/btn_business"
+        style="@style/Widget.MaterialComponents.Button.OutlinedButton"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginHorizontal="20dp"
+        android:layout_marginBottom="20dp"
+        android:insetTop="0dp"
+        android:insetBottom="0dp"
+        android:text="@string/button_continues_as_business"
+        android:textAllCaps="false"
+        app:strokeColor="@color/colorPrimary" />
+</LinearLayout>

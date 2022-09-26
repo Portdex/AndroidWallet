@@ -1,0 +1,107 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="288dp"
+    android:layout_height="wrap_content"
+    android:layout_marginVertical="@dimen/intrinsic_padding_small"
+    app:cardCornerRadius="@dimen/intrinsic_padding_large"
+    app:cardUseCompatPadding="false">
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <ImageView
+            android:id="@+id/thumbnail_view"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/home_property_image_height"
+            android:adjustViewBounds="true"
+            android:src="@drawable/property_thumbnail"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            tools:ignore="ContentDescription" />
+
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/btn_favorite"
+            style="@style/Widget.IconOnly"
+            android:layout_width="30dp"
+            android:layout_height="30dp"
+            android:layout_margin="@dimen/intrinsic_padding_medium"
+            app:backgroundTint="@color/colorLight"
+            app:icon="@drawable/ic_favorite_filled_small"
+            app:iconGravity="textStart"
+            app:iconTint="@color/textColorSecondaryDark"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:shapeAppearanceOverlay="@style/ShapeAppearance.Round" />
+
+        <com.google.android.material.imageview.ShapeableImageView
+            android:id="@+id/user_image"
+            android:layout_width="40dp"
+            android:layout_height="40dp"
+            android:layout_marginStart="12dp"
+            android:layout_marginTop="12dp"
+            android:layout_marginBottom="12dp"
+            android:src="@drawable/user_round_thumbnail"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/thumbnail_view" />
+
+        <View
+            android:id="@+id/active_statue"
+            android:layout_width="8dp"
+            android:layout_height="8dp"
+            android:layout_margin="2dp"
+            android:background="@drawable/active_status"
+            app:layout_constraintBottom_toBottomOf="@+id/user_image"
+            app:layout_constraintEnd_toEndOf="@id/user_image" />
+
+        <com.google.android.material.textview.MaterialTextView
+            android:id="@+id/user_name"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/intrinsic_padding_medium"
+            android:fontFamily="@font/roboto_bold"
+            android:textColor="@color/textColorPrimaryDark"
+            android:textSize="14sp"
+            app:fontFamily="@font/roboto_bold"
+            app:layout_constraintStart_toEndOf="@+id/user_image"
+            app:layout_constraintTop_toTopOf="@+id/user_image"
+            tools:text="@string/app_name" />
+
+        <com.google.android.material.textview.MaterialTextView
+            android:id="@+id/designation_view"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:fontFamily="@font/roboto_medium"
+            android:gravity="center_vertical"
+            android:textColor="@color/textColorSecondaryDark"
+            android:textSize="10sp"
+            app:fontFamily="@font/roboto_medium"
+            app:layout_constraintStart_toStartOf="@+id/user_name"
+            app:layout_constraintTop_toBottomOf="@+id/user_name"
+            tools:ignore="SmallSp"
+            tools:text="4.0(50+ ratings)" />
+
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/btn_chat"
+            style="@style/Widget.MaterialComponents.Button.OutlinedButton"
+            android:layout_width="64dp"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="@dimen/intrinsic_padding_large"
+            android:fontFamily="@font/roboto_medium"
+            android:insetTop="0dp"
+            android:insetBottom="0dp"
+            android:minHeight="26dp"
+            android:text="@string/button_chat"
+            android:textAllCaps="false"
+            android:textSize="10sp"
+            app:cornerRadius="17dp"
+            app:layout_constraintBottom_toBottomOf="@+id/user_image"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="@+id/user_image"
+            tools:ignore="SmallSp" />
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</androidx.cardview.widget.CardView>

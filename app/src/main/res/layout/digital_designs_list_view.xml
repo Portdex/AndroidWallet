@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="@dimen/home_digital_design_width"
+    android:layout_height="wrap_content"
+    app:cardCornerRadius="@dimen/intrinsic_padding_large"
+    app:cardUseCompatPadding="false">
+
+    <LinearLayout
+        android:id="@+id/content_container"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical"
+        tools:background="#253C34">
+
+        <ImageView
+            android:id="@+id/image_view"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:adjustViewBounds="true"
+            tools:ignore="ContentDescription"
+            tools:src="@drawable/app_design" />
+
+        <com.google.android.material.textview.MaterialTextView
+            android:id="@+id/label_view"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:layout_marginTop="5dp"
+            android:layout_marginBottom="@dimen/intrinsic_padding_large"
+            android:ellipsize="end"
+            android:fontFamily="@font/roboto_medium"
+            android:gravity="center"
+            android:maxLines="2"
+            android:textColor="@color/textColorPrimaryLight"
+            android:textSize="14sp"
+            app:fontFamily="@font/roboto_medium"
+            tools:text="@string/app_name" />
+    </LinearLayout>
+
+</androidx.cardview.widget.CardView>

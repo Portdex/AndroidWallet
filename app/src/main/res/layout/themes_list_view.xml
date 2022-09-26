@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="@dimen/home_theme_image_width"
+    android:layout_height="wrap_content"
+    app:cardCornerRadius="@dimen/intrinsic_padding_large"
+    app:cardUseCompatPadding="false">
+
+    <FrameLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="#1D3F4F">
+
+        <ImageView
+            android:id="@+id/image_view"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:adjustViewBounds="true"
+            android:src="@drawable/theme_thumbnail"
+            tools:ignore="ContentDescription" />
+
+
+        <com.google.android.material.textview.MaterialTextView
+            android:id="@+id/label_view"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_gravity="bottom"
+            android:background="#40000000"
+            android:ellipsize="end"
+            android:fontFamily="@font/roboto_bold"
+            android:gravity="start|center_vertical"
+            android:maxLines="2"
+            android:paddingHorizontal="@dimen/intrinsic_padding_large"
+            android:paddingVertical="12dp"
+            android:textColor="@color/textColorPrimaryLight"
+            android:textSize="14sp"
+            app:fontFamily="@font/roboto_bold"
+            tools:text="Word press  Developer tool" />
+    </FrameLayout>
+
+</androidx.cardview.widget.CardView>

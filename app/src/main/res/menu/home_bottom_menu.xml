@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <item
+        android:id="@+id/actionHome"
+        android:icon="@drawable/ic_home"
+        android:title="@string/menu_home" />
+
+    <item
+        android:id="@+id/actionWallet"
+        android:icon="@drawable/ic_wallet"
+        android:title="@string/menu_wallet" />
+
+    <item
+        android:id="@+id/actionTimeline"
+        android:icon="@drawable/ic_timeline"
+        android:title="@string/menu_timeline" />
+
+    <item
+        android:id="@+id/actionChat"
+        android:icon="@drawable/ic_chat"
+        android:title="@string/menu_chat" />
+</menu>
