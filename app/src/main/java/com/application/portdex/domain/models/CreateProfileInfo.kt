@@ -10,7 +10,7 @@ data class CreateProfileInfo(
     val firstName: String? = null,
     val lastName: String? = null,
     val email: String? = null,
-    val profiePicUrl: String? = null,
+    var profiePicUrl: String? = null,
     val category: String? = null,
     val subCategory: String? = null,
     val latitude: String? = null,

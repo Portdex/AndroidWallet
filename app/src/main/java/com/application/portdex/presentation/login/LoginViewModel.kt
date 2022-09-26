@@ -1,6 +1,7 @@
 package com.application.portdex.presentation.login
 
 import androidx.lifecycle.ViewModel
+import com.amplifyframework.auth.AuthException.UsernameExistsException
 import com.application.portdex.core.utils.RxUtils.request
 import com.application.portdex.core.utils.ValidationUtils
 import com.application.portdex.data.utils.Resource
@@ -19,12 +20,35 @@ class LoginViewModel @Inject constructor(
     private val disposable = CompositeDisposable()
     private val password by lazy { ValidationUtils.generatePassword() }
 
+    fun login(number: String, listener: (Resource<Boolean>) -> Unit) {
+        signUpWithNumber(number) { resource ->
+            when (resource) {
+                is Resource.Success -> listener(resource)
+                is Resource.Error -> {
+                    if (resource.error is UsernameExistsException) {
+                        loginWithNumber(number, listener)
+                    } else {
+                        listener(resource)
+                    }
+                }
+            }
+        }
+    }
 
     fun loginWithNumber(number: String, listener: (Resource<Boolean>) -> Unit) {
         disposable.add(
             repository.loginWithNumber(number, password).request()
                 .subscribeBy(onSuccess = (listener), onError = {
                     listener(Resource.Error(it.message))
+                })
+        )
+    }
+
+    fun signUpWithNumber(number: String, listener: (Resource<Boolean>) -> Unit) {
+        disposable.add(
+            repository.signUpWithNumber(number).request()
+                .subscribeBy(onSuccess = (listener), onError = {
+                    listener(Resource.Error(it.message, error = it))
                 })
         )
     }

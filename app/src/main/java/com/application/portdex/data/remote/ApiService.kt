@@ -1,8 +1,10 @@
 package com.application.portdex.data.remote
 
 import com.application.portdex.data.remote.dto.CategoryDto
+import com.application.portdex.data.remote.dto.CreateProfileResponse
 import com.application.portdex.data.remote.dto.FeedItemDto
 import com.application.portdex.data.remote.dto.ProfileInfoDto
+import com.application.portdex.domain.models.CreateProfileInfo
 import io.reactivex.rxjava3.core.Single
 import okhttp3.RequestBody
 import okhttp3.ResponseBody
@@ -68,7 +70,7 @@ interface ApiService {
     @POST("{endpoint}")
     fun saveProfile(
         @Path("endpoint", encoded = true) path: String,
-        @Body body: Map<String, Any?>
-    ): Single<Response<ResponseBody>>
+        @Body body: CreateProfileInfo
+    ): Single<CreateProfileResponse>
 
 }

@@ -68,7 +68,9 @@ class ProfileActivity : BaseActivity() {
 
     private fun initViews() {
         PrefUtils.getProfileInfo()?.let { profile ->
-            mBinding.userName.text = String.format("%s %s", profile.firstName, profile.lastName)
+            var name = profile.firstName
+            if (profile.lastName != "undefined") name += " ${profile.lastName}"
+            mBinding.userName.text = name
             profile.profilePicUrl?.let { mBinding.userImage.setUserImage(it) }
         }
     }
