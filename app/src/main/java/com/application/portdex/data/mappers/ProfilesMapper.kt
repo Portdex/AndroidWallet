@@ -43,3 +43,21 @@ fun ProfileInfo.toCreateProfile(): CreateProfileInfo {
         signedUpUser = signedUpUser
     )
 }
+
+fun CreateProfileInfo.toProfileInfo(): ProfileInfo {
+    return ProfileInfo(
+        phoneNumber = phoneNo,
+        country = country,
+        firstName = firstName,
+        lastName = lastName,
+        email = email,
+        profilePicUrl = profiePicUrl,
+        category = category,
+        subCategory = subCategory,
+        latitude = latitude,
+        longitude = longitude,
+        storeId = storeId,
+        userToken = userToken,
+        signedUpUser = signedUpUser
+    )
+}

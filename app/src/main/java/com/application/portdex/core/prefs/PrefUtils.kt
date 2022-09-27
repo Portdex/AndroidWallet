@@ -30,16 +30,12 @@ object PrefUtils {
         )
     }
 
-    private fun getSharedPreferences(): SharedPreferences? {
-        return preferences
-    }
-
     fun saveLocation(location: LocationInfo) {
-        getSharedPreferences()?.edit()?.putString(PREF_LOCATION, Gson().toJson(location))?.apply()
+        preferences?.edit()?.putString(PREF_LOCATION, Gson().toJson(location))?.apply()
     }
 
     fun getLocation(): LocationInfo? {
-        return getSharedPreferences()?.getString(PREF_LOCATION, null)?.let {
+        return preferences?.getString(PREF_LOCATION, null)?.let {
             Gson().fromJson(it, LocationInfo::class.java)
         }
     }
@@ -65,6 +61,9 @@ object PrefUtils {
     }
 
     fun clear() {
-        getSharedPreferences()?.edit()?.clear()?.apply()
+        val location = getLocation()
+        preferences?.edit()?.clear()?.apply()?.run {
+            location?.let { saveLocation(it) }
+        }
     }
 }

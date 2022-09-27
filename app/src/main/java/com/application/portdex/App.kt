@@ -1,6 +1,7 @@
 package com.application.portdex
 
 import android.app.Application
+import android.content.Context
 import com.amplifyframework.auth.cognito.AWSCognitoAuthPlugin
 import com.amplifyframework.core.Amplify
 import com.amplifyframework.core.AmplifyConfiguration
@@ -10,6 +11,18 @@ import dagger.hilt.android.HiltAndroidApp
 
 @HiltAndroidApp
 class App : Application() {
+
+    companion object {
+        lateinit var instance: App
+
+        fun getContext(): Context {
+            return instance.applicationContext
+        }
+    }
+
+    init {
+        instance = this
+    }
 
     override fun onCreate() {
         super.onCreate()

@@ -1,14 +1,17 @@
 package com.application.portdex.core.utils
 
+import android.annotation.SuppressLint
 import android.content.Context
 import android.graphics.Color
 import android.graphics.drawable.GradientDrawable
 import android.location.Address
 import android.location.Geocoder
+import android.provider.Settings
 import android.util.Log
 import android.view.View
 import androidx.fragment.app.FragmentActivity
 import androidx.palette.graphics.Palette
+import com.application.portdex.App
 import com.application.portdex.R
 import com.application.portdex.domain.models.County
 import com.google.gson.Gson
@@ -33,6 +36,14 @@ object GenericUtils {
 
     fun View.hide(hide: Boolean = true) {
         visibility = if (hide) View.GONE else View.VISIBLE
+    }
+
+    @SuppressLint("HardwareIds")
+    fun getDeviceID(): String? {
+        return Settings.Secure.getString(
+            App.getContext().contentResolver,
+            Settings.Secure.ANDROID_ID
+        )
     }
 
     fun Palette?.getImagesBg(): GradientDrawable {

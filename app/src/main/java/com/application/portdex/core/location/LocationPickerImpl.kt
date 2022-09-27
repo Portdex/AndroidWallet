@@ -45,8 +45,9 @@ class LocationPickerImpl : LocationPicker, LifecycleEventObserver,
     private var locationProvider: FusedLocationProviderClient? = null
     private var getGpsResult: ActivityResultLauncher<IntentSenderRequest>? = null
 
-    override fun initLocation(activity: FragmentActivity) {
+    override fun initLocation(activity: FragmentActivity, listener: ((LocationInfo) -> Unit)?) {
         this.activity = activity
+        this.listener = listener
         activity.lifecycle.addObserver(this)
         locationProvider = LocationServices.getFusedLocationProviderClient(activity)
         initLocation()
@@ -54,10 +55,13 @@ class LocationPickerImpl : LocationPicker, LifecycleEventObserver,
 
     override fun onStateChanged(source: LifecycleOwner, event: Lifecycle.Event) {
         if (event == Lifecycle.Event.ON_CREATE) {
-            getGpsResult = activity?.activityResultRegistry?.register(
-                "key", source, ActivityResultContracts.StartIntentSenderForResult()
-            ) { result ->
-                if (result.resultCode == Activity.RESULT_OK) initLocation()
+            try {
+                getGpsResult = activity?.activityResultRegistry?.register(
+                    "key", source, ActivityResultContracts.StartIntentSenderForResult()
+                ) { result ->
+                    if (result.resultCode == Activity.RESULT_OK) initLocation()
+                }
+            } catch (_: Exception) {
             }
         } else if (event == Lifecycle.Event.ON_PAUSE) {
             removeLocationRequest()
@@ -183,9 +187,5 @@ class LocationPickerImpl : LocationPicker, LifecycleEventObserver,
         grantResults: IntArray
     ) {
         EasyPermissions.onRequestPermissionsResult(requestCode, permissions, grantResults, this)
-    }
-
-    override fun onLocationReceived(listener: (LocationInfo) -> Unit) {
-        this.listener = listener
     }
 }

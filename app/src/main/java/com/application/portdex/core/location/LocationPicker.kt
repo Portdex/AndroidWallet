@@ -5,6 +5,5 @@ import com.application.portdex.domain.models.LocationInfo
 
 interface LocationPicker {
 
-    fun initLocation(activity: FragmentActivity)
-    fun onLocationReceived(listener: (LocationInfo) -> Unit)
+    fun initLocation(activity: FragmentActivity, listener: ((LocationInfo) -> Unit)? = null)
 }

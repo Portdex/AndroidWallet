@@ -7,8 +7,10 @@ import com.anggrayudi.storage.file.DocumentFileCompat
 import com.application.portdex.R
 import com.application.portdex.core.filePicker.FilePickerImpl
 import com.application.portdex.core.utils.GenericUtils.getCountry
+import com.application.portdex.core.utils.GenericUtils.getDeviceID
 import com.application.portdex.core.utils.ValidationUtils.getValidString
 import com.application.portdex.core.utils.ValidationUtils.isProfileValid
+import com.application.portdex.data.mappers.toProfileInfo
 import com.application.portdex.data.utils.Resource
 import com.application.portdex.databinding.VerifyActivityBinding
 import com.application.portdex.domain.models.CreateProfileInfo
@@ -27,6 +29,7 @@ class VerifyActivity : BaseActivity() {
     companion object {
         const val INPUT_NUMBER = "VerifyActivity.INPUT_NUMBER"
     }
+
     private val filePicker = FilePickerImpl()
     private val viewModel by viewModels<LoginViewModel>()
     private val profileViewModel by viewModels<ProfileViewModel>()
@@ -93,8 +96,10 @@ class VerifyActivity : BaseActivity() {
         number?.let { number ->
             profileViewModel.getUserProfile(number) {
                 when (it) {
-                    is Resource.Success -> if (it.data.isProfileValid()) startMainActivity()
-                    else openProfileSetup(number)
+                    is Resource.Success -> if (it.data.isProfileValid()) {
+                        it.data?.let { profile -> PrefUtils.setProfileInfo(profile) }
+                        startMainActivity()
+                    } else openProfileSetup(number)
                     is Resource.Error -> openProfileSetup(number)
                 }
             }
@@ -117,9 +122,10 @@ class VerifyActivity : BaseActivity() {
                     latitude = location?.latitude?.toString(),
                     longitude = location?.longitude?.toString(),
                     country = getCountry(),
-                    category = "User"
+                    category = "User",
+                    userToken = getDeviceID()
                 )
-                profileViewModel.createProfile(profile, imageFile) { it.onProfileCreated() }
+                profileViewModel.createProfile(profile, imageFile) { it.onProfileCreated(profile) }
             }
         }
         dialog.show(supportFragmentManager, dialog.tag)
@@ -128,10 +134,13 @@ class VerifyActivity : BaseActivity() {
         }
     }
 
-    private fun Resource<Boolean>.onProfileCreated() {
+    private fun Resource<Boolean>.onProfileCreated(profile: CreateProfileInfo) {
         hideProgress()
         when (this) {
-            is Resource.Success -> if (data == true) startMainActivity()
+            is Resource.Success -> if (data == true) {
+                PrefUtils.setProfileInfo(profile.toProfileInfo())
+                startMainActivity()
+            }
             is Resource.Error -> message?.let {
                 showToast(it)
                 onBackPressed()

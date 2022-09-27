@@ -6,6 +6,7 @@ import android.util.Log
 import android.widget.ArrayAdapter
 import androidx.activity.viewModels
 import com.application.portdex.R
+import com.application.portdex.core.location.LocationPickerImpl
 import com.application.portdex.core.utils.GenericUtils.getCountryList
 import com.application.portdex.core.utils.ValidationUtils.getValidString
 import com.application.portdex.core.utils.ValidationUtils.isSuccess
@@ -23,6 +24,7 @@ class LoginActivity : BaseActivity() {
     private val profileViewModel by viewModels<ProfileViewModel>()
     private val viewModel by viewModels<LoginViewModel>()
     private lateinit var mBinding: LoginActivityBinding
+    private val locationPicker = LocationPickerImpl()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -31,7 +33,10 @@ class LoginActivity : BaseActivity() {
         mBinding.actionBack.setOnClickListener { onBackPressed() }
         initCountries()
         initListeners()
-        viewModel.logOut { Log.d(TAG, "logOut: ${it.data}") }
+        viewModel.logOut {
+            Log.d(TAG, "logOut: ${it.data}")
+            locationPicker.initLocation(this)
+        }
     }
 
     private fun initListeners() {
@@ -94,5 +99,13 @@ class LoginActivity : BaseActivity() {
         } else code + number
     }
 
+    override fun onRequestPermissionsResult(
+        requestCode: Int,
+        permissions: Array<out String>,
+        grantResults: IntArray
+    ) {
+        super.onRequestPermissionsResult(requestCode, permissions, grantResults)
+        locationPicker.onRequestPermissionsResult(requestCode, permissions, grantResults)
+    }
 
 }

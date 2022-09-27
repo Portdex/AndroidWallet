@@ -24,23 +24,23 @@ class SplashActivity : BaseActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.splash_activity)
-        locationPicker.initLocation(this)
-        locationPicker.onLocationReceived { info ->
-            if (ValidationUtils.isLoggedIn()) {
-                PrefUtils.getProfileInfo()?.toCreateProfile()?.let { profile ->
-                    profile.latitude = info.latitude.toString()
-                    profile.longitude = info.longitude.toString()
-                    profile.country = getCountry()
-
-                    profileViewModel.createProfile(profile, null) { resource ->
-                        when (resource) {
-                            is Resource.Success -> startMainActivity()
-                            is Resource.Error -> resource.message?.let { showToast(it) }
-                        }
-                    }
-                }
-            } else startWelcomeActivity()
-        }
+        if (ValidationUtils.isLoggedIn()) startMainActivity() else startWelcomeActivity()
+//        locationPicker.initLocation(this) { info ->
+//            if (ValidationUtils.isLoggedIn()) {
+//                PrefUtils.getProfileInfo()?.toCreateProfile()?.let { profile ->
+//                    profile.latitude = info.latitude.toString()
+//                    profile.longitude = info.longitude.toString()
+//                    profile.country = getCountry()
+//
+//                    profileViewModel.createProfile(profile, null) { resource ->
+//                        when (resource) {
+//                            is Resource.Success -> startMainActivity()
+//                            is Resource.Error -> resource.message?.let { showToast(it) }
+//                        }
+//                    }
+//                } ?: startWelcomeActivity()
+//            } else startWelcomeActivity()
+//        }
     }
 
 
