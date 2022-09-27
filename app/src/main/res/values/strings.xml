@@ -87,6 +87,8 @@
     <string name="label_enter_code">Enter the code</string>
     <string name="label_verification_code">Verification code</string>
     <string name="label_attention">Attention…</string>
+    <string name="label_create">Create</string>
+    <string name="label_post">Post</string>
 
 
     <!--    error strings-->

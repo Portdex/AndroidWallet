@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="@drawable/sheet_background"
+    android:gravity="center_horizontal"
+    android:orientation="vertical"
+    android:paddingBottom="20dp">
+
+    <View
+        android:id="@+id/line"
+        android:layout_width="70dp"
+        android:layout_height="4dp"
+        android:layout_gravity="center_horizontal"
+        android:layout_marginTop="@dimen/intrinsic_padding_large"
+        android:background="@drawable/sheet_line" />
+
+
+    <FrameLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/intrinsic_padding_large">
+
+        <com.google.android.material.textview.MaterialTextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:fontFamily="@font/roboto_bold"
+            android:text="@string/label_create"
+            android:textColor="@color/textColorPrimaryDark"
+            android:textSize="18sp"
+            app:fontFamily="@font/roboto_bold" />
+
+        <ImageButton
+            android:id="@+id/actionClose"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="end"
+            android:layout_marginHorizontal="@dimen/intrinsic_padding_large"
+            android:background="?attr/selectableItemBackgroundBorderless"
+            android:padding="@dimen/intrinsic_padding_medium"
+            android:src="@drawable/ic_close"
+            tools:ignore="ContentDescription" />
+    </FrameLayout>
+
+
+    <ImageButton
+        android:id="@+id/actionPost"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="start"
+        android:layout_marginHorizontal="20dp"
+        android:layout_marginTop="20dp"
+        android:background="?attr/selectableItemBackground"
+        android:src="@drawable/logo_post"
+        tools:ignore="ContentDescription" />
+
+</LinearLayout>

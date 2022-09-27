@@ -18,13 +18,15 @@
             android:layout_height="wrap_content"
             android:background="@drawable/bottom_shadow"
             android:elevation="3dp"
+            app:layout_scrollFlags="scroll|enterAlways|enterAlwaysCollapsed"
             app:titleEnabled="false">
 
             <com.google.android.material.appbar.MaterialToolbar
                 android:layout_width="match_parent"
                 android:layout_height="?attr/actionBarSize"
                 android:elevation="0dp"
-                app:elevation="0dp">
+                app:elevation="0dp"
+                app:layout_scrollFlags="scroll|enterAlways">
 
                 <ImageView
                     android:layout_width="wrap_content"
@@ -44,7 +46,6 @@
                     android:padding="@dimen/intrinsic_padding_small"
                     android:src="@drawable/user_thumbnail" />
             </com.google.android.material.appbar.MaterialToolbar>
-
         </com.google.android.material.appbar.CollapsingToolbarLayout>
 
         <com.google.android.material.tabs.TabLayout
@@ -56,13 +57,23 @@
             app:tabIndicatorHeight="2dp"
             app:tabMode="fixed"
             app:tabTextAppearance="@style/TabTextAppearance" />
-
     </com.google.android.material.appbar.AppBarLayout>
 
     <androidx.viewpager2.widget.ViewPager2
         android:id="@+id/view_pager"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        app:layout_behavior="com.google.android.material.appbar.AppBarLayout$ScrollingViewBehavior" />
+        app:layout_behavior="@string/appbar_scrolling_view_behavior" />
 
+
+    <com.google.android.material.floatingactionbutton.FloatingActionButton
+        android:id="@+id/actionAdd"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="bottom|end"
+        android:layout_margin="@dimen/intrinsic_padding_large"
+        android:src="@drawable/ic_add"
+        app:layout_behavior=".ui.ScrollAwareFABBehavior"
+        app:tint="@color/colorWindow"
+        tools:ignore="ContentDescription" />
 </androidx.coordinatorlayout.widget.CoordinatorLayout>

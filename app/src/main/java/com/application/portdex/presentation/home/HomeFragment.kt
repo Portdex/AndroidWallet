@@ -11,6 +11,7 @@ import com.application.portdex.R
 import com.application.portdex.core.dataBinding.DataBinding.setUserImage
 import com.application.portdex.databinding.FragmentHomeBinding
 import com.application.portdex.presentation.base.BaseFragment
+import com.application.portdex.presentation.dialogs.CreatePostSheet
 import com.application.portdex.presentation.home.homeAll.HomeAllFragment
 import com.application.portdex.presentation.home.homeMarket.HomeMarketFragment
 import com.application.portdex.presentation.profile.ProfileActivity
@@ -37,8 +38,13 @@ class HomeFragment : BaseFragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         initTabs()
+
         mBinding.userImage.setOnClickListener {
             startWithAnim(Intent(requireContext(), ProfileActivity::class.java))
+        }
+        mBinding.actionAdd.setOnClickListener {
+            val dialog = CreatePostSheet.newInstance()
+            dialog.show(childFragmentManager, dialog.tag)
         }
     }
 
