@@ -5,6 +5,7 @@ import android.graphics.Color
 import android.graphics.drawable.GradientDrawable
 import android.location.Address
 import android.location.Geocoder
+import android.util.Log
 import android.view.View
 import androidx.fragment.app.FragmentActivity
 import androidx.palette.graphics.Palette
@@ -20,12 +21,18 @@ import kotlin.random.Random
 
 object GenericUtils {
 
+    private const val TAG = "GenericUtils"
+
     fun View.inVisible(invisible: Boolean = true) {
         visibility = if (invisible) View.INVISIBLE else View.VISIBLE
     }
 
     fun View.show(show: Boolean = true) {
         visibility = if (show) View.VISIBLE else View.GONE
+    }
+
+    fun View.hide(hide: Boolean = true) {
+        visibility = if (hide) View.GONE else View.VISIBLE
     }
 
     fun Palette?.getImagesBg(): GradientDrawable {
@@ -78,6 +85,16 @@ object GenericUtils {
             geocoder.getFromLocation(location.latitude, location.longitude, 1)?.firstOrNull()
         } catch (_: Exception) {
             null
+        }
+    }
+
+    fun Context.getCountry(): String? {
+        val address = getAddress() ?: return null
+        Log.d(TAG, "getCountry: ${address.countryCode} : ${address.countryName}")
+        return when (address.countryCode) {
+            "uk", "uae",
+            "UK", "UAE" -> address.countryCode.lowercase()
+            else -> address.countryName.lowercase()
         }
     }
 

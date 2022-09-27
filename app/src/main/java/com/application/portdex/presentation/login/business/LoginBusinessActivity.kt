@@ -4,7 +4,6 @@ import android.os.Bundle
 import androidx.activity.viewModels
 import com.application.portdex.R
 import com.application.portdex.adapters.CategoryCheckedAdapter
-import com.application.portdex.core.filePicker.FilePicker
 import com.application.portdex.core.filePicker.FilePickerImpl
 import com.application.portdex.data.local.LocalCategories.getThingsNearBy
 import com.application.portdex.data.utils.Resource
@@ -16,8 +15,9 @@ import com.application.portdex.ui.CustomUi.getGridLabeledView
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
-class LoginBusinessActivity : BaseActivity(), FilePicker by FilePickerImpl() {
+class LoginBusinessActivity : BaseActivity() {
 
+    private val filePicker = FilePickerImpl()
     private val categoriesViewModel: CategoriesViewModel by viewModels()
     private lateinit var mBinding: BusinessActivityBinding
 
@@ -27,7 +27,7 @@ class LoginBusinessActivity : BaseActivity(), FilePicker by FilePickerImpl() {
         setContentView(mBinding.root)
         setSupportActionBar(mBinding.toolbar)
         supportActionBar?.setDisplayHomeAsUpEnabled(true)
-        initPicker(this)
+        filePicker.initPicker(this)
         initListeners()
         initAdapters()
     }
@@ -62,8 +62,8 @@ class LoginBusinessActivity : BaseActivity(), FilePicker by FilePickerImpl() {
     }
 
     private fun initListeners() {
-        mBinding.btnUploadImage.setOnClickListener { pickImage() }
-        setPickImageListener { uri ->
+        mBinding.btnUploadImage.setOnClickListener { filePicker.pickImage() }
+        filePicker.setPickImageListener { uri ->
             mBinding.imageView.setImageURI(uri)
         }
     }
@@ -74,6 +74,6 @@ class LoginBusinessActivity : BaseActivity(), FilePicker by FilePickerImpl() {
         grantResults: IntArray
     ) {
         super.onRequestPermissionsResult(requestCode, permissions, grantResults)
-        onRequestPermissionsResult(requestCode, permissions, grantResults, this)
+        filePicker.onRequestPermissionsResult(requestCode, permissions, grantResults)
     }
 }

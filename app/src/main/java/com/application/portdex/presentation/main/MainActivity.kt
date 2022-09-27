@@ -40,6 +40,7 @@ class MainActivity : BaseActivity(), NavigationBarView.OnItemSelectedListener {
         mBinding.bottomNavigation.setOnItemSelectedListener(this)
     }
 
+
     override fun onNavigationItemSelected(item: MenuItem): Boolean {
         return when (item.itemId) {
             R.id.actionHome -> showFragment(homeFragment, HomeMenu.Home)

@@ -5,9 +5,8 @@ import android.os.Bundle
 import androidx.activity.viewModels
 import com.anggrayudi.storage.file.DocumentFileCompat
 import com.application.portdex.R
-import com.application.portdex.core.filePicker.FilePicker
 import com.application.portdex.core.filePicker.FilePickerImpl
-import com.application.portdex.core.utils.GenericUtils.getAddress
+import com.application.portdex.core.utils.GenericUtils.getCountry
 import com.application.portdex.core.utils.ValidationUtils.getValidString
 import com.application.portdex.core.utils.ValidationUtils.isProfileValid
 import com.application.portdex.data.utils.Resource
@@ -23,12 +22,12 @@ import com.jacopo.pagury.prefs.PrefUtils
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
-class VerifyActivity : BaseActivity(), FilePicker by FilePickerImpl() {
+class VerifyActivity : BaseActivity() {
 
     companion object {
         const val INPUT_NUMBER = "VerifyActivity.INPUT_NUMBER"
     }
-
+    private val filePicker = FilePickerImpl()
     private val viewModel by viewModels<LoginViewModel>()
     private val profileViewModel by viewModels<ProfileViewModel>()
     private val number by lazy { intent?.getStringExtra(INPUT_NUMBER) }
@@ -41,7 +40,7 @@ class VerifyActivity : BaseActivity(), FilePicker by FilePickerImpl() {
         setSupportActionBar(mBinding.toolbar)
         supportActionBar?.setDisplayHomeAsUpEnabled(true)
         supportActionBar?.setDisplayShowTitleEnabled(false)
-        initPicker(this)
+        filePicker.initPicker(this)
         initOtp()
     }
 
@@ -105,7 +104,7 @@ class VerifyActivity : BaseActivity(), FilePicker by FilePickerImpl() {
     private fun openProfileSetup(number: String) {
         hideProgress()
         val dialog = ProfileSetupSheet.newInstance()
-        dialog.pickImageListener = { pickImage() }
+        dialog.pickImageListener = { filePicker.pickImage() }
         dialog.onContinueListener = { imageUri, userName, isBusiness ->
             if (isBusiness) startWithAnim(Intent(this, LoginBusinessActivity::class.java))
             else {
@@ -117,13 +116,14 @@ class VerifyActivity : BaseActivity(), FilePicker by FilePickerImpl() {
                     firstName = userName,
                     latitude = location?.latitude?.toString(),
                     longitude = location?.longitude?.toString(),
-                    country = getAddress()?.countryName
+                    country = getCountry(),
+                    category = "User"
                 )
                 profileViewModel.createProfile(profile, imageFile) { it.onProfileCreated() }
             }
         }
         dialog.show(supportFragmentManager, dialog.tag)
-        setPickImageListener { uri ->
+        filePicker.setPickImageListener { uri ->
             if (dialog.isVisible) dialog.setImage(uri)
         }
     }
@@ -145,7 +145,7 @@ class VerifyActivity : BaseActivity(), FilePicker by FilePickerImpl() {
         grantResults: IntArray
     ) {
         super.onRequestPermissionsResult(requestCode, permissions, grantResults)
-        onRequestPermissionsResult(requestCode, permissions, grantResults, this)
+        filePicker.onRequestPermissionsResult(requestCode, permissions, grantResults)
     }
 
 

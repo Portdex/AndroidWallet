@@ -9,11 +9,4 @@ interface FilePicker {
     fun pickImage()
 
     fun setPickImageListener(listener: (Uri) -> Unit)
-
-    fun onRequestPermissionsResult(
-        requestCode: Int,
-        permissions: Array<out String>,
-        grantResults: IntArray,
-        receiver: FragmentActivity
-    )
 }
