@@ -27,7 +27,11 @@ class ProvidersListActivity : BaseActivity() {
 
     private val viewModel by viewModels<CategoriesViewModel>()
     private lateinit var mBinding: ProviderListActivityBinding
+
     private var tabsAdapter = ProviderTabsAdapter(onTabSelect())
+    private var providersAdapter = ServiceProviderAdapter { provider ->
+        openProviderDetail(provider)
+    }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -44,6 +48,10 @@ class ProvidersListActivity : BaseActivity() {
     private fun initTabs() {
         mBinding.tabLayout.adapter = tabsAdapter
 
+        providersAdapter.emptyResultListener = { isEmpty ->
+            mBinding.emptyView.show(isEmpty)
+        }
+        mBinding.recyclerView.adapter = providersAdapter
 
         showProgress()
         viewModel.getCategories { result ->
@@ -60,6 +68,7 @@ class ProvidersListActivity : BaseActivity() {
     private fun onTabSelect(): (CategoryData) -> Unit {
         return { tab ->
             mBinding.providerLabel.text = tab.name
+            providersAdapter.filter.filter(tab.name)
         }
     }
 
@@ -84,9 +93,7 @@ class ProvidersListActivity : BaseActivity() {
         viewModel.getProfileByCategory(category) { result ->
             when (result) {
                 is Resource.Success -> result.data?.let {
-                    mBinding.recyclerView.adapter = ServiceProviderAdapter { provider ->
-                        openProviderDetail(provider)
-                    }.apply { addList(it.toMutableList()) }
+                    providersAdapter.addList(it.toMutableList())
                 }
                 is Resource.Error -> result.message?.let { showToast(it) }
             }

@@ -13,7 +13,8 @@ abstract class BaseAdapter<T>(@LayoutRes val resource: Int) :
 
     abstract fun onBind(holder: BaseViewHolder, item: T)
 
-    private var list = mutableListOf<T>()
+    protected var list = mutableListOf<T>()
+    protected var filteredList = mutableListOf<T>()
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): BaseViewHolder {
         val inflater = LayoutInflater.from(parent.context)
@@ -32,24 +33,22 @@ abstract class BaseAdapter<T>(@LayoutRes val resource: Int) :
     @SuppressLint("NotifyDataSetChanged")
     fun addList(list: MutableList<T>) {
         this.list = list
+        this.filteredList = list
         notifyDataSetChanged()
     }
 
     fun getItemAtPosition(position: Int): T {
-        return list[position]
+        return filteredList[position]
     }
 
-    override fun getItemCount() = list.size
+    override fun getItemCount() = filteredList.size
 
     class BaseViewHolder(val view: View, listener: ItemClickListener) :
         RecyclerView.ViewHolder(view) {
-
         init {
             view.setOnClickListener {
                 if (adapterPosition != -1) listener.onItemClick(adapterPosition)
             }
         }
-
     }
-
 }
