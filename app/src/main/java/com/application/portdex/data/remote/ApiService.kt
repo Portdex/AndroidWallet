@@ -1,9 +1,6 @@
 package com.application.portdex.data.remote
 
-import com.application.portdex.data.remote.dto.CategoryDto
-import com.application.portdex.data.remote.dto.CreateProfileResponse
-import com.application.portdex.data.remote.dto.FeedItemDto
-import com.application.portdex.data.remote.dto.ProfileInfoDto
+import com.application.portdex.data.remote.dto.*
 import com.application.portdex.domain.models.CreateProfileInfo
 import io.reactivex.rxjava3.core.Single
 import okhttp3.RequestBody
@@ -72,5 +69,20 @@ interface ApiService {
         @Path("endpoint", encoded = true) path: String,
         @Body body: CreateProfileInfo
     ): Single<CreateProfileResponse>
+
+    @GET("{endpoint}")
+    fun getServiceProviders(
+        @Path("endpoint", encoded = true) path: String,
+    ): Single<ServiceProviderDto>
+
+    @GET("{endpoint}")
+    fun getProviderPackages(
+        @Path("endpoint", encoded = true) path: String,
+    ): Single<ProvidePackagesDto>
+
+    @GET("{endpoint}")
+    fun getProfileByCategory(
+        @Path("endpoint", encoded = true) path: String,
+    ): Single<ProfileByCategoryDto>
 
 }

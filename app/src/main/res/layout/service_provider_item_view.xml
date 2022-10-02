@@ -1,0 +1,140 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+
+        <variable
+            name="provider"
+            type="com.application.portdex.domain.models.ProviderInfo" />
+    </data>
+
+    <androidx.cardview.widget.CardView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginHorizontal="@dimen/intrinsic_padding_medium"
+        android:background="?attr/selectableItemBackground"
+        android:foreground="?attr/selectableItemBackground"
+        app:cardCornerRadius="@dimen/intrinsic_padding_small"
+        app:cardElevation="3dp"
+        app:cardUseCompatPadding="true">
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:padding="@dimen/intrinsic_padding_medium">
+
+            <androidx.cardview.widget.CardView
+                android:id="@+id/image_container"
+                android:layout_width="100dp"
+                android:layout_height="100dp"
+                app:cardCornerRadius="@dimen/intrinsic_padding_medium"
+                app:cardUseCompatPadding="false"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent">
+
+                <ImageView
+                    android:id="@+id/image_view"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:adjustViewBounds="true"
+                    android:scaleType="centerCrop"
+                    android:src="@drawable/service_provider_icon"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:setImage="@{provider.profilePicUrl}"
+                    tools:ignore="ContentDescription" />
+            </androidx.cardview.widget.CardView>
+
+            <com.google.android.material.textview.MaterialTextView
+                android:id="@+id/provider_name"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginHorizontal="@dimen/intrinsic_padding_large"
+                android:fontFamily="@font/roboto_bold"
+                android:text="@{provider.firstName}"
+                android:textColor="@color/textColorPrimaryDark"
+                android:textSize="14sp"
+                app:fontFamily="@font/roboto_bold"
+                app:layout_constraintBottom_toTopOf="@+id/sub_category"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.5"
+                app:layout_constraintStart_toEndOf="@+id/image_container"
+                app:layout_constraintTop_toTopOf="parent"
+                tools:text="J Sheekey dine in" />
+
+            <com.google.android.material.textview.MaterialTextView
+                android:id="@+id/sub_category"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="2dp"
+                android:fontFamily="@font/roboto_regular"
+                android:text="@{provider.subCategory}"
+                android:textColor="@color/textColorSecondaryDark"
+                android:textSize="12sp"
+                app:fontFamily="@font/roboto_regular"
+                app:layout_constraintBottom_toTopOf="@+id/rating_view"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.5"
+                app:layout_constraintStart_toStartOf="@+id/provider_name"
+                app:layout_constraintTop_toBottomOf="@+id/provider_name"
+                tools:text="Fish and seafood restaurant" />
+
+            <com.google.android.material.textview.MaterialTextView
+                android:id="@+id/rating_view"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/intrinsic_padding_small"
+                android:drawablePadding="@dimen/intrinsic_padding_small"
+                android:fontFamily="@font/roboto_medium"
+                android:text="@{provider.rating}"
+                android:textColor="@color/textColorPrimaryDark"
+                android:textSize="10sp"
+                app:drawableStartCompat="@drawable/ic_star_small"
+                app:fontFamily="@font/roboto_medium"
+                app:layout_constraintBottom_toTopOf="@+id/btn_chat"
+                app:layout_constraintStart_toStartOf="@+id/sub_category"
+                app:layout_constraintTop_toBottomOf="@+id/sub_category"
+                tools:ignore="SmallSp"
+                tools:text="4.5 (76+ ratings)" />
+
+            <com.google.android.material.button.MaterialButton
+                android:id="@+id/btn_chat"
+                style="@style/Widget.MaterialComponents.Button.OutlinedButton"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/intrinsic_padding_medium"
+                android:insetTop="0dp"
+                android:insetBottom="0dp"
+                android:minHeight="30dp"
+                android:text="@string/button_chat"
+                android:textAllCaps="false"
+                android:textColor="@color/textColorPrimaryDark"
+                android:textSize="12sp"
+                app:cornerRadius="@dimen/intrinsic_padding_large"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintStart_toStartOf="@+id/rating_view"
+                app:layout_constraintTop_toBottomOf="@+id/rating_view" />
+
+            <com.google.android.material.button.MaterialButton
+                android:id="@+id/btn_shop_now"
+                style="@style/Widget.MaterialComponents.Button.OutlinedButton"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="@dimen/intrinsic_padding_large"
+                android:insetTop="0dp"
+                android:insetBottom="0dp"
+                android:minHeight="30dp"
+                android:text="@string/button_shop_now"
+                android:textAllCaps="false"
+                android:textSize="12sp"
+                app:cornerRadius="@dimen/intrinsic_padding_large"
+                app:layout_constraintBottom_toBottomOf="@+id/btn_chat"
+                app:layout_constraintStart_toEndOf="@+id/btn_chat"
+                app:strokeColor="@color/colorPrimary" />
+        </androidx.constraintlayout.widget.ConstraintLayout>
+    </androidx.cardview.widget.CardView>
+</layout>

@@ -14,6 +14,7 @@ import androidx.palette.graphics.Palette
 import com.application.portdex.App
 import com.application.portdex.R
 import com.application.portdex.domain.models.County
+import com.application.portdex.domain.models.LocationInfo
 import com.google.gson.Gson
 import com.google.gson.reflect.TypeToken
 import com.jacopo.pagury.prefs.PrefUtils
@@ -89,8 +90,26 @@ object GenericUtils {
         }
     }
 
-    fun Context.getAddress(): Address? {
-        val location = PrefUtils.getLocation() ?: return null
+    fun Context.getUserLocation(latitude: String?, longitude: String?): String? {
+        if (latitude.isNullOrEmpty() || longitude.isNullOrEmpty()) return null
+        val location = LocationInfo(
+            latitude = latitude.toDouble(),
+            longitude = longitude.toDouble()
+        )
+        val address = getAddress(location)
+
+        val city = address?.locality
+        val state = address?.adminArea
+        val country = address?.countryName
+        val postalCode = address?.postalCode
+        val knownName = address?.featureName
+
+        Log.d(TAG, "getUserLocation: $city $state $country $postalCode $knownName")
+
+        return "$state, $country"
+    }
+
+    private fun Context.getAddress(location: LocationInfo): Address? {
         val geocoder = Geocoder(this)
         return try {
             geocoder.getFromLocation(location.latitude, location.longitude, 1)?.firstOrNull()
@@ -100,7 +119,8 @@ object GenericUtils {
     }
 
     fun Context.getCountry(): String? {
-        val address = getAddress() ?: return null
+        val location = PrefUtils.getLocation() ?: return null
+        val address = getAddress(location) ?: return null
         Log.d(TAG, "getCountry: ${address.countryCode} : ${address.countryName}")
         return when (address.countryCode) {
             "uk", "uae",

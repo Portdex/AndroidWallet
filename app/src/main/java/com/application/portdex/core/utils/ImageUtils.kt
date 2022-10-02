@@ -1,6 +1,7 @@
 package com.application.portdex.core.utils
 
 import android.content.res.Resources
+import android.util.TypedValue
 import android.widget.ImageView
 import com.application.portdex.R
 import com.bumptech.glide.load.engine.DiskCacheStrategy
@@ -20,5 +21,14 @@ object ImageUtils {
 
     fun Int.toPx(): Int {
         return (this * Resources.getSystem().displayMetrics.density).toInt()
+    }
+
+    fun Int.toDp(): Int {
+        val displayMetrics = Resources.getSystem().displayMetrics
+        return TypedValue.applyDimension(
+            TypedValue.COMPLEX_UNIT_DIP,
+            this.toFloat(),
+            displayMetrics
+        ).toInt()
     }
 }

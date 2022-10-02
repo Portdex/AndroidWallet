@@ -60,6 +60,12 @@
             android:name=".presentation.profile.ProfileActivity"
             android:exported="false"
             android:label="@string/label_profile" />
+        <activity
+            android:name=".presentation.providersList.ProvidersListActivity"
+            android:exported="false" />
+        <activity
+            android:name=".presentation.providersList.detail.ProviderDetailActivity"
+            android:exported="false" />
     </application>
 
 </manifest>

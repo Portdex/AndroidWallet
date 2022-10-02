@@ -1,5 +1,6 @@
 package com.application.portdex.presentation.home.homeAll
 
+import android.content.Intent
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -16,9 +17,11 @@ import com.application.portdex.domain.models.DesignersItem
 import com.application.portdex.domain.models.DoctorItem
 import com.application.portdex.domain.models.HomeSliderItem
 import com.application.portdex.domain.models.PropertyItem
+import com.application.portdex.domain.models.category.CategoryData
 import com.application.portdex.domain.models.category.CategoryItem
 import com.application.portdex.domain.viewmodels.CategoriesViewModel
 import com.application.portdex.presentation.base.BaseFragment
+import com.application.portdex.presentation.providersList.ProvidersListActivity
 import com.application.portdex.ui.CustomUi.getFreelancerLabeledView
 import com.application.portdex.ui.CustomUi.getGridLabeledView
 import com.application.portdex.ui.CustomUi.getHorizontalLabeledView
@@ -81,11 +84,17 @@ class HomeAllFragment : BaseFragment() {
         getGridLabeledView(getString(R.string.label_thing_nearby), space = 4).apply {
             recyclerView.adapter =
                 HomeCategoriesAdapter(resource = R.layout.nearby_list_view) { category ->
-
+                    openProvider(category)
                 }.apply { addList(list) }
         }.also {
             mBinding.listContainer.addView(it.root)
         }
+    }
+
+    private fun openProvider(category: CategoryData) {
+        startWithAnim(Intent(requireContext(), ProvidersListActivity::class.java).apply {
+            putExtra(ProvidersListActivity.PROVIDER_TYPE, category)
+        })
     }
 
     private fun List<CategoryItem>.handleResult() {

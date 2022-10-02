@@ -1,0 +1,123 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+
+        <variable
+            name="item"
+            type="com.application.portdex.domain.models.ProviderPackage" />
+    </data>
+
+    <androidx.cardview.widget.CardView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginHorizontal="@dimen/intrinsic_padding_medium"
+        android:background="?attr/selectableItemBackground"
+        android:foreground="?attr/selectableItemBackground"
+        app:cardCornerRadius="@dimen/intrinsic_padding_small"
+        app:cardElevation="3dp"
+        app:cardUseCompatPadding="true">
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:padding="@dimen/intrinsic_padding_medium">
+
+            <androidx.cardview.widget.CardView
+                android:id="@+id/image_container"
+                android:layout_width="100dp"
+                android:layout_height="100dp"
+                app:cardCornerRadius="@dimen/intrinsic_padding_medium"
+                app:cardUseCompatPadding="false"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                tools:ignore="ContentDescription">
+
+                <ImageView
+                    android:id="@+id/image_view"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:adjustViewBounds="true"
+                    android:scaleType="centerCrop"
+                    android:src="@color/whiteDim"
+                    app:setImage="@{item.icon}" />
+            </androidx.cardview.widget.CardView>
+
+            <com.google.android.material.textview.MaterialTextView
+                android:id="@+id/provider_name"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginHorizontal="@dimen/intrinsic_padding_large"
+                android:fontFamily="@font/roboto_bold"
+                android:text="@{item.name}"
+                android:textColor="@color/textColorPrimaryDark"
+                android:textSize="14sp"
+                app:fontFamily="@font/roboto_bold"
+                app:layout_constraintBottom_toTopOf="@+id/sub_category"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toEndOf="@+id/image_container"
+                app:layout_constraintTop_toTopOf="parent"
+                tools:text="J Sheekey dine in" />
+
+            <com.google.android.material.textview.MaterialTextView
+                android:id="@+id/sub_category"
+                android:layout_width="0dp"
+                android:layout_height="0dp"
+                android:layout_marginTop="2dp"
+                android:layout_marginBottom="@dimen/intrinsic_padding_small"
+                android:fontFamily="@font/roboto_regular"
+                android:text="@{item.duration}"
+                android:textColor="@color/textColorSecondaryDark"
+                android:textSize="12sp"
+                app:fontFamily="@font/roboto_regular"
+                app:layout_constraintBottom_toTopOf="@+id/btn_cart"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="@+id/provider_name"
+                app:layout_constraintTop_toBottomOf="@+id/provider_name"
+                tools:text="Fish and seafood restaurant" />
+
+            <com.google.android.material.textview.MaterialTextView
+                android:id="@+id/price_view"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/intrinsic_padding_small"
+                android:fontFamily="@font/roboto_bold"
+                android:text="@{item.price}"
+                android:textColor="@color/textColorPrimaryDark"
+                android:textSize="16sp"
+                app:fontFamily="@font/roboto_bold"
+                app:layout_constraintBottom_toBottomOf="@+id/btn_cart"
+                app:layout_constraintEnd_toStartOf="@+id/btn_cart"
+                app:layout_constraintHorizontal_bias="0.5"
+                app:layout_constraintHorizontal_chainStyle="spread_inside"
+                app:layout_constraintStart_toEndOf="@+id/image_container"
+                app:layout_constraintStart_toStartOf="@+id/sub_category"
+                app:layout_constraintTop_toTopOf="@+id/btn_cart"
+                tools:ignore="SmallSp"
+                tools:text="£ 865.50" />
+
+            <com.google.android.material.button.MaterialButton
+                android:id="@+id/btn_cart"
+                style="@style/Widget.MaterialComponents.Button.OutlinedButton"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:insetTop="0dp"
+                android:insetBottom="0dp"
+                android:minHeight="30dp"
+                android:text="@string/button_add_to_cart"
+                android:textAllCaps="false"
+                android:textColor="@color/textColorPrimaryDark"
+                android:textSize="12sp"
+                app:cornerRadius="@dimen/intrinsic_padding_large"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.5"
+                app:layout_constraintStart_toEndOf="@+id/price_view"
+                app:layout_constraintTop_toBottomOf="@+id/sub_category" />
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+    </androidx.cardview.widget.CardView>
+</layout>

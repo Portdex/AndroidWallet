@@ -10,14 +10,16 @@ object LocalCategories {
 
     fun Context.getThingsNearBy(): List<CategoryData> {
         val list = mutableListOf<CategoryData>()
-        list.add(CategoryData(id = 0, name = getString(R.string.label_service_provider)))
-        list.add(CategoryData(id = 1, name = getString(R.string.label_freelancers)))
-        list.add(CategoryData(id = 2, name = getString(R.string.label_food_stores)))
-        list.add(CategoryData(id = 3, name = getString(R.string.label_retailers)))
-        list.add(CategoryData(id = 4, name = getString(R.string.label_doctors)))
-        list.add(CategoryData(id = 5, name = getString(R.string.label_property)))
-        list.add(CategoryData(id = 6, name = getString(R.string.label_digital)))
-        list.add(CategoryData(id = 7, name = getString(R.string.label_search_local)))
+        list.add(CategoryData(id = 2, name = getString(R.string.label_service_provider), title = "Services Providers"))
+        list.add(CategoryData(id = 5, name = getString(R.string.label_freelancers), title = "Freelancer"))
+        list.add(CategoryData(id = 3, name = getString(R.string.label_food_stores), title = "Food"))
+        list.add(CategoryData(id = 1, name = getString(R.string.label_retailers), title = "Retailer"))
+        list.add(CategoryData(id = 4, name = getString(R.string.label_doctors), title = "Doctor"))
+        list.add(CategoryData(id = 7, name = getString(R.string.label_property), title = "PropertyAgent"))
+
+
+        list.add(CategoryData(id = 0, name = getString(R.string.label_digital)))
+        list.add(CategoryData(id = 6, name = getString(R.string.label_search_local)))
         list.add(CategoryData(id = 8, name = getString(R.string.label_nft)))
         list.add(CategoryData(id = 9, name = getString(R.string.label_online_stores)))
         return list.map {

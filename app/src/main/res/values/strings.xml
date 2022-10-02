@@ -17,6 +17,8 @@
     <string name="button_verify">Verify</string>
     <string name="button_resend_code">Resend code</string>
     <string name="button_proceed">Proceed</string>
+    <string name="button_shop_now">Shop now</string>
+    <string name="button_add_to_cart">Add to cart</string>
 
 
     <!--    hint strings-->
@@ -103,6 +105,7 @@
     <string name="info_code_sent_successfully">Code sent successfully</string>
     <string name="info_code_sent_to">Sent to : %s</string>
     <string name="info_authentication_required">Authentication required to proceed forward.</string>
+    <string name="info_no_items">No items found.</string>
 
 
     <!--    things nearby-->
