@@ -1,6 +1,7 @@
 package com.application.portdex.presentation.base
 
 import android.content.Intent
+import android.os.Bundle
 import androidx.annotation.StringRes
 
 interface BaseView {
@@ -27,4 +28,5 @@ interface BaseView {
 
     fun authenticated(): Boolean
 
+    fun startChatActivity(bundle: Bundle)
 }

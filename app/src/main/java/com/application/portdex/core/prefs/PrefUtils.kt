@@ -17,6 +17,7 @@ object PrefUtils {
     private const val PREF_LOCATION = "PrefUtils.PREF_LOCATION"
     private const val PREF_LOGIN_INFO = "PrefUtils.PREF_LOGIN_INFO"
     private const val PREF_PROFILE_INFO = "PrefUtils.PREF_PROFILE_INFO"
+    private const val PREF_USERNAME = "PrefUtils.PREF_AMPLIFY_USERNAME"
 
 
     private var preferences: SharedPreferences? = null
@@ -58,6 +59,18 @@ object PrefUtils {
         return preferences?.getString(PREF_PROFILE_INFO, null)?.let { string ->
             Gson().fromJson(string, ProfileInfo::class.java)
         }
+    }
+
+    fun setUserName(userName: String) {
+        preferences?.edit()?.putString(PREF_USERNAME, userName)?.apply()
+    }
+
+    fun getUserName(): String? {
+        return preferences?.getString(PREF_USERNAME, null)
+    }
+
+    fun getChatId(): String? {
+        return getProfileInfo()?.userId?.plus("@chat.portdex.com")
     }
 
     fun clear() {

@@ -13,6 +13,7 @@ import com.application.portdex.domain.models.category.CategoryData
 import com.application.portdex.domain.models.category.CategoryItem
 import com.application.portdex.domain.viewmodels.CategoriesViewModel
 import com.application.portdex.presentation.base.BaseActivity
+import com.application.portdex.presentation.chat.activity.ChatActivity
 import com.application.portdex.presentation.providersList.detail.ProviderDetailActivity
 import dagger.hilt.android.AndroidEntryPoint
 
@@ -50,6 +51,11 @@ class ProvidersListActivity : BaseActivity() {
 
         providersAdapter.emptyResultListener = { isEmpty ->
             mBinding.emptyView.show(isEmpty)
+        }
+        providersAdapter.chatListener = { provider ->
+            startChatActivity(Bundle().apply {
+                putParcelable(ChatActivity.PROVIDER_ITEM, provider)
+            })
         }
         mBinding.recyclerView.adapter = providersAdapter
 

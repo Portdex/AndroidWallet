@@ -20,7 +20,9 @@ import com.application.portdex.domain.models.PropertyItem
 import com.application.portdex.domain.models.category.CategoryData
 import com.application.portdex.domain.models.category.CategoryItem
 import com.application.portdex.domain.viewmodels.CategoriesViewModel
+import com.application.portdex.domain.viewmodels.ProfileViewModel
 import com.application.portdex.presentation.base.BaseFragment
+import com.application.portdex.presentation.chat.activity.ChatActivity
 import com.application.portdex.presentation.providersList.ProvidersListActivity
 import com.application.portdex.ui.CustomUi.getFreelancerLabeledView
 import com.application.portdex.ui.CustomUi.getGridLabeledView
@@ -31,6 +33,7 @@ import dagger.hilt.android.AndroidEntryPoint
 @AndroidEntryPoint
 class HomeAllFragment : BaseFragment() {
 
+    private val profileViewModel: ProfileViewModel by activityViewModels()
     private val viewModel: CategoriesViewModel by activityViewModels()
     private lateinit var mBinding: FragmentHomeAllBinding
 
@@ -107,7 +110,10 @@ class HomeAllFragment : BaseFragment() {
         }
         attachDesignerSection()
         find { it.id == "2" }?.let { attachServicesSection(it, counts = 2) }
-        find { it.id == "4" }?.let { attachDoctorsSection(it) }
+        find { it.id == "4" }?.let {
+            //attachDoctorsSection(it)
+            attachNearBySection(it)
+        }
         find { it.id == "7" }?.let { attachPropertySection(it) }
     }
 
@@ -184,6 +190,29 @@ class HomeAllFragment : BaseFragment() {
                 addList(data)
             }
         }.root)
+    }
+
+    private fun attachNearBySection(item: CategoryItem) {
+        profileViewModel.getNearByUsers { result ->
+            when (result) {
+                is Resource.Success -> result.data?.let { list ->
+                    val data = list.toMutableList()
+                    mBinding.listContainer.getViewAdapter(item.title)?.let { adapter ->
+                        if (adapter is NearByAdapter) adapter.addList(data)
+                    } ?: mBinding.listContainer.addView(getHorizontalLabeledView(item.title).apply {
+                        val adapter = NearByAdapter()
+                        adapter.chatListener = { profile ->
+                            startChatActivity(Bundle().apply {
+                                putParcelable(ChatActivity.PROFILE_ITEM, profile)
+                            })
+                        }
+                        recyclerView.adapter = adapter
+                        adapter.addList(data)
+                    }.root)
+                }
+                is Resource.Error -> {}
+            }
+        }
     }
 
     private fun attachPropertySection(item: CategoryItem) {

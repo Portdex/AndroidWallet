@@ -4,14 +4,10 @@ import android.content.Context
 import com.application.portdex.data.errors.ErrorRepository
 import com.application.portdex.data.errors.ErrorRepositoryImpl
 import com.application.portdex.data.remote.ApiService
-import com.application.portdex.data.repository.LoginRepositoryImpl
-import com.application.portdex.data.repository.ProfileRepositoryImpl
-import com.application.portdex.data.repository.ServicesRepositoryImpl
-import com.application.portdex.data.repository.StorageRepositoryImpl
-import com.application.portdex.domain.repository.LoginRepository
-import com.application.portdex.domain.repository.ProfileRepository
-import com.application.portdex.domain.repository.ServicesRepository
-import com.application.portdex.domain.repository.StorageRepository
+import com.application.portdex.data.remote.xmpptcp.ChatConnection
+import com.application.portdex.data.remote.xmpptcp.ChatConnectionImpl
+import com.application.portdex.data.repository.*
+import com.application.portdex.domain.repository.*
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
@@ -60,4 +56,13 @@ class RepositoryModule {
         return StorageRepositoryImpl(context)
     }
 
+    @Provides
+    fun provideChatConnection(): ChatConnection {
+        return ChatConnectionImpl()
+    }
+
+    @Provides
+    fun provideChatRepository(connection: ChatConnection): ChatRepository {
+        return ChatRepositoryImpl(connection)
+    }
 }

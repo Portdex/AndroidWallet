@@ -66,6 +66,10 @@
         <activity
             android:name=".presentation.providersList.detail.ProviderDetailActivity"
             android:exported="false" />
+        <activity
+            android:name=".presentation.chat.activity.ChatActivity"
+            android:exported="false"
+            android:theme="@style/AppTheme.Chat" />
     </application>
 
 </manifest>

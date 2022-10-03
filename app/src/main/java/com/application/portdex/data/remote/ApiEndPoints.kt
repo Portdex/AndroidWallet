@@ -3,6 +3,10 @@ package com.application.portdex.data.remote
 object ApiEndPoints {
 
     const val BASE_URL = "https://www.google.com"
+    const val CHAT_DOMAIN = "chat.portdex.com"
+    const val CHAT_HOST = "ec2-18-134-161-39.eu-west-2.compute.amazonaws.com"
+    const val CHAT_PORT = 5222
+
     private const val testEnv = false
 
     fun getServicesProviders(): String {
@@ -38,6 +42,11 @@ object ApiEndPoints {
     fun getNewsFeedPost(): String {
         return if (testEnv) "https://31ytm5nhwc.execute-api.eu-west-2.amazonaws.com/test/post/getall"
         else "https://lodad3dujc.execute-api.eu-west-2.amazonaws.com/prod/post/getall"
+    }
+
+    fun getNearByUsers(): String {
+        return if (testEnv) "https://efxbmt8kwc.execute-api.eu-west-2.amazonaws.com/users_near_me/"
+        else "https://c8cw3ycoi3.execute-api.eu-west-2.amazonaws.com/users_near_me/"
     }
 
 }

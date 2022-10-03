@@ -12,6 +12,7 @@ import com.application.portdex.presentation.home.HomeFragment
 import com.application.portdex.presentation.timeline.TimelineFragment
 import com.application.portdex.presentation.wallet.WalletFragment
 import com.google.android.material.navigation.NavigationBarView
+import com.jacopo.pagury.prefs.PrefUtils
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint

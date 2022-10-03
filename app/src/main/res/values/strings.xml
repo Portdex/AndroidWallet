@@ -25,6 +25,7 @@
     <string name="hint_phone_number">Phone number</string>
     <string name="hint_enter_name">Enter Name</string>
     <string name="hint_enter_business_name">Enter business name</string>
+    <string name="hint_type_message">Type message</string>
 
     <!--    label strings-->
     <string name="label_all">All</string>

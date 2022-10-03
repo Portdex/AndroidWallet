@@ -45,6 +45,15 @@ class ProfileViewModel @Inject constructor(
         )
     }
 
+    fun getNearByUsers(listener: (Resource<List<ProfileInfo>>) -> Unit) {
+        disposable.add(
+            repository.getNearByUsers().request()
+                .subscribeBy(onSuccess = (listener), onError = {
+                    listener(Resource.Error(it.message))
+                })
+        )
+    }
+
     override fun onCleared() {
         super.onCleared()
         disposable.clear()

@@ -54,6 +54,10 @@ open class BaseFragment : Fragment(), BaseView {
         (activity as? BaseActivity)?.startWithAnim(executor)
     }
 
+    override fun startChatActivity(bundle: Bundle) {
+        (activity as? BaseActivity)?.startChatActivity(bundle)
+    }
+
     override fun authenticated(): Boolean {
         return (activity as? BaseActivity)?.authenticated() ?: false
     }

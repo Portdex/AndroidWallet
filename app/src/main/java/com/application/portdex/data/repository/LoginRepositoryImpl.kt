@@ -19,13 +19,23 @@ class LoginRepositoryImpl @Inject constructor(
     private val error: ErrorRepository
 ) : LoginRepository {
 
+    companion object {
+        private const val TAG = "LoginRepositoryImpl"
+        //USERNAME : dadb5341-6ac2-4f69-88a5-8bdf901a1057
+    }
+
     private val password by lazy { ValidationUtils.generatePassword() }
 
     override fun loginWithNumber(number: String, password: String): Single<Resource<Boolean>> {
         return RxAmplify.Auth.signIn(number, password)
             .map { result ->
                 when (result.nextStep.signInStep) {
-                    AuthSignInStep.CONFIRM_SIGN_IN_WITH_CUSTOM_CHALLENGE -> Resource.Success(true)
+                    AuthSignInStep.CONFIRM_SIGN_IN_WITH_CUSTOM_CHALLENGE -> {
+                        result.nextStep.additionalInfo?.get("USERNAME")?.let { userName ->
+                            PrefUtils.setUserName(userName)
+                        }
+                        Resource.Success(true)
+                    }
                     else -> error.getError(ErrorEnum.loginFailed)
                 }
             }

@@ -8,6 +8,7 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.app.AppCompatDelegate
 import com.application.portdex.R
 import com.application.portdex.core.utils.ValidationUtils
+import com.application.portdex.presentation.chat.activity.ChatActivity
 import com.application.portdex.presentation.login.LoginActivity
 import com.application.portdex.presentation.main.MainActivity
 import com.application.portdex.presentation.welcome.WelcomeActivity
@@ -102,6 +103,12 @@ open class BaseActivity : AppCompatActivity(), BaseView {
 
     private fun startLoginActivity() {
         startWithAnim(Intent(this, LoginActivity::class.java))
+    }
+
+    override fun startChatActivity(bundle: Bundle) {
+        if (authenticated()) startWithAnim(Intent(this, ChatActivity::class.java).apply {
+            putExtras(bundle)
+        })
     }
 
     override fun authenticated(): Boolean {
