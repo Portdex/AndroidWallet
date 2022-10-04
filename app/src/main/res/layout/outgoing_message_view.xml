@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:gravity="end"
+    android:orientation="horizontal"
+    android:paddingStart="@dimen/intrinsic_padding_large"
+    android:paddingEnd="0dp">
+
+    <LinearLayout
+        android:id="@+id/message_container"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginHorizontal="@dimen/intrinsic_padding_medium"
+        android:layout_weight="1"
+        android:gravity="end"
+        android:orientation="vertical">
+
+        <com.google.android.material.textview.MaterialTextView
+            android:id="@+id/messageText"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="end"
+            android:background="@drawable/chat_bubble_outgoing"
+            android:fontFamily="@font/roboto_regular"
+            android:paddingHorizontal="@dimen/intrinsic_padding_large"
+            android:paddingVertical="@dimen/intrinsic_padding_medium"
+            android:textColor="@color/textColorPrimaryDark"
+            android:textSize="14sp"
+            app:fontFamily="@font/roboto_regular"
+            tools:text="@string/dummy_text" />
+
+        <com.google.android.material.textview.MaterialTextView
+            android:id="@+id/messageTime"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/intrinsic_padding_small"
+            android:fontFamily="@font/roboto_regular"
+            android:textColor="@color/textColorSecondaryDark"
+            android:textSize="12sp"
+            app:fontFamily="@font/roboto_regular"
+            tools:text="2:16 PM" />
+
+    </LinearLayout>
+
+    <de.hdodenhof.circleimageview.CircleImageView
+        android:id="@+id/user_image"
+        android:layout_width="40dp"
+        android:layout_marginBottom="20dp"
+        android:layout_height="40dp"
+        android:layout_gravity="bottom"
+        android:src="@drawable/user_thumbnail" />
+
+</LinearLayout>

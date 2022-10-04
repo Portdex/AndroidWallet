@@ -5,6 +5,7 @@ import android.view.MenuItem
 import androidx.fragment.app.Fragment
 import com.application.portdex.R
 import com.application.portdex.core.enums.HomeMenu
+import com.application.portdex.core.location.LocationPickerImpl
 import com.application.portdex.databinding.ActivityMainBinding
 import com.application.portdex.presentation.base.BaseActivity
 import com.application.portdex.presentation.chat.ChatFragment
@@ -12,13 +13,13 @@ import com.application.portdex.presentation.home.HomeFragment
 import com.application.portdex.presentation.timeline.TimelineFragment
 import com.application.portdex.presentation.wallet.WalletFragment
 import com.google.android.material.navigation.NavigationBarView
-import com.jacopo.pagury.prefs.PrefUtils
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
 class MainActivity : BaseActivity(), NavigationBarView.OnItemSelectedListener {
 
     private lateinit var mBinding: ActivityMainBinding
+    private val locationPicker = LocationPickerImpl()
 
     private val homeFragment = HomeFragment.newInstance()
     private val walletFragment = WalletFragment.newInstance()
@@ -30,6 +31,7 @@ class MainActivity : BaseActivity(), NavigationBarView.OnItemSelectedListener {
         super.onCreate(savedInstanceState)
         mBinding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(mBinding.root)
+        locationPicker.initLocation(this)
         if (savedInstanceState == null) {
             initBottomNavigation()
         }
@@ -78,6 +80,15 @@ class MainActivity : BaseActivity(), NavigationBarView.OnItemSelectedListener {
         fragmentTransaction.commitNowAllowingStateLoss()
         activeFragment = fragment
         return true
+    }
+
+    override fun onRequestPermissionsResult(
+        requestCode: Int,
+        permissions: Array<out String>,
+        grantResults: IntArray
+    ) {
+        super.onRequestPermissionsResult(requestCode, permissions, grantResults)
+        locationPicker.onRequestPermissionsResult(requestCode, permissions, grantResults)
     }
 
     override fun onBackPressed() {

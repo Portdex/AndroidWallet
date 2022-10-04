@@ -58,13 +58,15 @@ class ProfileRepositoryImpl @Inject constructor(
     override fun getNearByUsers(): Single<Resource<List<ProfileInfo>>> {
         val location = PrefUtils.getLocation()
         val path = ApiEndPoints.getNearByUsers().plus(
-            //"${location?.latitude}/${location?.longitude}"
-            "24.903154624012792/67.0329219937998"
+//            "${location?.latitude}/${location?.longitude}"
+            //"24.903154624012792/67.0329219937998"
+            "29.3798419/71.7043627"
         )
         return apiService.getUserProfile(path)
             .onErrorResumeNext { error.getException(it) }
             .map { result ->
-                Resource.Success(result.mapNotNull { it.mapToProfileInfo() })
+                Resource.Success(result.mapNotNull { it.mapToProfileInfo() }
+                    .filter { it.userId != PrefUtils.getProfileInfo()?.userId })
             }
     }
 }

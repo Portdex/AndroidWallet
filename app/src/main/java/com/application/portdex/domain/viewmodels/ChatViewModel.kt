@@ -1,11 +1,11 @@
 package com.application.portdex.domain.viewmodels
 
-import android.util.Log
 import androidx.lifecycle.ViewModel
-import com.application.portdex.core.utils.RxUtils.request
+import com.application.portdex.data.utils.Resource
+import com.application.portdex.domain.models.chat.ChatBody
+import com.application.portdex.domain.models.chat.ChatItem
 import com.application.portdex.domain.repository.ChatRepository
 import dagger.hilt.android.lifecycle.HiltViewModel
-import io.reactivex.rxjava3.kotlin.subscribeBy
 import javax.inject.Inject
 
 @HiltViewModel
@@ -13,16 +13,19 @@ class ChatViewModel @Inject constructor(
     private val repository: ChatRepository
 ) : ViewModel() {
 
-    companion object {
-        private const val TAG = "ChatViewModel"
+    fun initChatManager(userId: String) {
+        repository.initChatManager(userId)
     }
 
-    fun connect() {
-        repository.connect().request()
-            .subscribeBy(onSuccess = {
-                Log.d(TAG, "connect: $it")
-            }, onError = {
-                Log.e(TAG, "connect: ", it)
-            })
+    fun getChatList(
+        sender: String?,
+        receiver: String?,
+        listener: (Resource<MutableList<ChatItem>>) -> Unit
+    ) {
+        repository.getChatList(sender, receiver, listener)
+    }
+
+    fun sendMessage(chatBody: ChatBody.Builder) {
+        repository.sendMessage(chatBody)
     }
 }

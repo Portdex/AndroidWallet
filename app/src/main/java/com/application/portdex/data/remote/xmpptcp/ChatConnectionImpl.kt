@@ -1,60 +1,91 @@
 package com.application.portdex.data.remote.xmpptcp
 
-import com.application.portdex.data.remote.ApiEndPoints
-import com.jacopo.pagury.prefs.PrefUtils
+import android.util.Log
+import io.reactivex.rxjava3.android.schedulers.AndroidSchedulers
 import io.reactivex.rxjava3.core.BackpressureStrategy
 import io.reactivex.rxjava3.core.Flowable
-import io.reactivex.rxjava3.core.FlowableOnSubscribe
-import io.reactivex.rxjava3.core.Single
-import org.jivesoftware.smack.ConnectionConfiguration
+import io.reactivex.rxjava3.disposables.CompositeDisposable
+import io.reactivex.rxjava3.kotlin.subscribeBy
+import io.reactivex.rxjava3.processors.PublishProcessor
+import io.reactivex.rxjava3.schedulers.Schedulers
 import org.jivesoftware.smack.ConnectionListener
+import org.jivesoftware.smack.ReconnectionManager
 import org.jivesoftware.smack.XMPPConnection
+import org.jivesoftware.smack.chat2.ChatManager
 import org.jivesoftware.smack.tcp.XMPPTCPConnection
-import org.jivesoftware.smack.tcp.XMPPTCPConnectionConfiguration
-import org.jxmpp.jid.impl.JidCreate
+import javax.inject.Inject
 
 
-class ChatConnectionImpl : ChatConnection {
+class ChatConnectionImpl @Inject constructor(
+    private val connection: XMPPTCPConnection
+) : ChatConnection {
 
-    private val connectionObserver = FlowableOnSubscribe { emitter ->
+    companion object {
+        private const val TAG = "ChatConnectionImpl"
+    }
+
+    private var chatListener: ((ChatManager) -> Unit)? = null
+    private val disposable = CompositeDisposable()
+
+    private val connectionFlowable = Flowable.create({ emitter ->
         try {
-            val serviceName = JidCreate.domainBareFrom(ApiEndPoints.CHAT_DOMAIN)
-            val config = XMPPTCPConnectionConfiguration.builder()
-                .setUsernameAndPassword(PrefUtils.getChatId(), PrefUtils.getUserName())
-                .setSecurityMode(ConnectionConfiguration.SecurityMode.disabled)
-                .setXmppDomain(serviceName).setHost(ApiEndPoints.CHAT_HOST)
-                .setPort(ApiEndPoints.CHAT_PORT).build()
-
-            val connection = XMPPTCPConnection(config)
             connection.connect()
             connection.login()
+            Log.d(TAG, "authenticate: ${connection.isAuthenticated}")
+            if (connection.isAuthenticated) emitter.onNext(ConnectionState.Authenticated)
 
+            ReconnectionManager.getInstanceFor(connection).apply {
+                enableAutomaticReconnection()
+            }
             connection.addConnectionListener(object : ConnectionListener {
-                override fun connected(connection: XMPPConnection) {
+                override fun connected(connection: XMPPConnection?) {
+                    Log.d(TAG, "connected: ")
                     emitter.onNext(ConnectionState.Connected)
-                    emitter.onComplete()
                 }
 
-                override fun authenticated(connection: XMPPConnection?, resumed: Boolean) {
+                override fun authenticated(connection: XMPPConnection, resumed: Boolean) {
+                    Log.d(TAG, "authenticated: ${connection.isAuthenticated}")
                     emitter.onNext(ConnectionState.Authenticated)
-                    emitter.onComplete()
                 }
 
-                override fun connectionClosed() {
+                override fun connectionClosedOnError(e: Exception) {
+                    Log.e(TAG, "connectionClosedOnError: ", e)
                     emitter.onNext(ConnectionState.Lost)
-                    emitter.onComplete()
                 }
             })
         } catch (e: Exception) {
             e.printStackTrace()
-            emitter.onError(e)
+        }
+    }, BackpressureStrategy.LATEST)
+
+    private val connectionPublisher = PublishProcessor.create<ConnectionState>()
+    override fun connect(): PublishProcessor<ConnectionState> {
+        connectionFlowable.subscribeOn(Schedulers.io()).subscribe(connectionPublisher)
+        disposable.add(
+            connectionPublisher.onBackpressureLatest()
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribeBy(onError = {
+                    Log.e(TAG, "connect: ", it)
+                }, onNext = { state ->
+                    if (state == ConnectionState.Authenticated) initChatManager()
+                })
+        )
+        return connectionPublisher
+    }
+
+    private fun initChatManager() {
+        ChatManager.getInstanceFor(connection)?.let { chatManager ->
+            chatListener?.invoke(chatManager)
         }
     }
 
-    override fun connect(): Single<Boolean> {
-        Flowable.create(connectionObserver, BackpressureStrategy.LATEST)
-        return Single.create { emitter ->
-
-        }
+    override fun setChatManager(listener: (ChatManager) -> Unit) {
+        chatListener = listener
     }
+
+    override fun onClear() {
+        disposable.clear()
+    }
+
 }

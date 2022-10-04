@@ -23,6 +23,20 @@ object FormatUtils {
         }
     }
 
+    fun Long.formatTo(): Date {
+        return Date(this)
+    }
+
+
+    fun Long.formatTo(pattern: String): String {
+        return try {
+            dateFormat(pattern).format(this)
+        } catch (e: Exception) {
+            e.printStackTrace()
+            "-"
+        }
+    }
+
     private fun dateFormat(pattern: String): SimpleDateFormat {
         return SimpleDateFormat(pattern, Locale.getDefault())
     }

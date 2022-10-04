@@ -92,6 +92,8 @@
     <string name="label_attention">Attention…</string>
     <string name="label_create">Create</string>
     <string name="label_post">Post</string>
+    <string name="label_date_today">Today</string>
+    <string name="label_date_yesterday">Yesterday</string>
 
 
     <!--    error strings-->
@@ -129,4 +131,5 @@
     <string name="menu_timeline">Timeline</string>
     <string name="menu_chat">Chat</string>
 
+    <string name="dummy_text">Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry\'s standard dummy text ever since the 1500s</string>
 </resources>

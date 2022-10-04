@@ -196,6 +196,7 @@ class HomeAllFragment : BaseFragment() {
         profileViewModel.getNearByUsers { result ->
             when (result) {
                 is Resource.Success -> result.data?.let { list ->
+                    if (list.isEmpty()) return@getNearByUsers
                     val data = list.toMutableList()
                     mBinding.listContainer.getViewAdapter(item.title)?.let { adapter ->
                         if (adapter is NearByAdapter) adapter.addList(data)

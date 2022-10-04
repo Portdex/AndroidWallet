@@ -30,7 +30,7 @@ class App : Application() {
 
         try {
             val config = AmplifyConfiguration.builder(applicationContext)
-                .devMenuEnabled(true)
+                .devMenuEnabled(false)
                 .build()
             Amplify.addPlugin(AWSCognitoAuthPlugin())
             Amplify.addPlugin(AWSS3StoragePlugin())
