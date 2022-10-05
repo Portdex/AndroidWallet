@@ -1,10 +1,9 @@
-package com.application.portdex.adapters
+package com.application.portdex.adapters.chat
 
 import android.content.Context
 import android.util.SparseArray
 import android.view.ViewGroup
 import com.application.portdex.R
-import com.application.portdex.adapters.chat.BaseChatAdapter
 import com.application.portdex.adapters.holders.chat.ViewHolder
 import com.application.portdex.core.listeners.OnMessageViewClickListener
 import com.application.portdex.core.utils.DateFormatter

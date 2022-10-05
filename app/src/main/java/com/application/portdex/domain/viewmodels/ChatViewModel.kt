@@ -17,15 +17,15 @@ class ChatViewModel @Inject constructor(
         repository.initChatManager(userId)
     }
 
-    fun getChatList(
-        sender: String?,
-        receiver: String?,
-        listener: (Resource<MutableList<ChatItem>>) -> Unit
-    ) {
-        repository.getChatList(sender, receiver, listener)
+    fun getChatList(listener: (Resource<MutableList<ChatItem>>) -> Unit) {
+        repository.getChatList(listener)
     }
 
     fun sendMessage(chatBody: ChatBody.Builder) {
         repository.sendMessage(chatBody)
+    }
+
+    fun cleanChat() {
+        repository.cleanChat()
     }
 }

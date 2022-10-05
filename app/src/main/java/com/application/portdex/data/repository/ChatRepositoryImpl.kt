@@ -20,8 +20,10 @@ import org.jivesoftware.smack.chat2.Chat
 import org.jivesoftware.smack.chat2.IncomingChatMessageListener
 import org.jivesoftware.smack.packet.Message
 import org.jivesoftware.smack.packet.MessageBuilder
+import org.jivesoftware.smack.packet.StandardExtensionElement
 import org.jxmpp.jid.EntityBareJid
 import org.jxmpp.jid.impl.JidCreate
+import java.util.*
 import javax.inject.Inject
 
 class ChatRepositoryImpl @Inject constructor(
@@ -38,6 +40,8 @@ class ChatRepositoryImpl @Inject constructor(
 
     private var currentUser = PrefUtils.getProfileInfo()?.userId
     private var chat: Chat? = null
+
+    var chatUserId: String? = null
 
     init {
         initConnection()
@@ -56,6 +60,7 @@ class ChatRepositoryImpl @Inject constructor(
     }
 
     override fun initChatManager(userId: String) {
+        this.chatUserId = userId
         connection.setChatManager { chatManager ->
             try {
                 chatManager.addIncomingListener(this)
@@ -67,19 +72,16 @@ class ChatRepositoryImpl @Inject constructor(
         }
     }
 
-    override fun getChatList(
-        sender: String?,
-        receiver: String?,
-        listener: (Resource<MutableList<ChatItem>>) -> Unit
-    ) {
+    override fun getChatList(listener: (Resource<MutableList<ChatItem>>) -> Unit) {
         disposable.add(
-            dataSource.getChatList(sender, receiver).request()
+            dataSource.getChatList(chatUserId).request()
                 .subscribeBy(onNext = { listener(Resource.Success(it.toChatList())) },
                     onError = { listener(Resource.Error(it.message)) })
         )
     }
 
     override fun sendMessage(chatBody: ChatBody.Builder) {
+        chatBody.id(UUID.randomUUID().toString())
         if (state == ConnectionState.Authenticated) {
             val builder = MessageBuilder.buildMessage()
                 .ofType(Message.Type.chat)
@@ -92,19 +94,53 @@ class ChatRepositoryImpl @Inject constructor(
     }
 
     override fun newIncomingMessage(jid: EntityBareJid, message: Message, chat: Chat) {
-        Log.d(TAG, "message.getBody() :" + message.body)
-        Log.d(TAG, "message.getFrom() :" + message.from)
+        Log.d(TAG, "message.getBody(): " + message.body)
+        Log.d(TAG, "message.getFrom(): " + message.from)
+
+        val messageId = message.getExtensionValue("id")
+        val body = message.getExtensionValue("body")
+        val userName = message.getExtensionValue("username")
+        val storeId = message.getExtensionValue("storeId")
+        val image = message.getExtensionValue("image")
+        val messageType = message.getExtensionValue("messageType")?.toInt()
 
         val from = message.from.toString()
-        val fromUser = if (from.contains("/")) from.split("/").toTypedArray()[0] else from
+        var fromUser = from.substringBefore("@")
+        if (fromUser.isEmpty()) fromUser = from
+
+        Log.d(
+            TAG, "newIncomingMessage: Id: $messageId" +
+                    "\nFrom: $fromUser" +
+                    "\nTo: $currentUser" +
+                    "\nBody: $body" +
+                    "\nName: $userName" +
+                    "\nStore: $storeId" +
+                    "\nImage: $image" +
+                    "\nType: $messageType"
+        )
 
         val chatBody = ChatBody.Builder()
-            .message(message.body)
+            .id(messageId)
+            .message(body)
+            .userName(userName)
+            .image(image)
+            .storeId(storeId)
             .sender(fromUser)
             .receiver(currentUser)
-            .messageType(MessageType.Text)
+            .chatUserId(chatUserId)
+            .messageType(MessageType.values().find { it.type == messageType } ?: MessageType.Text)
             .setType(Message.Type.chat)
-        disposable.add(dataSource.insertItem(chatBody.toEntity()))
+        disposable.add(dataSource.upsert(chatBody.toEntity()))
+    }
+
+    private fun Message.getExtensionValue(key: String): String? {
+        val item = extensions.find { it.elementName == key }
+        return if (key == "body" && item is Message.Body) item.message
+        else if (item is StandardExtensionElement) item.text else null
+    }
+
+    override fun cleanChat() {
+        disposable.add(dataSource.clean())
     }
 
     override fun onClear() {

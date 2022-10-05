@@ -7,12 +7,9 @@ import com.application.portdex.domain.models.chat.ChatItem
 interface ChatRepository {
 
     fun initChatManager(userId: String)
-    fun getChatList(
-        sender: String?,
-        receiver: String?,
-        listener: (Resource<MutableList<ChatItem>>) -> Unit
-    )
+    fun getChatList(listener: (Resource<MutableList<ChatItem>>) -> Unit)
 
     fun sendMessage(chatBody: ChatBody.Builder)
+    fun cleanChat()
     fun onClear()
 }

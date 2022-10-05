@@ -13,6 +13,7 @@ import com.application.portdex.data.local.LocalCategories.getProfileRewards
 import com.application.portdex.data.utils.Resource
 import com.application.portdex.databinding.ProfileActivityBinding
 import com.application.portdex.domain.models.SimpleItem
+import com.application.portdex.domain.viewmodels.ChatViewModel
 import com.application.portdex.domain.viewmodels.ProfileViewModel
 import com.application.portdex.presentation.base.BaseActivity
 import com.application.portdex.presentation.login.LoginViewModel
@@ -24,6 +25,7 @@ import dagger.hilt.android.AndroidEntryPoint
 @AndroidEntryPoint
 class ProfileActivity : BaseActivity() {
 
+    private val chatViewModel by viewModels<ChatViewModel>()
     private val loginViewModel by viewModels<LoginViewModel>()
     private val profileViewModel by viewModels<ProfileViewModel>()
     private lateinit var mBinding: ProfileActivityBinding
@@ -60,7 +62,10 @@ class ProfileActivity : BaseActivity() {
             loginViewModel.logOut { resource ->
                 hideProgress()
                 when (resource) {
-                    is Resource.Success -> if (resource.data.isSuccess()) startWelcomeActivity()
+                    is Resource.Success -> if (resource.data.isSuccess()) {
+                        chatViewModel.cleanChat()
+                        startWelcomeActivity()
+                    }
                     is Resource.Error -> resource.message?.let { showToast(it) }
                 }
             }

@@ -2,6 +2,7 @@ package com.application.portdex.presentation.splash
 
 import android.annotation.SuppressLint
 import android.os.Bundle
+import android.util.Log
 import androidx.activity.viewModels
 import com.application.portdex.R
 import com.application.portdex.core.location.LocationPickerImpl
@@ -13,6 +14,7 @@ import com.application.portdex.domain.viewmodels.ProfileViewModel
 import com.application.portdex.presentation.base.BaseActivity
 import com.jacopo.pagury.prefs.PrefUtils
 import dagger.hilt.android.AndroidEntryPoint
+import java.util.*
 
 @SuppressLint("CustomSplashScreen")
 @AndroidEntryPoint

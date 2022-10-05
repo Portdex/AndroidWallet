@@ -3,7 +3,7 @@ package com.application.portdex.presentation.chat.activity
 import android.os.Bundle
 import androidx.activity.viewModels
 import androidx.core.widget.doAfterTextChanged
-import com.application.portdex.adapters.ChatAdapter
+import com.application.portdex.adapters.chat.ChatAdapter
 import com.application.portdex.core.dataBinding.DataBinding.setUserImage
 import com.application.portdex.core.enums.MessageType
 import com.application.portdex.core.utils.GenericUtils.textSpaceWatcher
@@ -32,7 +32,6 @@ class ChatActivity : BaseActivity() {
     private lateinit var mBinding: ChatActivityBinding
 
     private var adapter: ChatAdapter? = null
-    private val chatBody = ChatBody.Builder()
 
     //intent
     private val provider by lazy { intent?.getParcelableExtra<ProviderInfo>(PROVIDER_ITEM) }
@@ -42,6 +41,7 @@ class ChatActivity : BaseActivity() {
         super.onCreate(savedInstanceState)
         mBinding = ChatActivityBinding.inflate(layoutInflater)
         setContentView(mBinding.root)
+        mBinding.actionBack.setOnClickListener { onBackPressed() }
 
         initIntent()
         initInput()
@@ -52,16 +52,11 @@ class ChatActivity : BaseActivity() {
         mBinding.inputMessage.doAfterTextChanged { text ->
             mBinding.btnSend.isEnabled = !text.isNullOrEmpty()
         }
-        mBinding.btnSend.setOnClickListener {
-            val input = mBinding.inputMessage.text?.toString()
-            if (input.isNullOrEmpty()) return@setOnClickListener
-            viewModel.sendMessage(chatBody.message(input)).run {
-                mBinding.inputMessage.text = null
-            }
-        }
     }
 
     private fun initIntent() {
+        val chatBody = ChatBody.Builder()
+
         val userId = when {
             !provider?.userId.isNullOrEmpty() -> provider?.userId
             !profile?.userId.isNullOrEmpty() -> profile?.userId
@@ -79,9 +74,18 @@ class ChatActivity : BaseActivity() {
         }
         initViews(userName, userImage)
 
+        mBinding.btnSend.setOnClickListener {
+            val input = mBinding.inputMessage.text?.toString()
+            if (input.isNullOrEmpty()) return@setOnClickListener
+            viewModel.sendMessage(chatBody.message(input)).run {
+                mBinding.inputMessage.text = null
+            }
+        }
+
         val senderId = PrefUtils.getProfileInfo()?.userId
         chatBody.receiver(userId)
             .sender(senderId)
+            .chatUserId(userId)
             .userName(userName)
             .image(userImage)
             .messageType(MessageType.Text)
@@ -90,10 +94,9 @@ class ChatActivity : BaseActivity() {
         userId?.let { viewModel.initChatManager(it) }
 
         adapter = ChatAdapter(PrefUtils.getProfileInfo()?.userId, this)
-        mBinding.recyclerView.addItemDecoration(VerticalSpaceItemDecoration(4.toDp()))
         mBinding.recyclerView.adapter = adapter
 
-        viewModel.getChatList(senderId, userId) { result ->
+        viewModel.getChatList { result ->
             when (result) {
                 is Resource.Success -> result.data?.let { adapter?.addToStart(it, true) }
                 is Resource.Error -> result.message?.let { showToast(it) }

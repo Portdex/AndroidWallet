@@ -7,8 +7,10 @@ import com.application.portdex.R
 import com.application.portdex.core.enums.HomeMenu
 import com.application.portdex.core.location.LocationPickerImpl
 import com.application.portdex.databinding.ActivityMainBinding
+import com.application.portdex.domain.models.ProfileInfo
 import com.application.portdex.presentation.base.BaseActivity
 import com.application.portdex.presentation.chat.ChatFragment
+import com.application.portdex.presentation.chat.activity.ChatActivity
 import com.application.portdex.presentation.home.HomeFragment
 import com.application.portdex.presentation.timeline.TimelineFragment
 import com.application.portdex.presentation.wallet.WalletFragment
@@ -35,6 +37,16 @@ class MainActivity : BaseActivity(), NavigationBarView.OnItemSelectedListener {
         if (savedInstanceState == null) {
             initBottomNavigation()
         }
+
+//        startChatActivity(Bundle().apply {
+//            putParcelable(
+//                ChatActivity.PROFILE_ITEM, ProfileInfo(
+//                    userId = "dadb5341-6ac2-4f69-88a5-8bdf901a1057",
+//                    firstName = "Ali Raza",
+//                    profilePicUrl = "https://s3.eu-west-2.amazonaws.com/my-portdex-data-demo/B1489375-AFBB-4983-91D4-EC68502142F1-718-000000098576A24C.jpg"
+//                )
+//            )
+//        })
     }
 
     private fun initBottomNavigation() {
