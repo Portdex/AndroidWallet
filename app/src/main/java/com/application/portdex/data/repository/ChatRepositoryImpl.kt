@@ -17,6 +17,7 @@ import com.jacopo.pagury.prefs.PrefUtils
 import io.reactivex.rxjava3.disposables.CompositeDisposable
 import io.reactivex.rxjava3.kotlin.subscribeBy
 import org.jivesoftware.smack.chat2.Chat
+import org.jivesoftware.smack.chat2.ChatManager
 import org.jivesoftware.smack.chat2.IncomingChatMessageListener
 import org.jivesoftware.smack.packet.Message
 import org.jivesoftware.smack.packet.MessageBuilder
@@ -39,11 +40,11 @@ class ChatRepositoryImpl @Inject constructor(
     private var state = ConnectionState.Connecting
 
     private var currentUser = PrefUtils.getProfileInfo()?.userId
+    private var chatUserId: String? = null
     private var chat: Chat? = null
 
-    var chatUserId: String? = null
-
     init {
+        connection.setChatManager(initChatManager())
         initConnection()
     }
 
@@ -59,18 +60,22 @@ class ChatRepositoryImpl @Inject constructor(
         )
     }
 
-    override fun initChatManager(userId: String) {
+    override fun initChatUser(userId: String) {
         this.chatUserId = userId
-        connection.setChatManager { chatManager ->
+    }
+
+    private fun initChatManager(): (ChatManager) -> Unit {
+        return { chatManager ->
             try {
                 chatManager.addIncomingListener(this)
-                val jid = JidCreate.entityBareFrom("${userId}@${ApiEndPoints.CHAT_DOMAIN}")
+                val jid = JidCreate.entityBareFrom("${chatUserId}@${ApiEndPoints.CHAT_DOMAIN}")
                 chat = chatManager.chatWith(jid)
             } catch (e: Exception) {
                 e.printStackTrace()
             }
         }
     }
+
 
     override fun getChatList(listener: (Resource<MutableList<ChatItem>>) -> Unit) {
         disposable.add(

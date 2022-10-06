@@ -14,7 +14,7 @@ class ChatViewModel @Inject constructor(
 ) : ViewModel() {
 
     fun initChatManager(userId: String) {
-        repository.initChatManager(userId)
+        repository.initChatUser(userId)
     }
 
     fun getChatList(listener: (Resource<MutableList<ChatItem>>) -> Unit) {
