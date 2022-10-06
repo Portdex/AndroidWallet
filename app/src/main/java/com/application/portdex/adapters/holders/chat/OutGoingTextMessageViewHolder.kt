@@ -1,6 +1,6 @@
 package com.application.portdex.adapters.holders.chat
 
-import com.application.portdex.core.utils.GenericUtils.hide
+import com.application.portdex.core.utils.GenericUtils.inVisible
 import com.application.portdex.databinding.OutgoingMessageViewBinding
 import com.application.portdex.domain.models.chat.ChatItem
 
@@ -12,6 +12,6 @@ open class OutGoingTextMessageViewHolder(view: OutgoingMessageViewBinding) :
     override fun onBind(data: ChatItem) {
         super.onBind(data)
         messageText.text = data.body
-       // userImage.hide(isContinuous)
+        userImage.inVisible(isContinuous)
     }
 }

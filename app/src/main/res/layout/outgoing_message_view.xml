@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
@@ -9,14 +9,14 @@
     android:orientation="horizontal"
     android:paddingHorizontal="10dp">
 
-    <LinearLayout
-        android:id="@+id/message_container"
+    <FrameLayout
+        android:id="@+id/message_bubble"
         android:layout_width="0dp"
-        android:layout_height="wrap_content"
+        android:layout_height="match_parent"
         android:layout_marginHorizontal="@dimen/intrinsic_padding_medium"
-        android:layout_weight="1"
-        android:gravity="end"
-        android:orientation="vertical">
+        app:layout_constraintEnd_toStartOf="@+id/user_image"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
 
         <com.google.android.material.textview.MaterialTextView
             android:id="@+id/messageText"
@@ -32,25 +32,29 @@
             app:fontFamily="@font/roboto_regular"
             tools:text="@string/dummy_text" />
 
-        <com.google.android.material.textview.MaterialTextView
-            android:id="@+id/messageTime"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="@dimen/intrinsic_padding_small"
-            android:fontFamily="@font/roboto_regular"
-            android:textColor="@color/textColorSecondaryDark"
-            android:textSize="12sp"
-            app:fontFamily="@font/roboto_regular"
-            tools:text="2:16 PM" />
+    </FrameLayout>
 
-    </LinearLayout>
+    <com.google.android.material.textview.MaterialTextView
+        android:id="@+id/messageTime"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/intrinsic_padding_small"
+        android:fontFamily="@font/roboto_regular"
+        android:textColor="@color/textColorSecondaryDark"
+        android:textSize="10sp"
+        app:fontFamily="@font/roboto_regular"
+        app:layout_constraintEnd_toEndOf="@id/message_bubble"
+        app:layout_constraintTop_toBottomOf="@+id/message_bubble"
+        tools:ignore="SmallSp"
+        tools:text="2:16 PM" />
 
     <de.hdodenhof.circleimageview.CircleImageView
         android:id="@+id/user_image"
         android:layout_width="30dp"
         android:layout_height="30dp"
         android:layout_gravity="bottom"
-        android:layout_marginBottom="20dp"
-        android:src="@drawable/user_thumbnail" />
+        android:src="@drawable/user_thumbnail"
+        app:layout_constraintBottom_toBottomOf="@+id/message_bubble"
+        app:layout_constraintEnd_toEndOf="parent" />
 
-</LinearLayout>
+</androidx.constraintlayout.widget.ConstraintLayout>
