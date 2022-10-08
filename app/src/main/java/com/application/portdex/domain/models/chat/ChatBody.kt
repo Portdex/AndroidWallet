@@ -2,6 +2,8 @@ package com.application.portdex.domain.models.chat
 
 import com.application.portdex.core.enums.MessageType
 import com.application.portdex.data.local.chat.MessageEntity
+import com.application.portdex.data.local.chat.ThreadEntity
+import com.application.portdex.domain.models.ProfileInfo
 import org.jivesoftware.smack.packet.Message
 
 
@@ -49,6 +51,9 @@ class ChatBody private constructor(
         fun image(image: String?) = apply { this.image = image }
         fun messageType(messageType: MessageType) = apply { this.messageType = messageType }
         fun setType(type: Message.Type) = apply { this._type = type }
+
+        fun getMessage() = message
+
         fun build() = ChatBody(
             messageId, message, username, sender, receiver, storeId, image, messageType, _type
         ).toXml()
@@ -62,6 +67,20 @@ class ChatBody private constructor(
             chatUserId = chatUserId,
             body = message,
             type = messageType ?: MessageType.Text
+        )
+
+        fun toThread() = ThreadEntity(
+            threadId = chatUserId,
+            userName = username,
+            userImage = image,
+            body = message,
+            type = messageType ?: MessageType.Text
+        )
+
+        fun toProfile() = ProfileInfo(
+            userId = sender,
+            firstName = username,
+            profilePicUrl = image
         )
     }
 }

@@ -7,7 +7,6 @@ import com.application.portdex.adapters.chat.ChatAdapter
 import com.application.portdex.core.dataBinding.DataBinding.setUserImage
 import com.application.portdex.core.enums.MessageType
 import com.application.portdex.core.utils.GenericUtils.textSpaceWatcher
-import com.application.portdex.core.utils.ImageUtils.toDp
 import com.application.portdex.data.utils.Resource
 import com.application.portdex.databinding.ChatActivityBinding
 import com.application.portdex.domain.models.ProfileInfo
@@ -15,7 +14,6 @@ import com.application.portdex.domain.models.ProviderInfo
 import com.application.portdex.domain.models.chat.ChatBody
 import com.application.portdex.domain.viewmodels.ChatViewModel
 import com.application.portdex.presentation.base.BaseActivity
-import com.application.portdex.ui.VerticalSpaceItemDecoration
 import com.jacopo.pagury.prefs.PrefUtils
 import dagger.hilt.android.AndroidEntryPoint
 import org.jivesoftware.smack.packet.Message
@@ -82,12 +80,12 @@ class ChatActivity : BaseActivity() {
             }
         }
 
-        val senderId = PrefUtils.getProfileInfo()?.userId
+        val current = PrefUtils.getProfileInfo()
         chatBody.receiver(userId)
-            .sender(senderId)
+            .sender(current?.userId)
             .chatUserId(userId)
-            .userName(userName)
-            .image(userImage)
+            .userName(current?.firstName)
+            .image(current?.profilePicUrl)
             .messageType(MessageType.Text)
             .setType(Message.Type.chat)
 

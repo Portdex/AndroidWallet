@@ -131,5 +131,8 @@
     <string name="menu_timeline">Timeline</string>
     <string name="menu_chat">Chat</string>
 
+    <string name="default_notification_channel_id">push_notifications</string>
+    <string name="default_notification_channel_name">General</string>
+
     <string name="dummy_text">Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry\'s standard dummy text ever since the 1500s</string>
 </resources>

@@ -4,6 +4,7 @@ import androidx.lifecycle.ViewModel
 import com.application.portdex.data.utils.Resource
 import com.application.portdex.domain.models.chat.ChatBody
 import com.application.portdex.domain.models.chat.ChatItem
+import com.application.portdex.domain.models.chat.Threads
 import com.application.portdex.domain.repository.ChatRepository
 import dagger.hilt.android.lifecycle.HiltViewModel
 import javax.inject.Inject
@@ -15,6 +16,10 @@ class ChatViewModel @Inject constructor(
 
     fun initChatManager(userId: String) {
         repository.initChatUser(userId)
+    }
+
+    fun getThreads(listener: (Resource<List<Threads>>) -> Unit) {
+        repository.getThreadsList(listener)
     }
 
     fun getChatList(listener: (Resource<MutableList<ChatItem>>) -> Unit) {

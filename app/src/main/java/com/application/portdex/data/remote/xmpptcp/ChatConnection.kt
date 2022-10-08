@@ -1,11 +1,13 @@
 package com.application.portdex.data.remote.xmpptcp
 
+import com.application.portdex.data.remote.xmpptcp.service.XMPPListener
+import com.application.portdex.domain.models.chat.ChatBody
 import io.reactivex.rxjava3.processors.PublishProcessor
-import org.jivesoftware.smack.chat2.ChatManager
 
 interface ChatConnection {
 
+    fun setXMPPListener(listener: XMPPListener)
     fun connect(): PublishProcessor<ConnectionState>
-    fun setChatManager(listener: (ChatManager) -> Unit)
+    fun sendMessage(chatBody: ChatBody.Builder, receiver: String?)
     fun onClear()
 }

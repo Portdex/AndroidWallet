@@ -1,16 +1,22 @@
 package com.application.portdex.presentation.main
 
+import android.content.ComponentName
+import android.content.Context
+import android.content.Intent
+import android.content.ServiceConnection
 import android.os.Bundle
+import android.os.IBinder
+import android.util.Log
 import android.view.MenuItem
 import androidx.fragment.app.Fragment
 import com.application.portdex.R
 import com.application.portdex.core.enums.HomeMenu
 import com.application.portdex.core.location.LocationPickerImpl
+import com.application.portdex.core.utils.ValidationUtils
+import com.application.portdex.data.remote.xmpptcp.service.XMPPServiceImpl
 import com.application.portdex.databinding.ActivityMainBinding
-import com.application.portdex.domain.models.ProfileInfo
 import com.application.portdex.presentation.base.BaseActivity
 import com.application.portdex.presentation.chat.ChatFragment
-import com.application.portdex.presentation.chat.activity.ChatActivity
 import com.application.portdex.presentation.home.HomeFragment
 import com.application.portdex.presentation.timeline.TimelineFragment
 import com.application.portdex.presentation.wallet.WalletFragment
@@ -34,6 +40,7 @@ class MainActivity : BaseActivity(), NavigationBarView.OnItemSelectedListener {
         mBinding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(mBinding.root)
         locationPicker.initLocation(this)
+        if (ValidationUtils.isLoggedIn()) startChatService()
         if (savedInstanceState == null) {
             initBottomNavigation()
         }
@@ -47,6 +54,28 @@ class MainActivity : BaseActivity(), NavigationBarView.OnItemSelectedListener {
 //                )
 //            )
 //        })
+    }
+
+    private fun startChatService() {
+        val intent = Intent(this, XMPPServiceImpl::class.java)
+        startService(intent)
+        bindChatService()
+    }
+
+    private fun bindChatService() {
+        val intent = Intent(this, XMPPServiceImpl::class.java)
+        bindService(intent, chatConnection(), Context.BIND_AUTO_CREATE)
+    }
+
+    private fun chatConnection() = object : ServiceConnection {
+
+        override fun onServiceConnected(componentName: ComponentName, binder: IBinder) {
+            Log.d(TAG, "onServiceConnected: ")
+        }
+
+        override fun onServiceDisconnected(componentName: ComponentName) {
+            Log.d(TAG, "onServiceDisconnected: ")
+        }
     }
 
     private fun initBottomNavigation() {
