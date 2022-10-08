@@ -73,7 +73,8 @@
 
         <service
             android:name=".data.remote.xmpptcp.service.XMPPServiceImpl"
-            android:exported="false" />
+            android:exported="false"
+            android:stopWithTask="false" />
     </application>
 
 </manifest>

@@ -95,6 +95,11 @@
     <string name="label_date_today">Today</string>
     <string name="label_date_yesterday">Yesterday</string>
 
+    <!--    format strings-->
+    <plurals name="format_messages">
+        <item quantity="one">%d message</item>
+        <item quantity="other">%d messages</item>
+    </plurals>
 
     <!--    error strings-->
     <string name="error_input_required">Input required</string>

@@ -57,6 +57,11 @@ class ChatRepositoryImpl @Inject constructor(
 
     override fun initChatUser(userId: String) {
         this.chatUserId = userId
+        resetUnreadCounts()
+    }
+
+    override fun resetUnreadCounts() {
+        disposable.add(threadSource.resetUnreadCounts(chatUserId))
     }
 
     override fun getThreadsList(listener: (Resource<List<Threads>>) -> Unit) {

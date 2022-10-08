@@ -27,6 +27,7 @@ class ThreadDataSource @Inject constructor(
             if (item == null) {
                 threadDao.insertAsync(thread)
             } else {
+                item.body = thread.body
                 item.updatedAt = System.currentTimeMillis()
                 item.unreadCounts = item.unreadCounts + 1
                 threadDao.updateAsync(item)
@@ -40,4 +41,11 @@ class ThreadDataSource @Inject constructor(
             .subscribeBy(onError = { Log.e(TAG, "insertItem: error", it) },
                 onSuccess = { Log.d(TAG, "insertItem: success $it") })
     }
+
+    fun resetUnreadCounts(threadId: String?): Disposable {
+        return threadDao.resetUnreadCounts(threadId).request()
+            .subscribeBy(onError = { Log.e(TAG, "resetUnreadCounts: error", it) },
+                onSuccess = { Log.d(TAG, "resetUnreadCounts: $it") })
+    }
+
 }

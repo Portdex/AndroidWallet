@@ -12,6 +12,7 @@ import androidx.fragment.app.Fragment
 import com.application.portdex.R
 import com.application.portdex.core.enums.HomeMenu
 import com.application.portdex.core.location.LocationPickerImpl
+import com.application.portdex.core.notification.NotificationUtil
 import com.application.portdex.core.utils.ValidationUtils
 import com.application.portdex.data.remote.xmpptcp.service.XMPPServiceImpl
 import com.application.portdex.databinding.ActivityMainBinding
@@ -40,20 +41,11 @@ class MainActivity : BaseActivity(), NavigationBarView.OnItemSelectedListener {
         mBinding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(mBinding.root)
         locationPicker.initLocation(this)
+        NotificationUtil.with(this).clearAll()
         if (ValidationUtils.isLoggedIn()) startChatService()
         if (savedInstanceState == null) {
             initBottomNavigation()
         }
-
-//        startChatActivity(Bundle().apply {
-//            putParcelable(
-//                ChatActivity.PROFILE_ITEM, ProfileInfo(
-//                    userId = "dadb5341-6ac2-4f69-88a5-8bdf901a1057",
-//                    firstName = "Ali Raza",
-//                    profilePicUrl = "https://s3.eu-west-2.amazonaws.com/my-portdex-data-demo/B1489375-AFBB-4983-91D4-EC68502142F1-718-000000098576A24C.jpg"
-//                )
-//            )
-//        })
     }
 
     private fun startChatService() {

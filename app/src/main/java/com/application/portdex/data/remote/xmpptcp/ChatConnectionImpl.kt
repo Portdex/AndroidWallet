@@ -110,7 +110,6 @@ class ChatConnectionImpl @Inject constructor(
         Log.d(TAG, "message.getBody(): " + message.body)
         Log.d(TAG, "message.getFrom(): " + message.from)
 
-
         val messageId = message.getExtensionValue("id")
         val body = message.getExtensionValue("body")
         val userName = message.getExtensionValue("username")

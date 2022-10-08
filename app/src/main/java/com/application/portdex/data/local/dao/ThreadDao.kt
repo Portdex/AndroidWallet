@@ -18,6 +18,9 @@ interface ThreadDao {
     @Update(onConflict = OnConflictStrategy.REPLACE)
     fun updateAsync(thread: ThreadEntity): Int
 
+    @Query("UPDATE threads SET unreadCounts = 0 WHERE threadId =:threadId")
+    fun resetUnreadCounts(threadId: String?): Single<Int>
+
     @Query("SELECT * FROM threads WHERE threadId =:threadId")
     fun getThreadById(threadId: String?): ThreadEntity?
 

@@ -5,6 +5,8 @@ import androidx.activity.viewModels
 import com.application.portdex.R
 import com.application.portdex.adapters.ProfileItemAdapter
 import com.application.portdex.core.dataBinding.DataBinding.setUserImage
+import com.application.portdex.core.prefs.ActivityPreference
+import com.application.portdex.core.prefs.NotifyPreference
 import com.application.portdex.core.utils.GenericUtils.show
 import com.application.portdex.core.utils.ValidationUtils
 import com.application.portdex.core.utils.ValidationUtils.isSuccess
@@ -63,6 +65,8 @@ class ProfileActivity : BaseActivity() {
                 hideProgress()
                 when (resource) {
                     is Resource.Success -> if (resource.data.isSuccess()) {
+                        ActivityPreference.clearPreferences(this)
+                        NotifyPreference.clearPreferences(this)
                         chatViewModel.cleanChat()
                         startWelcomeActivity()
                     }
