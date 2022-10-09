@@ -15,7 +15,7 @@ interface ProfileRepository {
     fun createProfile(
         profile: CreateProfileInfo,
         imageFile: DocumentFile?
-    ): Single<Resource<Boolean>>
+    ): Single<Resource<ProfileInfo>>
 
     fun getNearByUsers(): Single<Resource<List<ProfileInfo>>>
 }

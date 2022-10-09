@@ -1,8 +1,11 @@
 package com.application.portdex.domain.models
 
+import android.os.Parcelable
 import androidx.annotation.Keep
+import kotlinx.parcelize.Parcelize
 
 @Keep
+@Parcelize
 data class CreateProfileInfo(
     val phoneNo: String? = null,
     var country: String? = null,
@@ -17,4 +20,4 @@ data class CreateProfileInfo(
     val storeId: String? = null,
     val userToken: String? = null,
     val signedUpUser: String? = null
-)
+) : Parcelable

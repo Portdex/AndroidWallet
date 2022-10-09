@@ -4,6 +4,7 @@
     <item android:id="@android:id/mask">
         <shape android:shape="rectangle">
             <solid android:color="?attr/colorPrimary" />
+            <corners android:radius="@dimen/intrinsic_padding_medium" />
         </shape>
     </item>
     <item android:id="@android:id/background">

@@ -33,6 +33,10 @@ class LoginActivity : BaseActivity() {
         mBinding.actionBack.setOnClickListener { onBackPressed() }
         initCountries()
         initListeners()
+    }
+
+    override fun onResume() {
+        super.onResume()
         viewModel.logOut {
             Log.d(TAG, "logOut: ${it.data}")
             locationPicker.initLocation(this)

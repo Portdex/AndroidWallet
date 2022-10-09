@@ -35,7 +35,7 @@ class ProfileViewModel @Inject constructor(
     fun createProfile(
         profile: CreateProfileInfo,
         imageFile: DocumentFile?,
-        listener: (Resource<Boolean>) -> Unit
+        listener: (Resource<ProfileInfo>) -> Unit
     ) {
         disposable.add(
             repository.createProfile(profile, imageFile).request()

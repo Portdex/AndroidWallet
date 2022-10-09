@@ -105,6 +105,11 @@ object GenericUtils {
         }
     }
 
+    fun Context.getUserLocation(): String? {
+        val location = PrefUtils.getLocation() ?: return null
+        return getUserLocation(location.latitude.toString(), location.longitude.toString())
+    }
+
     fun Context.getUserLocation(latitude: String?, longitude: String?): String? {
         if (latitude.isNullOrEmpty() || longitude.isNullOrEmpty()) return null
         val location = LocationInfo(

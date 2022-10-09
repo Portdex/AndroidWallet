@@ -4,14 +4,8 @@ import android.content.Context
 import com.application.portdex.data.errors.ErrorRepository
 import com.application.portdex.data.errors.ErrorRepositoryImpl
 import com.application.portdex.data.remote.ApiService
-import com.application.portdex.data.repository.LoginRepositoryImpl
-import com.application.portdex.data.repository.ProfileRepositoryImpl
-import com.application.portdex.data.repository.ServicesRepositoryImpl
-import com.application.portdex.data.repository.StorageRepositoryImpl
-import com.application.portdex.domain.repository.LoginRepository
-import com.application.portdex.domain.repository.ProfileRepository
-import com.application.portdex.domain.repository.ServicesRepository
-import com.application.portdex.domain.repository.StorageRepository
+import com.application.portdex.data.repository.*
+import com.application.portdex.domain.repository.*
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
@@ -59,6 +53,16 @@ class RepositoryModule {
     @ViewModelScoped
     fun provideStorageRepository(@ApplicationContext context: Context): StorageRepository {
         return StorageRepositoryImpl(context)
+    }
+
+    @Provides
+    @ViewModelScoped
+    fun provideStoreRepository(
+        apiService: ApiService,
+        storage: StorageRepository,
+        error: ErrorRepository
+    ): StoreRepository {
+        return StoreRepositoryImpl(apiService, storage, error)
     }
 
 }

@@ -19,7 +19,7 @@ data class ProfileInfo(
     val signedUpUser: String? = null,
     val profilePicUrl: String? = null,
     val phoneNumber: String? = null,
-    val userId: String? = null,
+    var userId: String? = null,
     val longitude: String? = null,
     val category: String? = null,
     val latitude: String? = null,

@@ -8,13 +8,14 @@ import com.application.portdex.R
 import com.application.portdex.core.filePicker.FilePickerImpl
 import com.application.portdex.core.utils.GenericUtils.getCountry
 import com.application.portdex.core.utils.GenericUtils.getDeviceID
+import com.application.portdex.core.utils.ResultCancelContract
 import com.application.portdex.core.utils.ValidationUtils.getValidString
 import com.application.portdex.core.utils.ValidationUtils.isProfileValid
-import com.application.portdex.data.mappers.toProfileInfo
 import com.application.portdex.data.utils.Resource
 import com.application.portdex.databinding.VerifyActivityBinding
 import com.application.portdex.domain.models.CreateProfileInfo
 import com.application.portdex.domain.models.LoginInfo
+import com.application.portdex.domain.models.ProfileInfo
 import com.application.portdex.domain.viewmodels.ProfileViewModel
 import com.application.portdex.presentation.base.BaseActivity
 import com.application.portdex.presentation.dialogs.ProfileSetupSheet
@@ -108,25 +109,31 @@ class VerifyActivity : BaseActivity() {
 
     private fun openProfileSetup(number: String) {
         hideProgress()
-        val dialog = ProfileSetupSheet.newInstance()
+        val dialog = ProfileSetupSheet.newInstance().apply {
+            this.isCancelable = false
+        }
         dialog.pickImageListener = { filePicker.pickImage() }
         dialog.onContinueListener = { imageUri, userName, isBusiness ->
-            if (isBusiness) startWithAnim(Intent(this, LoginBusinessActivity::class.java))
-            else {
-                showProgress()
-                val location = PrefUtils.getLocation()
-                val imageFile = imageUri?.let { DocumentFileCompat.fromUri(this, it) }
-                val profile = CreateProfileInfo(
-                    phoneNo = number,
-                    firstName = userName,
-                    latitude = location?.latitude?.toString(),
-                    longitude = location?.longitude?.toString(),
-                    country = getCountry(),
-                    category = "User",
-                    userToken = getDeviceID()
-                )
-                profileViewModel.createProfile(profile, imageFile) { it.onProfileCreated(profile) }
-            }
+            showProgress()
+            val location = PrefUtils.getLocation()
+            val imageFile = imageUri?.let { DocumentFileCompat.fromUri(this, it) }
+            val profile = CreateProfileInfo(
+                phoneNo = number,
+                firstName = userName,
+                latitude = location?.latitude?.toString(),
+                longitude = location?.longitude?.toString(),
+                country = getCountry(),
+                category = "User",
+                userToken = getDeviceID()
+            )
+            if (isBusiness) {
+                startWithAnim {
+                    loginResult.launch(Intent(this, LoginBusinessActivity::class.java).apply {
+                        putExtra(LoginBusinessActivity.PROFILE_KEY, profile)
+                        putExtra(LoginBusinessActivity.PROFILE_IMAGE_KEY, imageUri)
+                    })
+                }
+            } else profileViewModel.createProfile(profile, imageFile) { it.onProfileCreated() }
         }
         dialog.show(supportFragmentManager, dialog.tag)
         filePicker.setPickImageListener { uri ->
@@ -134,11 +141,15 @@ class VerifyActivity : BaseActivity() {
         }
     }
 
-    private fun Resource<Boolean>.onProfileCreated(profile: CreateProfileInfo) {
+    private val loginResult = registerForActivityResult(ResultCancelContract()) { canceled ->
+        if (canceled) onBackPressed()
+    }
+
+    private fun Resource<ProfileInfo>.onProfileCreated() {
         hideProgress()
         when (this) {
-            is Resource.Success -> if (data == true) {
-                PrefUtils.setProfileInfo(profile.toProfileInfo())
+            is Resource.Success -> data?.let { profile ->
+                PrefUtils.setProfileInfo(profile)
                 startMainActivity()
             }
             is Resource.Error -> message?.let {
@@ -149,9 +160,7 @@ class VerifyActivity : BaseActivity() {
     }
 
     override fun onRequestPermissionsResult(
-        requestCode: Int,
-        permissions: Array<out String>,
-        grantResults: IntArray
+        requestCode: Int, permissions: Array<out String>, grantResults: IntArray
     ) {
         super.onRequestPermissionsResult(requestCode, permissions, grantResults)
         filePicker.onRequestPermissionsResult(requestCode, permissions, grantResults)

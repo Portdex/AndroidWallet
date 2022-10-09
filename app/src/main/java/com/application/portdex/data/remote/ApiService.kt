@@ -2,6 +2,7 @@ package com.application.portdex.data.remote
 
 import com.application.portdex.data.remote.dto.*
 import com.application.portdex.domain.models.CreateProfileInfo
+import com.application.portdex.domain.models.store.StoreInfo
 import io.reactivex.rxjava3.core.Single
 import okhttp3.RequestBody
 import okhttp3.ResponseBody
@@ -70,6 +71,12 @@ interface ApiService {
         @Body body: CreateProfileInfo
     ): Single<CreateProfileResponse>
 
+    @POST("{endpoint}")
+    fun saveStore(
+        @Path("endpoint", encoded = true) path: String,
+        @Body body: StoreInfo
+    ): Single<StoreInfo>
+
     @GET("{endpoint}")
     fun getServiceProviders(
         @Path("endpoint", encoded = true) path: String,
@@ -84,5 +91,6 @@ interface ApiService {
     fun getProfileByCategory(
         @Path("endpoint", encoded = true) path: String,
     ): Single<ProfileByCategoryDto>
+
 
 }

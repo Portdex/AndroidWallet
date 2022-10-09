@@ -4,6 +4,8 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
+    android:background="?attr/selectableItemBackground"
+    android:foreground="?attr/selectableItemBackground"
     android:orientation="vertical"
     app:cardCornerRadius="@dimen/intrinsic_padding_medium"
     app:cardUseCompatPadding="false">
@@ -34,5 +36,19 @@
             android:textSize="12sp"
             app:fontFamily="@font/roboto_medium"
             tools:text="@string/app_name" />
+
+        <ImageView
+            android:id="@+id/checked_icon"
+            android:layout_width="32dp"
+            android:layout_height="32dp"
+            android:layout_gravity="end"
+            android:layout_margin="@dimen/intrinsic_padding_medium"
+            android:buttonTint="@color/white"
+            android:checked="true"
+            android:src="@drawable/ic_check_circle"
+            android:visibility="gone"
+            app:tint="@color/white"
+            tools:ignore="ContentDescription"
+            tools:visibility="visible" />
     </FrameLayout>
 </androidx.cardview.widget.CardView>
