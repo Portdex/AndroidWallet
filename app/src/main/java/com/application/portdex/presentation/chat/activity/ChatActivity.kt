@@ -107,7 +107,10 @@ class ChatActivity : BaseActivity() {
 
         viewModel.getChatList { result ->
             when (result) {
-                is Resource.Success -> result.data?.let { adapter?.addToStart(it, true) }
+                is Resource.Success -> result.data?.let {
+                    adapter?.addToStart(it, true)
+                    viewModel.resetUnreadCounts()
+                }
                 is Resource.Error -> result.message?.let { showToast(it) }
             }
         }

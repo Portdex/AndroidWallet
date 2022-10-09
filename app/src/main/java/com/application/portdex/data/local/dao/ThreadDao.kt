@@ -27,6 +27,9 @@ interface ThreadDao {
     @Query("SELECT * FROM threads")
     fun getThreads(): Flowable<List<ThreadEntity>>
 
+    @Query("SELECT SUM(unreadCounts) FROM threads")
+    fun getUnreadCounts(): Flowable<Int>
+
     @Query("DELETE FROM threads")
     fun nukeTable(): Completable
 }

@@ -22,6 +22,14 @@ class ChatViewModel @Inject constructor(
         repository.getThreadsList(listener)
     }
 
+    fun getUnreadCounts(listener: (Resource<Int>) -> Unit) {
+        repository.getUnreadCounts(listener)
+    }
+
+    fun resetUnreadCounts() {
+        repository.resetUnreadCounts()
+    }
+
     fun getChatList(listener: (Resource<MutableList<ChatItem>>) -> Unit) {
         repository.getChatList(listener)
     }

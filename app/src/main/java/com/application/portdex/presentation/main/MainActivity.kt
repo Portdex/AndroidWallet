@@ -8,6 +8,7 @@ import android.os.Bundle
 import android.os.IBinder
 import android.util.Log
 import android.view.MenuItem
+import androidx.activity.viewModels
 import androidx.fragment.app.Fragment
 import com.application.portdex.R
 import com.application.portdex.core.enums.HomeMenu
@@ -15,7 +16,9 @@ import com.application.portdex.core.location.LocationPickerImpl
 import com.application.portdex.core.notification.NotificationUtil
 import com.application.portdex.core.utils.ValidationUtils
 import com.application.portdex.data.remote.xmpptcp.service.XMPPServiceImpl
+import com.application.portdex.data.utils.Resource
 import com.application.portdex.databinding.ActivityMainBinding
+import com.application.portdex.domain.viewmodels.ChatViewModel
 import com.application.portdex.presentation.base.BaseActivity
 import com.application.portdex.presentation.chat.ChatFragment
 import com.application.portdex.presentation.home.HomeFragment
@@ -27,6 +30,7 @@ import dagger.hilt.android.AndroidEntryPoint
 @AndroidEntryPoint
 class MainActivity : BaseActivity(), NavigationBarView.OnItemSelectedListener {
 
+    private val chatViewModel by viewModels<ChatViewModel>()
     private lateinit var mBinding: ActivityMainBinding
     private val locationPicker = LocationPickerImpl()
 
@@ -74,6 +78,21 @@ class MainActivity : BaseActivity(), NavigationBarView.OnItemSelectedListener {
         showFragment(homeFragment, HomeMenu.Home)
         mBinding.bottomNavigation.selectedItemId = R.id.actionHome
         mBinding.bottomNavigation.setOnItemSelectedListener(this)
+        initNotifications()
+    }
+
+    private fun initNotifications() {
+        chatViewModel.getUnreadCounts { resource ->
+            when (resource) {
+                is Resource.Success -> resource.data?.let { counts ->
+                    mBinding.bottomNavigation.getOrCreateBadge(R.id.actionChat).let { badge ->
+                        badge.isVisible = counts > 0
+                        badge.number = counts
+                    }
+                }
+                is Resource.Error -> resource.message?.let { showToast(it) }
+            }
+        }
     }
 
 

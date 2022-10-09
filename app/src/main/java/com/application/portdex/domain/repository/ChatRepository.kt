@@ -12,6 +12,7 @@ interface ChatRepository {
     fun getThreadsList(listener: (Resource<List<Threads>>) -> Unit)
     fun getChatList(listener: (Resource<MutableList<ChatItem>>) -> Unit)
     fun resetUnreadCounts()
+    fun getUnreadCounts(listener: (Resource<Int>) -> Unit)
     fun sendMessage(chatBody: ChatBody.Builder)
     fun newMessageListener(listener: (ProfileInfo, String) -> Unit)
     fun cleanChat()

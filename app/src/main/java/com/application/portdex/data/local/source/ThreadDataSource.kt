@@ -21,6 +21,10 @@ class ThreadDataSource @Inject constructor(
         return threadDao.getThreads()
     }
 
+    fun getUnreadCounts(): Flowable<Int> {
+        return threadDao.getUnreadCounts()
+    }
+
     fun upsert(thread: ThreadEntity): Disposable {
         return Single.fromCallable {
             val item = threadDao.getThreadById(thread.threadId)
