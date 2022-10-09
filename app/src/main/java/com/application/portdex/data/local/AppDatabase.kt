@@ -20,7 +20,7 @@ abstract class AppDatabase : RoomDatabase() {
     abstract val message: MessageDao
 
     companion object {
-        private const val DB_NAME: String = "aladino"
+        private const val DB_NAME: String = "portdex"
 
         @Volatile
         private var instance: AppDatabase? = null
