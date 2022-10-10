@@ -7,9 +7,8 @@ import com.application.portdex.domain.models.ProviderPackage
 import com.google.android.material.button.MaterialButton
 import com.google.android.material.textview.MaterialTextView
 
-class ProvidePackagesAdapter : BaseAdapter<ProviderPackage>(resource = R.layout.package_item_view) {
-
-    var cartItemListener: ((ProviderPackage) -> Unit)? = null
+class CartAdapter(val listener: (ProviderPackage) -> Unit) :
+    BaseAdapter<ProviderPackage>(resource = R.layout.cart_item_view) {
 
     override fun onBind(holder: BaseViewHolder, item: ProviderPackage) {
         val imageView = holder.itemView.findViewById<ImageView>(R.id.image_view)
@@ -22,28 +21,7 @@ class ProvidePackagesAdapter : BaseAdapter<ProviderPackage>(resource = R.layout.
         nameView.text = item.name
         durationView.text = item.duration
         priceView.text = item.price
-        btnCart.setText(if (item.isCartItem) R.string.button_remove_from_card else R.string.button_add_to_cart)
 
-        btnCart.setOnClickListener { cartItemListener?.invoke(item) }
-    }
-
-    fun updateItem(item: ProviderPackage) {
-        list.find { it.packageId == item.packageId }?.let {
-            val index = list.indexOf(it)
-            if (index != -1) {
-                list[index] = item
-                notifyItemChanged(index)
-            }
-        }
-    }
-
-    fun removedCartItems(packageIds: List<String>) {
-        list.forEachIndexed { index, item ->
-            if (packageIds.any { it == item.packageId }) {
-                item.isCartItem = false
-                list[index] = item
-                notifyItemChanged(index)
-            }
-        }
+        btnCart.setOnClickListener { listener.invoke(item) }
     }
 }

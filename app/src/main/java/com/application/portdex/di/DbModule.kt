@@ -2,8 +2,10 @@ package com.application.portdex.di
 
 import android.app.Application
 import com.application.portdex.data.local.AppDatabase
+import com.application.portdex.data.local.dao.CartDao
 import com.application.portdex.data.local.dao.MessageDao
 import com.application.portdex.data.local.dao.ThreadDao
+import com.application.portdex.data.local.source.CartDataSource
 import com.application.portdex.data.local.source.ChatDataSource
 import com.application.portdex.data.local.source.ThreadDataSource
 import dagger.Module
@@ -44,5 +46,17 @@ class DbModule {
     @Singleton
     fun provideThreadDataSource(threadDao: ThreadDao): ThreadDataSource {
         return ThreadDataSource(threadDao)
+    }
+
+    @Provides
+    @Singleton
+    fun provideCartDao(appDatabase: AppDatabase): CartDao {
+        return appDatabase.cart
+    }
+
+    @Provides
+    @Singleton
+    fun provideCartDataSource(cartDao: CartDao): CartDataSource {
+        return CartDataSource(cartDao)
     }
 }

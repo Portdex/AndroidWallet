@@ -8,6 +8,7 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.app.AppCompatDelegate
 import com.application.portdex.R
 import com.application.portdex.core.utils.ValidationUtils
+import com.application.portdex.presentation.cart.CartActivity
 import com.application.portdex.presentation.chat.activity.ChatActivity
 import com.application.portdex.presentation.login.LoginActivity
 import com.application.portdex.presentation.main.MainActivity
@@ -109,6 +110,10 @@ open class BaseActivity : AppCompatActivity(), BaseView {
         if (authenticated()) startWithAnim(Intent(this, ChatActivity::class.java).apply {
             putExtras(bundle)
         })
+    }
+
+    override fun startCartActivity() {
+        startWithAnim(Intent(this, CartActivity::class.java))
     }
 
     override fun authenticated(): Boolean {

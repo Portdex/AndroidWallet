@@ -29,4 +29,6 @@ interface BaseView {
     fun authenticated(): Boolean
 
     fun startChatActivity(bundle: Bundle)
+
+    fun startCartActivity()
 }

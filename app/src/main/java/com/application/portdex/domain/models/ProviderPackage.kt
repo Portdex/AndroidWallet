@@ -10,5 +10,6 @@ data class ProviderPackage(
     val price: String? = null,
     val duration: String? = null,
     val name: String? = null,
-    val createdDateTime: String? = null
+    var isCartItem: Boolean = false,
+    val createdDateTime: String? = null,
 )

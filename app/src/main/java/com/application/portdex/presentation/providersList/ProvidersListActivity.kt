@@ -46,6 +46,7 @@ class ProvidersListActivity : BaseActivity() {
         initTabs()
     }
 
+
     private fun initTabs() {
         mBinding.tabLayout.adapter = tabsAdapter
 

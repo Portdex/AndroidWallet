@@ -70,6 +70,9 @@
             android:name=".presentation.chat.activity.ChatActivity"
             android:exported="false"
             android:theme="@style/AppTheme.Chat" />
+        <activity
+            android:name=".presentation.cart.CartActivity"
+            android:exported="false" />
 
         <service
             android:name=".data.remote.xmpptcp.service.XMPPServiceImpl"

@@ -94,6 +94,7 @@
             android:insetTop="0dp"
             android:insetBottom="0dp"
             android:minHeight="30dp"
+            android:text="@string/button_remove_from_card"
             android:textAllCaps="false"
             android:textColor="@color/textColorPrimaryDark"
             android:textSize="12sp"
@@ -102,8 +103,7 @@
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.5"
             app:layout_constraintStart_toEndOf="@+id/price_view"
-            app:layout_constraintTop_toBottomOf="@+id/sub_category"
-            tools:text="@string/button_add_to_cart" />
+            app:layout_constraintTop_toBottomOf="@+id/sub_category" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 </androidx.cardview.widget.CardView>

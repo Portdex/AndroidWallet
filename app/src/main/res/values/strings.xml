@@ -19,6 +19,7 @@
     <string name="button_proceed">Proceed</string>
     <string name="button_shop_now">Shop now</string>
     <string name="button_add_to_cart">Add to cart</string>
+    <string name="button_remove_from_card">Remove from cart</string>
 
 
     <!--    hint strings-->
@@ -94,6 +95,7 @@
     <string name="label_post">Post</string>
     <string name="label_date_today">Today</string>
     <string name="label_date_yesterday">Yesterday</string>
+    <string name="label_cart">Cart</string>
 
     <!--    format strings-->
     <plurals name="format_messages">

@@ -58,6 +58,10 @@ open class BaseFragment : Fragment(), BaseView {
         (activity as? BaseActivity)?.startChatActivity(bundle)
     }
 
+    override fun startCartActivity() {
+        (activity as? BaseActivity)?.startCartActivity()
+    }
+
     override fun authenticated(): Boolean {
         return (activity as? BaseActivity)?.authenticated() ?: false
     }

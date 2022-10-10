@@ -3,6 +3,7 @@ package com.application.portdex.di
 import android.content.Context
 import com.application.portdex.data.errors.ErrorRepository
 import com.application.portdex.data.errors.ErrorRepositoryImpl
+import com.application.portdex.data.local.source.CartDataSource
 import com.application.portdex.data.remote.ApiService
 import com.application.portdex.data.repository.*
 import com.application.portdex.domain.repository.*
@@ -60,9 +61,10 @@ class RepositoryModule {
     fun provideStoreRepository(
         apiService: ApiService,
         storage: StorageRepository,
+        cart: CartDataSource,
         error: ErrorRepository
     ): StoreRepository {
-        return StoreRepositoryImpl(apiService, storage, error)
+        return StoreRepositoryImpl(apiService, storage, cart, error)
     }
 
 }
