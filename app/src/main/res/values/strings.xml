@@ -20,6 +20,8 @@
     <string name="button_shop_now">Shop now</string>
     <string name="button_add_to_cart">Add to cart</string>
     <string name="button_remove_from_card">Remove from cart</string>
+    <string name="button_create_profile">Create profile</string>
+    <string name="button_create">Create</string>
 
 
     <!--    hint strings-->
@@ -27,6 +29,11 @@
     <string name="hint_enter_name">Enter Name</string>
     <string name="hint_enter_business_name">Enter business name</string>
     <string name="hint_type_message">Type message</string>
+    <string name="hint_name_of_project">Name of the project</string>
+    <string name="hint_tell_us_about">Tell us about the project</string>
+    <string name="hint_your_budget">What is your budget</string>
+    <string name="hint_currency">Currency</string>
+
 
     <!--    label strings-->
     <string name="label_all">All</string>
@@ -96,6 +103,12 @@
     <string name="label_date_today">Today</string>
     <string name="label_date_yesterday">Yesterday</string>
     <string name="label_cart">Cart</string>
+    <string name="label_digital_store">Digital Store</string>
+    <string name="label_product_offer">Product &amp; Business Offers</string>
+    <string name="label_create_job_post">Create a job post</string>
+    <string name="label_are_you_business">Are you business</string>
+    <string name="label_yes">Yes</string>
+    <string name="label_no">No</string>
 
     <!--    format strings-->
     <plurals name="format_messages">
@@ -116,6 +129,7 @@
     <string name="info_code_sent_to">Sent to : %s</string>
     <string name="info_authentication_required">Authentication required to proceed forward.</string>
     <string name="info_no_items">No items found.</string>
+    <string name="info_create_store">Create your free digital store &amp; use the services</string>
 
 
     <!--    things nearby-->

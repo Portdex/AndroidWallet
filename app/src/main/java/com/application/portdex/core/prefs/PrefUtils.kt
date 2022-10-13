@@ -16,6 +16,7 @@ object PrefUtils {
     private const val PREF_NAME = "PrefUtils.${BuildConfig.APPLICATION_ID}"
     private const val PREF_LOCATION = "PrefUtils.PREF_LOCATION"
     private const val PREF_LOGIN_INFO = "PrefUtils.PREF_LOGIN_INFO"
+    private const val PREF_IS_LOGGED_IN = "PrefUtils.PREF_IS_LOGGED_IN"
     private const val PREF_PROFILE_INFO = "PrefUtils.PREF_PROFILE_INFO"
     private const val PREF_USERNAME = "PrefUtils.PREF_AMPLIFY_USERNAME"
 
@@ -39,6 +40,14 @@ object PrefUtils {
         return preferences?.getString(PREF_LOCATION, null)?.let {
             Gson().fromJson(it, LocationInfo::class.java)
         }
+    }
+
+    fun setLoggedIn(isLoggedIn: Boolean) {
+        preferences?.edit()?.putBoolean(PREF_IS_LOGGED_IN, isLoggedIn)?.apply()
+    }
+
+    fun isLoggedIn(): Boolean {
+        return preferences?.getBoolean(PREF_IS_LOGGED_IN, false) ?: false
     }
 
     fun setLoginInfo(info: LoginInfo) {

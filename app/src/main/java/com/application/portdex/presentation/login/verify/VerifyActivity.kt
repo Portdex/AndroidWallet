@@ -1,14 +1,9 @@
 package com.application.portdex.presentation.login.verify
 
-import android.content.Intent
 import android.os.Bundle
 import androidx.activity.viewModels
 import com.anggrayudi.storage.file.DocumentFileCompat
 import com.application.portdex.R
-import com.application.portdex.core.filePicker.FilePickerImpl
-import com.application.portdex.core.utils.GenericUtils.getCountry
-import com.application.portdex.core.utils.GenericUtils.getDeviceID
-import com.application.portdex.core.utils.ResultCancelContract
 import com.application.portdex.core.utils.ValidationUtils.getValidString
 import com.application.portdex.core.utils.ValidationUtils.isProfileValid
 import com.application.portdex.data.utils.Resource
@@ -16,11 +11,11 @@ import com.application.portdex.databinding.VerifyActivityBinding
 import com.application.portdex.domain.models.CreateProfileInfo
 import com.application.portdex.domain.models.LoginInfo
 import com.application.portdex.domain.models.ProfileInfo
+import com.application.portdex.domain.models.store.StoreInfo
 import com.application.portdex.domain.viewmodels.ProfileViewModel
+import com.application.portdex.domain.viewmodels.StoreViewModel
 import com.application.portdex.presentation.base.BaseActivity
-import com.application.portdex.presentation.dialogs.ProfileSetupSheet
 import com.application.portdex.presentation.login.LoginViewModel
-import com.application.portdex.presentation.login.business.LoginBusinessActivity
 import com.jacopo.pagury.prefs.PrefUtils
 import dagger.hilt.android.AndroidEntryPoint
 
@@ -28,13 +23,15 @@ import dagger.hilt.android.AndroidEntryPoint
 class VerifyActivity : BaseActivity() {
 
     companion object {
-        const val INPUT_NUMBER = "VerifyActivity.INPUT_NUMBER"
+        const val INPUT_PROFILE = "VerifyActivity.INPUT_PROFILE"
+        const val INPUT_STORE = "VerifyActivity.INPUT_STORE"
     }
 
-    private val filePicker = FilePickerImpl()
+    private val profile by lazy { intent?.getParcelableExtra<CreateProfileInfo>(INPUT_PROFILE) }
+    private val store by lazy { intent?.getParcelableExtra<StoreInfo>(INPUT_STORE) }
     private val viewModel by viewModels<LoginViewModel>()
+    private val storeViewModel by viewModels<StoreViewModel>()
     private val profileViewModel by viewModels<ProfileViewModel>()
-    private val number by lazy { intent?.getStringExtra(INPUT_NUMBER) }
     private lateinit var mBinding: VerifyActivityBinding
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -44,18 +41,17 @@ class VerifyActivity : BaseActivity() {
         setSupportActionBar(mBinding.toolbar)
         supportActionBar?.setDisplayHomeAsUpEnabled(true)
         supportActionBar?.setDisplayShowTitleEnabled(false)
-        filePicker.initPicker(this)
         initOtp()
     }
 
     private fun initOtp() {
-        mBinding.infoNumber.text = getString(R.string.info_code_sent_to, number)
+        mBinding.infoNumber.text = getString(R.string.info_code_sent_to, profile?.phoneNo)
         mBinding.otpView.setAnimationEnable(true)
         mBinding.otpView.setOtpCompletionListener { otp ->
             mBinding.btnVerify.isEnabled = otp.isNotEmpty()
         }
         mBinding.btnVerify.setOnClickListener {
-            PrefUtils.setLoginInfo(LoginInfo(number = number))
+            PrefUtils.setLoginInfo(LoginInfo(number = profile?.phoneNo))
             mBinding.otpView.getValidString()?.let { otp ->
                 showProgress()
                 viewModel.confirmLogin(otp) { response ->
@@ -70,7 +66,7 @@ class VerifyActivity : BaseActivity() {
             }
         }
         mBinding.btnResend.setOnClickListener {
-            number?.let {
+            profile?.phoneNo?.let {
                 showProgress()
                 viewModel.loginWithNumber(it) { resource ->
                     when (resource) {
@@ -85,85 +81,86 @@ class VerifyActivity : BaseActivity() {
 
     private fun fetchSession() {
         viewModel.fetchAuthSession { response ->
-            hideProgress()
             when (response) {
                 is Resource.Success -> if (response.data == true) checkProfile()
-                is Resource.Error -> response.message?.let { showToast(it) }
+                is Resource.Error -> response.message?.let {
+                    hideProgress()
+                    showToast(it)
+                }
             }
         }
     }
 
     private fun checkProfile() {
-        number?.let { number ->
+        profile?.phoneNo?.let { number ->
             profileViewModel.getUserProfile(number) {
+                hideProgress()
                 when (it) {
                     is Resource.Success -> if (it.data.isProfileValid()) {
                         it.data?.let { profile -> PrefUtils.setProfileInfo(profile) }
                         startMainActivity()
-                    } else openProfileSetup(number)
-                    is Resource.Error -> openProfileSetup(number)
+                    } else createProfile()
+                    is Resource.Error -> createProfile()
                 }
             }
         }
     }
 
-    private fun openProfileSetup(number: String) {
-        hideProgress()
-        val dialog = ProfileSetupSheet.newInstance().apply {
-            this.isCancelable = false
-        }
-        dialog.pickImageListener = { filePicker.pickImage() }
-        dialog.onContinueListener = { imageUri, userName, isBusiness ->
-            showProgress()
-            val location = PrefUtils.getLocation()
-            val imageFile = imageUri?.let { DocumentFileCompat.fromUri(this, it) }
-            val profile = CreateProfileInfo(
-                phoneNo = number,
-                firstName = userName,
-                latitude = location?.latitude?.toString(),
-                longitude = location?.longitude?.toString(),
-                country = getCountry(),
-                category = "User",
-                userToken = getDeviceID()
-            )
-            if (isBusiness) {
-                startWithAnim {
-                    loginResult.launch(Intent(this, LoginBusinessActivity::class.java).apply {
-                        putExtra(LoginBusinessActivity.PROFILE_KEY, profile)
-                        putExtra(LoginBusinessActivity.PROFILE_IMAGE_KEY, imageUri)
-                    })
+    private fun createProfile() {
+        showProgress()
+        createProfile { profile ->
+            store?.let { store ->
+                if (store.category == "Food" || store.category == "Retailer") {
+                    store.userId = profile.userId
+                    val imageFile = store.imageUri?.let { DocumentFileCompat.fromUri(this, it) }
+                    storeViewModel.createStore(store, imageFile) { it.onStoreCreated(profile) }
+                } else {
+                    hideProgress()
+                    startMainActivity(profile)
                 }
-            } else profileViewModel.createProfile(profile, imageFile) { it.onProfileCreated() }
-        }
-        dialog.show(supportFragmentManager, dialog.tag)
-        filePicker.setPickImageListener { uri ->
-            if (dialog.isVisible) dialog.setImage(uri)
+            } ?: run {
+                hideProgress()
+                startMainActivity(profile)
+            }
         }
     }
 
-    private val loginResult = registerForActivityResult(ResultCancelContract()) { canceled ->
-        if (canceled) onBackPressed()
-    }
-
-    private fun Resource<ProfileInfo>.onProfileCreated() {
+    private fun Resource<StoreInfo>.onStoreCreated(profile: ProfileInfo) {
         hideProgress()
         when (this) {
-            is Resource.Success -> data?.let { profile ->
-                PrefUtils.setProfileInfo(profile)
-                startMainActivity()
-            }
+            is Resource.Success -> startMainActivity(profile)
             is Resource.Error -> message?.let {
+                showToast(it)
+                setResult(RESULT_CANCELED)
+                onBackPressed()
+            }
+        }
+    }
+
+    private fun createProfile(listener: (ProfileInfo) -> Unit) {
+        profile?.let { profile ->
+            val imageFile = profile.imageUri?.let { DocumentFileCompat.fromUri(this, it) }
+            profileViewModel.createProfile(profile, imageFile) {
+                it.onProfileCreated(listener)
+            }
+        }
+    }
+
+    private fun Resource<ProfileInfo>.onProfileCreated(listener: (ProfileInfo) -> Unit) {
+        when (this) {
+            is Resource.Success -> data?.let { profile -> listener.invoke(profile) }
+            is Resource.Error -> message?.let {
+                hideProgress()
                 showToast(it)
                 onBackPressed()
             }
         }
     }
 
-    override fun onRequestPermissionsResult(
-        requestCode: Int, permissions: Array<out String>, grantResults: IntArray
-    ) {
-        super.onRequestPermissionsResult(requestCode, permissions, grantResults)
-        filePicker.onRequestPermissionsResult(requestCode, permissions, grantResults)
+    private fun startMainActivity(profile: ProfileInfo) {
+        PrefUtils.setLoggedIn(true)
+        PrefUtils.setProfileInfo(profile)
+        startMainActivity()
     }
 
 

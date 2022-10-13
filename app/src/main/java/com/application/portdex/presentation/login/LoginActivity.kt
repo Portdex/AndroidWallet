@@ -9,12 +9,14 @@ import com.application.portdex.R
 import com.application.portdex.core.location.LocationPickerImpl
 import com.application.portdex.core.utils.GenericUtils.getCountryList
 import com.application.portdex.core.utils.ValidationUtils.getValidString
-import com.application.portdex.core.utils.ValidationUtils.isSuccess
+import com.application.portdex.core.utils.ValidationUtils.isProfileValid
 import com.application.portdex.data.utils.Resource
 import com.application.portdex.databinding.LoginActivityBinding
 import com.application.portdex.domain.viewmodels.ProfileViewModel
 import com.application.portdex.presentation.base.BaseActivity
-import com.application.portdex.presentation.login.verify.VerifyActivity
+import com.application.portdex.presentation.dialogs.ProfileSelectionSheet
+import com.application.portdex.presentation.login.business.LoginBusinessActivity
+import com.jacopo.pagury.prefs.PrefUtils
 import dagger.hilt.android.AndroidEntryPoint
 import java.util.*
 
@@ -47,12 +49,15 @@ class LoginActivity : BaseActivity() {
         mBinding.btnLogin.setOnClickListener {
             inputValid()?.let { number ->
                 showProgress()
-                profileViewModel.getUserProfile(number) { resource ->
-                    when (resource) {
-                        is Resource.Success -> loginWithNumber(number)
+                profileViewModel.getUserProfile(number) {
+                    when (it) {
+                        is Resource.Success -> if (it.data.isProfileValid()) {
+                            it.data?.let { profile -> PrefUtils.setProfileInfo(profile) }
+                            startMainActivity()
+                        } else openProfileSetup(number)
                         is Resource.Error -> {
                             hideProgress()
-                            resource.message?.let { showToast(it) }
+                            it.message?.let { showToast(it) }
                         }
                     }
                 }
@@ -60,19 +65,17 @@ class LoginActivity : BaseActivity() {
         }
     }
 
-    private fun loginWithNumber(number: String) {
-        viewModel.login(number) { resource ->
-            hideProgress()
-            when (resource) {
-                is Resource.Success -> if (resource.data.isSuccess()) startVerification(number)
-                is Resource.Error -> resource.message?.let { showToast(it) }
-            }
-        }
+    private fun openProfileSetup(number: String) {
+        hideProgress()
+        val dialog = ProfileSelectionSheet.newInstance()
+        dialog.onProfileSelection = { isBusiness -> onProfileSelection(isBusiness, number) }
+        dialog.show(supportFragmentManager, dialog.tag)
     }
 
-    private fun startVerification(number: String) {
-        startWithAnim(Intent(this, VerifyActivity::class.java).apply {
-            putExtra(VerifyActivity.INPUT_NUMBER, number)
+    private fun onProfileSelection(isBusiness: Boolean, number: String) {
+        startWithAnim(Intent(this, LoginBusinessActivity::class.java).apply {
+            putExtra(LoginBusinessActivity.INPUT_NUMBER, number)
+            putExtra(LoginBusinessActivity.IS_BUSINESS, isBusiness)
         })
     }
 

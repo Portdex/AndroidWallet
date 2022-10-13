@@ -2,19 +2,13 @@ package com.application.portdex.presentation.splash
 
 import android.annotation.SuppressLint
 import android.os.Bundle
-import android.util.Log
 import androidx.activity.viewModels
 import com.application.portdex.R
 import com.application.portdex.core.location.LocationPickerImpl
-import com.application.portdex.core.utils.GenericUtils.getCountry
-import com.application.portdex.core.utils.ValidationUtils
-import com.application.portdex.data.mappers.toCreateProfile
-import com.application.portdex.data.utils.Resource
 import com.application.portdex.domain.viewmodels.ProfileViewModel
 import com.application.portdex.presentation.base.BaseActivity
 import com.jacopo.pagury.prefs.PrefUtils
 import dagger.hilt.android.AndroidEntryPoint
-import java.util.*
 
 @SuppressLint("CustomSplashScreen")
 @AndroidEntryPoint
@@ -26,7 +20,7 @@ class SplashActivity : BaseActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.splash_activity)
-        if (ValidationUtils.isLoggedIn()) startMainActivity() else startWelcomeActivity()
+        if (PrefUtils.isLoggedIn()) startMainActivity() else startWelcomeActivity()
 //        locationPicker.initLocation(this) { info ->
 //            if (ValidationUtils.isLoggedIn()) {
 //                PrefUtils.getProfileInfo()?.toCreateProfile()?.let { profile ->

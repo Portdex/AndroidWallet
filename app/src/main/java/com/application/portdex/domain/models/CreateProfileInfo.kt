@@ -1,5 +1,6 @@
 package com.application.portdex.domain.models
 
+import android.net.Uri
 import android.os.Parcelable
 import androidx.annotation.Keep
 import kotlinx.parcelize.Parcelize
@@ -13,11 +14,12 @@ data class CreateProfileInfo(
     val lastName: String? = null,
     val email: String? = null,
     var profiePicUrl: String? = null,
-    val category: String? = null,
-    val subCategory: String? = null,
+    var category: String? = null,
+    var subCategory: String? = null,
     var latitude: String? = null,
     var longitude: String? = null,
     val storeId: String? = null,
     val userToken: String? = null,
-    val signedUpUser: String? = null
+    val signedUpUser: String? = null,
+    val imageUri: Uri? = null
 ) : Parcelable

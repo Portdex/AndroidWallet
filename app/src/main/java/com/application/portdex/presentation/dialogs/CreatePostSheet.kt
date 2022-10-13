@@ -9,6 +9,7 @@ import com.application.portdex.databinding.CreatePostSheetBinding
 class CreatePostSheet : BaseBottomSheet() {
 
     private lateinit var mBinding: CreatePostSheetBinding
+    var createJobPostListener: (() -> Unit)? = null
 
     companion object {
         fun newInstance() = CreatePostSheet()
@@ -26,6 +27,10 @@ class CreatePostSheet : BaseBottomSheet() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         mBinding.actionClose.setOnClickListener { dismiss() }
+        mBinding.actionPost.setOnClickListener {
+            createJobPostListener?.invoke()
+            dismiss()
+        }
     }
 
 }

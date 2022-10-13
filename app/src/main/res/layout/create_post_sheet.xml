@@ -46,15 +46,92 @@
     </FrameLayout>
 
 
-    <ImageButton
-        android:id="@+id/actionPost"
-        android:layout_width="wrap_content"
+    <LinearLayout
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_gravity="start"
-        android:layout_marginHorizontal="20dp"
         android:layout_marginTop="20dp"
-        android:background="?attr/selectableItemBackground"
-        android:src="@drawable/logo_post"
-        tools:ignore="ContentDescription" />
+        android:orientation="horizontal"
+        android:weightSum="3">
+
+        <LinearLayout
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:gravity="center"
+            android:orientation="vertical">
+
+            <ImageButton
+                android:id="@+id/actionStore"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:background="?attr/selectableItemBackground"
+                android:src="@drawable/logo_digital_store"
+                tools:ignore="ContentDescription" />
+
+            <com.google.android.material.textview.MaterialTextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/intrinsic_padding_medium"
+                android:fontFamily="@font/roboto_regular"
+                android:text="@string/label_digital_store"
+                android:textColor="@color/textColorPrimaryDark"
+                android:textSize="14sp"
+                app:fontFamily="@font/roboto_regular" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:gravity="center"
+            android:orientation="vertical">
+
+            <ImageButton
+                android:id="@+id/actionProductOffer"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:background="?attr/selectableItemBackground"
+                android:src="@drawable/logo_product_offer"
+                tools:ignore="ContentDescription" />
+
+            <com.google.android.material.textview.MaterialTextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginHorizontal="2dp"
+                android:layout_marginTop="@dimen/intrinsic_padding_medium"
+                android:fontFamily="@font/roboto_regular"
+                android:gravity="center"
+                android:text="@string/label_product_offer"
+                android:textColor="@color/textColorPrimaryDark"
+                android:textSize="14sp"
+                app:fontFamily="@font/roboto_regular" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:gravity="center"
+            android:orientation="vertical">
+
+            <ImageButton
+                android:id="@+id/actionPost"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:background="?attr/selectableItemBackground"
+                android:src="@drawable/logo_post"
+                tools:ignore="ContentDescription" />
+
+            <com.google.android.material.textview.MaterialTextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/intrinsic_padding_medium"
+                android:fontFamily="@font/roboto_regular"
+                android:text="@string/label_post"
+                android:textColor="@color/textColorPrimaryDark"
+                android:textSize="14sp"
+                app:fontFamily="@font/roboto_regular" />
+        </LinearLayout>
+    </LinearLayout>
 
 </LinearLayout>

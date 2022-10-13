@@ -67,4 +67,13 @@ class RepositoryModule {
         return StoreRepositoryImpl(apiService, storage, cart, error)
     }
 
+    @Provides
+    @ViewModelScoped
+    fun providePostRepository(
+        apiService: ApiService,
+        storage: StorageRepository,
+        error: ErrorRepository
+    ): PostRepository {
+        return PostRepositoryImpl(apiService, storage, error)
+    }
 }

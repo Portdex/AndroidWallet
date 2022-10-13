@@ -14,6 +14,7 @@ import com.application.portdex.presentation.base.BaseFragment
 import com.application.portdex.presentation.dialogs.CreatePostSheet
 import com.application.portdex.presentation.home.homeAll.HomeAllFragment
 import com.application.portdex.presentation.home.homeMarket.HomeMarketFragment
+import com.application.portdex.presentation.post.JobPostActivity
 import com.application.portdex.presentation.profile.ProfileActivity
 import com.google.android.material.tabs.TabLayoutMediator
 import com.jacopo.pagury.prefs.PrefUtils
@@ -44,8 +45,13 @@ class HomeFragment : BaseFragment() {
         }
         mBinding.actionAdd.setOnClickListener {
             val dialog = CreatePostSheet.newInstance()
+            dialog.createJobPostListener = { startJobPost() }
             dialog.show(childFragmentManager, dialog.tag)
         }
+    }
+
+    private fun startJobPost() {
+        startWithAnim(Intent(requireContext(), JobPostActivity::class.java))
     }
 
     override fun onResume() {

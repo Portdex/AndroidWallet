@@ -51,7 +51,8 @@
             android:exported="false" />
         <activity
             android:name=".presentation.login.business.LoginBusinessActivity"
-            android:exported="false" />
+            android:exported="false"
+            android:windowSoftInputMode="adjustPan" />
 
         <activity
             android:name=".presentation.login.verify.VerifyActivity"
@@ -72,6 +73,9 @@
             android:theme="@style/AppTheme.Chat" />
         <activity
             android:name=".presentation.cart.CartActivity"
+            android:exported="false" />
+        <activity
+            android:name=".presentation.post.JobPostActivity"
             android:exported="false" />
 
         <service
