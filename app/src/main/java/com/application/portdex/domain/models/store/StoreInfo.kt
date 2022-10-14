@@ -8,6 +8,7 @@ import kotlinx.parcelize.Parcelize
 @Keep
 @Parcelize
 data class StoreInfo(
+    var storeId: String? = null,
     val storePhone: String? = null,
     var userId: String? = null,
     val storeName: String? = null,

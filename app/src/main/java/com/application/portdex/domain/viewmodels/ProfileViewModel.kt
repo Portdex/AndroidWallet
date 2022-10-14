@@ -34,7 +34,7 @@ class ProfileViewModel @Inject constructor(
 
     fun createProfile(
         profile: CreateProfileInfo,
-        imageFile: DocumentFile?,
+        imageFile: DocumentFile? = null,
         listener: (Resource<ProfileInfo>) -> Unit
     ) {
         disposable.add(

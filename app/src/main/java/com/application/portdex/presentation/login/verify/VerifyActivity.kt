@@ -6,6 +6,7 @@ import com.anggrayudi.storage.file.DocumentFileCompat
 import com.application.portdex.R
 import com.application.portdex.core.utils.ValidationUtils.getValidString
 import com.application.portdex.core.utils.ValidationUtils.isProfileValid
+import com.application.portdex.data.mappers.toCreateProfile
 import com.application.portdex.data.utils.Resource
 import com.application.portdex.databinding.VerifyActivityBinding
 import com.application.portdex.domain.models.CreateProfileInfo
@@ -97,7 +98,10 @@ class VerifyActivity : BaseActivity() {
                 hideProgress()
                 when (it) {
                     is Resource.Success -> if (it.data.isProfileValid()) {
-                        it.data?.let { profile -> PrefUtils.setProfileInfo(profile) }
+                        it.data?.let { profile ->
+                            PrefUtils.setLoggedIn(true)
+                            PrefUtils.setProfileInfo(profile)
+                        }
                         startMainActivity()
                     } else createProfile()
                     is Resource.Error -> createProfile()
@@ -110,7 +114,7 @@ class VerifyActivity : BaseActivity() {
         showProgress()
         createProfile { profile ->
             store?.let { store ->
-                if (store.category == "Food" || store.category == "Retailer") {
+                if (isStore()) {
                     store.userId = profile.userId
                     val imageFile = store.imageUri?.let { DocumentFileCompat.fromUri(this, it) }
                     storeViewModel.createStore(store, imageFile) { it.onStoreCreated(profile) }
@@ -125,11 +129,18 @@ class VerifyActivity : BaseActivity() {
         }
     }
 
+    private fun isStore(): Boolean {
+        return store?.category == "Food" || store?.category == "Retailer"
+    }
+
     private fun Resource<StoreInfo>.onStoreCreated(profile: ProfileInfo) {
-        hideProgress()
         when (this) {
-            is Resource.Success -> startMainActivity(profile)
+            is Resource.Success -> data?.let { store ->
+                profile.storeId = store.storeId
+                updateProfile(profile)
+            }
             is Resource.Error -> message?.let {
+                hideProgress()
                 showToast(it)
                 setResult(RESULT_CANCELED)
                 onBackPressed()
@@ -137,9 +148,27 @@ class VerifyActivity : BaseActivity() {
         }
     }
 
+    private fun updateProfile(profile: ProfileInfo) {
+        profileViewModel.createProfile(profile.toCreateProfile()) { resource ->
+            hideProgress()
+            when (resource) {
+                is Resource.Success -> startMainActivity(profile)
+                is Resource.Error -> resource.message?.let {
+                    showToast(it)
+                    setResult(RESULT_CANCELED)
+                    onBackPressed()
+                }
+            }
+        }
+    }
+
     private fun createProfile(listener: (ProfileInfo) -> Unit) {
         profile?.let { profile ->
             val imageFile = profile.imageUri?.let { DocumentFileCompat.fromUri(this, it) }
+            if (isStore()) {
+                profile.category = store?.category
+                profile.subCategory = store?.subCategory
+            }
             profileViewModel.createProfile(profile, imageFile) {
                 it.onProfileCreated(listener)
             }

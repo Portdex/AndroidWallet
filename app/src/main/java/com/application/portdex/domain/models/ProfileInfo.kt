@@ -11,7 +11,7 @@ data class ProfileInfo(
     val userToken: String? = null,
     val lastName: String? = null,
     val groupId: String? = null,
-    val storeId: String? = null,
+    var storeId: String? = null,
     val email: String? = null,
     val country: String? = null,
     val firstName: String? = null,

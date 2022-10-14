@@ -1,6 +1,8 @@
 package com.application.portdex.presentation.profile
 
+import android.content.Intent
 import android.os.Bundle
+import android.util.Log
 import androidx.activity.viewModels
 import com.application.portdex.R
 import com.application.portdex.adapters.ProfileItemAdapter
@@ -19,6 +21,7 @@ import com.application.portdex.domain.viewmodels.ChatViewModel
 import com.application.portdex.domain.viewmodels.ProfileViewModel
 import com.application.portdex.presentation.base.BaseActivity
 import com.application.portdex.presentation.login.LoginViewModel
+import com.application.portdex.presentation.store.StoreActivity
 import com.application.portdex.ui.CustomUi.getGridLabeledView
 import com.application.portdex.ui.CustomUi.getViewAdapter
 import com.jacopo.pagury.prefs.PrefUtils
@@ -43,9 +46,13 @@ class ProfileActivity : BaseActivity() {
     }
 
     private fun initData() {
-        mBinding.btnLogout.show(ValidationUtils.isLoggedIn())
+        mBinding.btnLogout.show(PrefUtils.isLoggedIn())
         addSection(getString(R.string.label_bill_payments), getProfilePaymentList())
         addSection(getString(R.string.label_rewards), getProfileRewards())
+
+        mBinding.btnManageStore.setOnClickListener {
+            startWithAnim(Intent(this, StoreActivity::class.java))
+        }
 
         initViews()
         PrefUtils.getLoginInfo()?.number?.let { number ->

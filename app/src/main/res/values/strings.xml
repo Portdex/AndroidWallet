@@ -109,12 +109,15 @@
     <string name="label_are_you_business">Are you business</string>
     <string name="label_yes">Yes</string>
     <string name="label_no">No</string>
+    <string name="label_menu">Menu</string>
+
 
     <!--    format strings-->
     <plurals name="format_messages">
         <item quantity="one">%d message</item>
         <item quantity="other">%d messages</item>
     </plurals>
+    <string name="format_products">Number of Products: %d</string>
 
     <!--    error strings-->
     <string name="error_input_required">Input required</string>

@@ -12,11 +12,12 @@ import com.application.portdex.core.utils.ValidationUtils.getValidString
 import com.application.portdex.core.utils.ValidationUtils.isProfileValid
 import com.application.portdex.data.utils.Resource
 import com.application.portdex.databinding.LoginActivityBinding
+import com.application.portdex.domain.models.CreateProfileInfo
 import com.application.portdex.domain.viewmodels.ProfileViewModel
 import com.application.portdex.presentation.base.BaseActivity
 import com.application.portdex.presentation.dialogs.ProfileSelectionSheet
 import com.application.portdex.presentation.login.business.LoginBusinessActivity
-import com.jacopo.pagury.prefs.PrefUtils
+import com.application.portdex.presentation.login.verify.VerifyActivity
 import dagger.hilt.android.AndroidEntryPoint
 import java.util.*
 
@@ -52,8 +53,7 @@ class LoginActivity : BaseActivity() {
                 profileViewModel.getUserProfile(number) {
                     when (it) {
                         is Resource.Success -> if (it.data.isProfileValid()) {
-                            it.data?.let { profile -> PrefUtils.setProfileInfo(profile) }
-                            startMainActivity()
+                            startVerification(number)
                         } else openProfileSetup(number)
                         is Resource.Error -> {
                             hideProgress()
@@ -63,6 +63,12 @@ class LoginActivity : BaseActivity() {
                 }
             }
         }
+    }
+
+    private fun startVerification(number: String) {
+        startWithAnim(Intent(this, VerifyActivity::class.java).apply {
+            putExtra(VerifyActivity.INPUT_PROFILE, CreateProfileInfo(phoneNo = number))
+        })
     }
 
     private fun openProfileSetup(number: String) {

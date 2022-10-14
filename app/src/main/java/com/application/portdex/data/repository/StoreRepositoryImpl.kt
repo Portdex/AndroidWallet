@@ -27,6 +27,7 @@ class StoreRepositoryImpl @Inject constructor(
         return storage.uploadImage(file)
     }
 
+    //{"message":"Data has been saved successfully","storeId":"eb14f075-6daa-4137-86f4-673725a34f75"}
     override fun createStore(
         store: StoreInfo, imageFile: DocumentFile?
     ): Single<Resource<StoreInfo>> {
@@ -35,10 +36,18 @@ class StoreRepositoryImpl @Inject constructor(
                 store.storePicUrl = imageUrl
                 apiService.saveStore(ApiEndPoints.getSaveStore(), store)
                     .onErrorResumeNext { error.getException(it) }
-                    .map { Resource.Success(store) }
+                    .map { response ->
+                        Resource.Success(store.apply {
+                            storeId = response.storeId
+                        })
+                    }
             }
         } ?: apiService.saveStore(ApiEndPoints.getSaveStore(), store)
-            .onErrorResumeNext { error.getException(it) }.map { Resource.Success(store) }
+            .onErrorResumeNext { error.getException(it) }.map { response ->
+                Resource.Success(store.apply {
+                    storeId = response.storeId
+                })
+            }
     }
 
     override fun insertIntoCart(item: ProviderPackage): Single<Long> {

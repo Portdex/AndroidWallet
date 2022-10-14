@@ -76,7 +76,7 @@ interface ApiService {
     fun saveStore(
         @Path("endpoint", encoded = true) path: String,
         @Body body: StoreInfo
-    ): Single<StoreInfo>
+    ): Single<CreateStoreResponse>
 
     @GET("{endpoint}")
     fun getServiceProviders(

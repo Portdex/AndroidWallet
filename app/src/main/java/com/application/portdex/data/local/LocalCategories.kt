@@ -81,4 +81,27 @@ object LocalCategories {
             add(SimpleItem(label = getString(R.string.label_school), icon = R.drawable.ic_chat))
         }
     }
+
+    fun getRetailerProducts(): MutableList<CategoryData> {
+        val list = listOf(
+            "All Products",
+            "General",
+            "Sweets",
+            "Snacks",
+            "Drinks",
+            "Fruit&Veg",
+            "Meat",
+            "Diet",
+            "Grocery",
+            "Diary",
+            "Pharmacy",
+            "Personal Care",
+            "Bakery",
+            "Frozen Food",
+            "Home Care"
+        )
+        return list.mapIndexed { index, s ->
+            CategoryData(id = index, name = s)
+        }.toMutableList()
+    }
 }

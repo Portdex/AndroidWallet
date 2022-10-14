@@ -87,7 +87,9 @@ class LoginBusinessActivity : BaseActivity() {
         getGridLabeledView(getString(R.string.label_sub_categories)).apply {
             subCategoriesAdapter = CategoryCheckedAdapter(
                 resource = R.layout.services_list_view, hasImage = false
-            ) { category -> subCategory = category }
+            ) { category ->
+                subCategory = category
+            }
             recyclerView.adapter = subCategoriesAdapter
         }.also { mBinding.listContainer.addView(it.root) }
 
@@ -176,7 +178,7 @@ class LoginBusinessActivity : BaseActivity() {
             storePhone = number,
             storeName = name,
             category = mCategory?.title,
-            subCategory = subCategory?.title,
+            subCategory = subCategory?.name,
             lat = location?.latitude?.toString(),
             long = location?.longitude?.toString(),
             storeAddress = getUserLocation(),
