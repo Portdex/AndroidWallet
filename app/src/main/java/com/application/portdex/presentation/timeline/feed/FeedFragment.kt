@@ -10,6 +10,7 @@ import com.application.portdex.data.utils.Resource
 import com.application.portdex.databinding.FeedFragmentBinding
 import com.application.portdex.domain.viewmodels.CategoriesViewModel
 import com.application.portdex.presentation.base.BaseFragment
+import com.jacopo.pagury.prefs.PrefUtils
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
@@ -18,9 +19,12 @@ class FeedFragment : BaseFragment() {
     private val viewModel by viewModels<CategoriesViewModel>()
     private lateinit var mBinding: FeedFragmentBinding
     private val adapter = FeedsAdapter()
+    private var isMine = false
 
     companion object {
-        fun newInstance() = FeedFragment()
+        fun newInstance(isMine: Boolean) = FeedFragment().apply {
+            this.isMine = isMine
+        }
     }
 
     override fun onCreateView(
@@ -43,11 +47,13 @@ class FeedFragment : BaseFragment() {
     }
 
     private fun loadData() {
+        val userId = PrefUtils.getProfileInfo()?.userId
         viewModel.getNewsFeedPost { result ->
             when (result) {
                 is Resource.Success -> result.data?.let { list ->
-                    val formatted = list.sortedBy { it.createdDateTime }.toMutableList()
-                    adapter.setData(formatted)
+                    val formatted = list.sortedByDescending { it.createdDateTime }
+                    val posts = if (isMine) formatted.filter { it.userId == userId } else formatted
+                    adapter.setData(posts.toMutableList())
                 }
                 is Resource.Error -> result.message?.let { showToast(it) }
             }

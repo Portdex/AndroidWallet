@@ -38,7 +38,7 @@ class TimelineFragment : BaseFragment() {
         val adapter = object : FragmentStateAdapter(this) {
 
             override fun createFragment(position: Int): Fragment {
-                return FeedFragment.newInstance()
+                return FeedFragment.newInstance(position == 1)
             }
 
             override fun getItemCount() = 2
