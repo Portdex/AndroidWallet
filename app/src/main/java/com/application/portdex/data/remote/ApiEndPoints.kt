@@ -54,7 +54,7 @@ object ApiEndPoints {
         else "https://c8cw3ycoi3.execute-api.eu-west-2.amazonaws.com/save_store"
     }
 
-    fun getCreatePost(): String {
+    fun getCreateUserServicePost(): String {
         return if (testEnv) "https://efxbmt8kwc.execute-api.eu-west-2.amazonaws.com/post_save"
         else "https://c8cw3ycoi3.execute-api.eu-west-2.amazonaws.com/post_save"
     }

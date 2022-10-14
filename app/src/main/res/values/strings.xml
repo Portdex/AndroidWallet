@@ -133,6 +133,7 @@
     <string name="info_authentication_required">Authentication required to proceed forward.</string>
     <string name="info_no_items">No items found.</string>
     <string name="info_create_store">Create your free digital store &amp; use the services</string>
+    <string name="info_post_created">Post created successfully</string>
 
 
     <!--    things nearby-->

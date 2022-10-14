@@ -14,6 +14,7 @@ import com.application.portdex.domain.models.category.CategoryData
 import com.application.portdex.domain.models.category.CategoryItem
 import com.application.portdex.domain.models.post.CreatePost
 import com.application.portdex.domain.viewmodels.CategoriesViewModel
+import com.application.portdex.domain.viewmodels.PostViewModel
 import com.application.portdex.presentation.base.BaseActivity
 import com.application.portdex.ui.CustomUi.getGridLabeledView
 import com.jacopo.pagury.prefs.PrefUtils
@@ -22,6 +23,7 @@ import dagger.hilt.android.AndroidEntryPoint
 @AndroidEntryPoint
 class JobPostActivity : BaseActivity() {
 
+    private val postViewModel by viewModels<PostViewModel>()
     private val categoriesViewModel: CategoriesViewModel by viewModels()
 
     private lateinit var mBinding: JobPostActivityBinding
@@ -93,11 +95,23 @@ class JobPostActivity : BaseActivity() {
             userId = profileInfo?.userId,
             category = mCategory?.title,
             subCategory = subCategory?.name,
-            postDescription = projectAbout,
             postSubject = projectName,
+            postDescription = projectAbout,
             lat = location?.latitude?.toString(),
             long = location?.longitude?.toString()
         )
+
+        showProgress()
+        postViewModel.createPost(post) { resource ->
+            hideProgress()
+            when (resource) {
+                is Resource.Success -> if (resource.data == true) {
+                    showToast(R.string.info_post_created)
+                    onBackPressed()
+                }
+                is Resource.Error -> resource.message?.let { showToast(it) }
+            }
+        }
     }
 
     private fun initCurrencies() {

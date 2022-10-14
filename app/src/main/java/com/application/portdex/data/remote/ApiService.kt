@@ -93,10 +93,10 @@ interface ApiService {
         @Path("endpoint", encoded = true) path: String,
     ): Single<ProfileByCategoryDto>
 
-    @GET("{endpoint}")
+    @POST("{endpoint}")
     fun createPost(
         @Path("endpoint", encoded = true) path: String,
         @Body body: CreatePost
-    ): Single<Response<ResponseBody>>
+    ): Single<CreatePostResponse>
 
 }
