@@ -18,4 +18,6 @@ interface StoreRepository {
     fun deleteCartItem(item: ProviderPackage): Single<Int>
     fun getCartItems(): Flowable<List<CartEntity>>
     fun getCartItemsSimple(): Single<List<CartEntity>>
+
+    fun getRetailerStoreProducts(storeId: String)
 }

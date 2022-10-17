@@ -16,6 +16,7 @@ class ServiceProviderAdapter(val listener: (ProviderInfo) -> Unit) : BaseAdapter
 
     var emptyResultListener: ((Boolean) -> Unit)? = null
     var chatListener: ((ProviderInfo) -> Unit)? = null
+    var shopListener: ((ProviderInfo) -> Unit)? = null
 
     override fun onItemClick(position: Int) {
         listener(getItemAtPosition(position))
@@ -27,6 +28,7 @@ class ServiceProviderAdapter(val listener: (ProviderInfo) -> Unit) : BaseAdapter
         val subCategory = holder.itemView.findViewById<TextView>(R.id.sub_category)
         val ratingView = holder.itemView.findViewById<TextView>(R.id.rating_view)
         val actionChat = holder.itemView.findViewById<MaterialButton>(R.id.btn_chat)
+        val actionShop = holder.itemView.findViewById<MaterialButton>(R.id.btn_shop_now)
 
         imageView.setImage(item.profilePicUrl)
         nameView.text = item.firstName
@@ -34,6 +36,7 @@ class ServiceProviderAdapter(val listener: (ProviderInfo) -> Unit) : BaseAdapter
         ratingView.text = item.rating
 
         actionChat.setOnClickListener { chatListener?.invoke(item) }
+        actionShop.setOnClickListener { shopListener?.invoke(item) }
     }
 
     override fun getFilter(): Filter {

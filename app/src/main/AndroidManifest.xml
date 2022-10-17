@@ -79,7 +79,8 @@
             android:exported="false" />
         <activity
             android:name=".presentation.store.StoreActivity"
-            android:exported="false" />
+            android:exported="false"
+            android:theme="@style/AppTheme.Store" />
 
         <service
             android:name=".data.remote.xmpptcp.service.XMPPServiceImpl"

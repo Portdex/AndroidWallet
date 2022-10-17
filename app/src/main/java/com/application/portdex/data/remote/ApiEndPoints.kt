@@ -58,4 +58,10 @@ object ApiEndPoints {
         return if (testEnv) "https://efxbmt8kwc.execute-api.eu-west-2.amazonaws.com/post_save"
         else "https://c8cw3ycoi3.execute-api.eu-west-2.amazonaws.com/post_save"
     }
+
+    // only for retailer and food
+    fun getRetailerStoreProducts(): String {
+        return if (testEnv) "https://efxbmt8kwc.execute-api.eu-west-2.amazonaws.com/get_products_by_store/"
+        else "https://c8cw3ycoi3.execute-api.eu-west-2.amazonaws.com/get_products_by_store/"
+    }
 }

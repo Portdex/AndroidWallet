@@ -2,7 +2,6 @@ package com.application.portdex.presentation.profile
 
 import android.content.Intent
 import android.os.Bundle
-import android.util.Log
 import androidx.activity.viewModels
 import com.application.portdex.R
 import com.application.portdex.adapters.ProfileItemAdapter
@@ -10,7 +9,6 @@ import com.application.portdex.core.dataBinding.DataBinding.setUserImage
 import com.application.portdex.core.prefs.ActivityPreference
 import com.application.portdex.core.prefs.NotifyPreference
 import com.application.portdex.core.utils.GenericUtils.show
-import com.application.portdex.core.utils.ValidationUtils
 import com.application.portdex.core.utils.ValidationUtils.isSuccess
 import com.application.portdex.data.local.LocalCategories.getProfilePaymentList
 import com.application.portdex.data.local.LocalCategories.getProfileRewards
@@ -51,7 +49,9 @@ class ProfileActivity : BaseActivity() {
         addSection(getString(R.string.label_rewards), getProfileRewards())
 
         mBinding.btnManageStore.setOnClickListener {
-            startWithAnim(Intent(this, StoreActivity::class.java))
+            startWithAnim(Intent(this, StoreActivity::class.java).apply {
+                putExtra(StoreActivity.PROFILE_ITEM, PrefUtils.getProfileInfo())
+            })
         }
 
         initViews()

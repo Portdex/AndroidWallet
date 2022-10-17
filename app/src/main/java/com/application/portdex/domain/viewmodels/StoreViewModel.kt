@@ -1,6 +1,5 @@
 package com.application.portdex.domain.viewmodels
 
-import android.util.Log
 import androidx.documentfile.provider.DocumentFile
 import androidx.lifecycle.ViewModel
 import com.application.portdex.core.utils.RxUtils.request
@@ -38,6 +37,10 @@ class StoreViewModel @Inject constructor(
         )
     }
 
+    fun getRetailerStoreProducts(storeId: String) {
+        repository.getRetailerStoreProducts(storeId)
+    }
+
     fun insertIntoCart(item: ProviderPackage, listener: (Resource<Boolean>) -> Unit) {
         disposable.add(
             repository.insertIntoCart(item).request()
@@ -49,10 +52,8 @@ class StoreViewModel @Inject constructor(
     fun deleteCartItem(item: ProviderPackage, listener: (Resource<Boolean>) -> Unit) {
         disposable.add(
             repository.deleteCartItem(item).request()
-                .subscribeBy(onSuccess = {
-                    Log.d(TAG, "deleteCartItem: $it")
-                    listener(Resource.Success(it > 0))
-                }, onError = { listener(Resource.Error(it.message)) })
+                .subscribeBy(onSuccess = { listener(Resource.Success(it > 0)) },
+                    onError = { listener(Resource.Error(it.message)) })
         )
     }
 
@@ -60,14 +61,6 @@ class StoreViewModel @Inject constructor(
         disposable.add(
             repository.getCartItems().request()
                 .subscribeBy(onNext = { listener(Resource.Success(it.toPackageList())) },
-                    onError = { listener(Resource.Error(it.message)) })
-        )
-    }
-
-    fun getCartItemsSimple(listener: (Resource<List<ProviderPackage>>) -> Unit) {
-        disposable.add(
-            repository.getCartItemsSimple().request()
-                .subscribeBy(onSuccess = { listener(Resource.Success(it.toPackageList())) },
                     onError = { listener(Resource.Error(it.message)) })
         )
     }

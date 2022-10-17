@@ -148,11 +148,61 @@
             android:layout_height="wrap_content"
             android:orientation="vertical">
 
+            <androidx.cardview.widget.CardView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_margin="@dimen/intrinsic_padding_large"
+                app:cardCornerRadius="20dp"
+                app:cardUseCompatPadding="false">
+
+                <androidx.constraintlayout.widget.ConstraintLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent">
+
+                    <ImageView
+                        android:id="@+id/imageView2"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_margin="14dp"
+                        android:adjustViewBounds="true"
+                        android:src="@drawable/logo_welcome"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toTopOf="parent"
+                        tools:ignore="ContentDescription" />
+
+                    <com.google.android.material.textview.MaterialTextView
+                        android:id="@+id/percentage_view"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="@dimen/intrinsic_padding_large"
+                        android:fontFamily="@font/roboto_bold"
+                        android:text="50% off upto £75"
+                        android:textColor="@color/textColorPrimaryDark"
+                        android:textSize="19sp"
+                        app:fontFamily="@font/roboto_bold"
+                        app:layout_constraintBottom_toTopOf="@+id/materialTextView4"
+                        app:layout_constraintStart_toEndOf="@+id/imageView2"
+                        app:layout_constraintTop_toTopOf="parent"
+                        app:layout_constraintVertical_chainStyle="packed" />
+
+                    <com.google.android.material.textview.MaterialTextView
+                        android:id="@+id/materialTextView4"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="@dimen/intrinsic_padding_small"
+                        android:text="USE WELCOME BACK | ABOVE £99"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintStart_toStartOf="@+id/percentage_view"
+                        app:layout_constraintTop_toBottomOf="@+id/percentage_view" />
+
+                </androidx.constraintlayout.widget.ConstraintLayout>
+            </androidx.cardview.widget.CardView>
+
             <com.google.android.material.textview.MaterialTextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
-                android:layout_margin="@dimen/intrinsic_padding_large"
                 android:fontFamily="@font/roboto_medium"
                 android:text="@string/label_menu"
                 android:textAllCaps="true"
@@ -165,6 +215,7 @@
                 android:id="@+id/tab_layout"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/intrinsic_padding_medium"
                 android:clipToPadding="false"
                 android:orientation="horizontal"
                 android:paddingVertical="@dimen/intrinsic_padding_large"
@@ -213,4 +264,15 @@
                 tools:visibility="visible" />
         </LinearLayout>
     </androidx.core.widget.NestedScrollView>
+
+    <com.google.android.material.floatingactionbutton.FloatingActionButton
+        android:id="@+id/actionAdd"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="bottom|end"
+        android:layout_margin="@dimen/intrinsic_padding_large"
+        android:src="@drawable/ic_add"
+        app:layout_behavior=".ui.ScrollAwareFABBehavior"
+        app:tint="@color/colorWindow"
+        tools:ignore="ContentDescription" />
 </androidx.coordinatorlayout.widget.CoordinatorLayout>

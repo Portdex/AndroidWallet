@@ -99,4 +99,8 @@ interface ApiService {
         @Body body: CreatePost
     ): Single<CreatePostResponse>
 
+    @GET("{endpoint}")
+    fun getRetailerProducts(
+        @Path("endpoint", encoded = true) path: String,
+    ): Single<RetailerProductDto>
 }

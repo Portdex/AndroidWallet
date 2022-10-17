@@ -1,7 +1,9 @@
 package com.application.portdex.data.mappers
 
 import com.application.portdex.data.local.cart.CartEntity
+import com.application.portdex.data.remote.dto.RetailerProductDto
 import com.application.portdex.domain.models.ProviderPackage
+import com.application.portdex.domain.models.products.ProductInfo
 
 
 fun List<CartEntity>.toPackageList(): List<ProviderPackage> {
@@ -29,4 +31,14 @@ fun ProviderPackage.toCartItem(): CartEntity {
         name = name,
         createdDateTime = createdDateTime
     )
+}
+
+fun RetailerProductDto.toProducts(): List<ProductInfo> {
+    return product.map {
+        ProductInfo(
+            productPostId = it.productPostId,
+            userType = it.userType,
+            storeId = it.storeId
+        )
+    }
 }
