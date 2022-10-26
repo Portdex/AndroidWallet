@@ -1,0 +1,107 @@
+<?xml version="1.0" encoding="utf-8"?>
+<com.google.android.material.card.MaterialCardView xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    app:cardCornerRadius="4dp"
+    android:layout_margin="8dp"
+    app:cardElevation="4dp"
+    android:layout_height="wrap_content">
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:padding="12dp">
+
+
+        <ImageView
+            android:id="@+id/ivImage"
+            android:layout_width="30dp"
+            android:layout_centerVertical="true"
+            android:layout_height="30dp" />
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_toEndOf="@+id/ivImage"
+            android:orientation="vertical">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Crypto"
+                android:textColor="@color/black"
+                android:id="@+id/tvName"/>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="CTC"
+                android:textColor="@color/black"
+                android:id="@+id/tvShortName"/>
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/ll_data"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:layout_alignParentEnd="true">
+
+            <TextView
+                android:id="@+id/tvRate"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="$66663.87"
+                android:layout_gravity="end"
+                android:gravity="end"
+                android:textColor="@color/black"/>
+
+            <RelativeLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content">
+
+                <LinearLayout
+                    android:id="@+id/ll_arrows"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal">
+
+                    <com.airbnb.lottie.LottieAnimationView
+                        android:id="@+id/ivDown"
+                        android:layout_width="21dp"
+                        android:layout_height="20dp"
+                        android:layout_centerVertical="true"
+                        android:rotation="180"
+                        android:scaleType="fitXY"
+                        android:visibility="visible"
+                        app:lottie_rawRes="@raw/down_arrow"/>
+
+
+                    <com.airbnb.lottie.LottieAnimationView
+                        android:id="@+id/ivUp"
+                        android:layout_width="20dp"
+                        app:lottie_rawRes="@raw/up_arrow"
+                        android:scaleType="fitXY"
+                        android:layout_centerVertical="true"
+                        android:layout_height="20dp"/>
+
+                </LinearLayout>
+
+
+                <TextView
+                    android:id="@+id/tvPercentChange"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_centerVertical="true"
+                    android:layout_toEndOf="@+id/ll_arrows"
+                    android:layout_gravity="end"
+                    android:text="1.34%"/>
+
+            </RelativeLayout>
+
+
+
+        </LinearLayout>
+    </RelativeLayout>
+
+</com.google.android.material.card.MaterialCardView>

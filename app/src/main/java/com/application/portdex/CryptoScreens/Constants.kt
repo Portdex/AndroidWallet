@@ -1,0 +1,31 @@
+package com.inder.cryptocoinbasedemo
+
+object Constants {
+
+    val API_KEY = "84f278fce73501f480a19c0719d9ed76"
+    val COIN_KEY ="43730523-e031-4385-89a1-b9bcd7303326"
+
+    //coin api
+    val coin_api_key = "612AAEFF-479F-4137-ADBF-E87AEDE7E49E"
+
+    val STRIPE_SECRET_KEY ="sk_test_51Lk6v1SFQ1tqkEaitjttrFXFVX5xBCq8nUthwCZXrhJIho1n1KiDc9KgnW642qfMDHh1nq9xxTyvBKZ6GJzzkrHV00YpObGRqp"
+    val STRIPE_PUBLISHABLE_KEY ="pk_test_51Lk6v1SFQ1tqkEaiI6sTqZeHBnJRRJKL1guWth3OvV5jzeT8dQmdknkwakBGlgeIyoJvleKF9nWubqOsnq2PpNYY00d3ZrzZdB"
+
+    //Coinbase api access keys
+    val COINBASE_API_ACCESS_KEY ="SZr5tGv5MVsRtTnt"
+    val COINBASE_API_SECRET ="g3E33CJMQv58NCmuQ7hiHA0z3UjNnwZO"
+    val COINBASE_TRADE_KEY ="JgUxwL3VaNwVJtqrsV8xU61cCDoYJQdBBnSTFKvFTlFL9sFHNpSiy/W16QDBvBqDUVxP6feXDFN90enNFRwX4Q=="
+    val COINBASE_COMMERCE_API_KEY ="1fed0e3f-88ca-422a-8017-c9dabdcd84ec"
+
+    //Circle apis key
+//    val CIRCLE_API_KEY ="QVBJX0tFWTo0YzdhZjJjZDUzZDFjODZhZWRkMmRlNWZjYmExYjc0MjoxYzBiMTFhZGE1ODE5MTlhMjZiNDViN2RhNTVlOTgwMQ=="
+    val CIRCLE_API_KEY ="QVBJX0tFWTo1YWExZTVkM2Q0MDcwZjdlZDk4M2MzMWYxYWQ0NzhiOTo5NmE0ZGE1NjU2YWU3M2FkZTM5NWM0MGZlMThkYTJjMA=="
+
+    //Swapzone
+    val SWAPZONE_API_KEY ="Fap7MYG4l"
+
+    //Alchemy
+    val ALCHEMY_API_KEY ="ZErp26xSy0WqLXAyFHjGcbVjh97JatvU"
+    val ALCHEMY_PUBLIC_OWNER ="0x71C7656EC7ab88b098defB751B7401B5f6d8976F"
+
+}

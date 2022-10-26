@@ -1,0 +1,98 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    tools:context=".CryptoScreens.Fragments.CreatePayment">
+
+   <RelativeLayout
+       android:layout_width ="match_parent"
+       android:orientation="horizontal"
+       android:weightSum ="1"
+       android:layout_marginTop="20dp"
+       android:layout_marginStart="12dp"
+       android:layout_marginEnd="12dp"
+       android:layout_height="wrap_content">
+
+      <TextView
+          android:id="@+id/tvPaymentLink"
+          android:layout_width="match_parent"
+          android:layout_height="50dp"
+          android:layout_marginStart="10dp"
+          android:layout_marginEnd="90dp" />
+
+      <com.google.android.material.button.MaterialButton
+          android:id="@+id/btnCopy"
+          android:layout_width="90dp"
+          android:layout_height="50dp"
+          android:layout_alignParentEnd="true"
+          android:text="@string/copy" />
+
+   </RelativeLayout>
+
+
+   <com.google.android.material.button.MaterialButton
+       android:layout_width="match_parent"
+       android:layout_height="50dp"
+       android:id="@+id/btnPayment"
+       android:layout_marginStart="10dp"
+       android:layout_marginTop="20dp"
+       android:layout_marginEnd="10dp"
+       android:text="@string/create_payment_link"/>
+
+   <com.google.android.material.button.MaterialButton
+       android:layout_width="match_parent"
+       android:layout_height="50dp"
+       android:id="@+id/btnSwap"
+       android:layout_marginStart="10dp"
+       android:layout_marginTop="20dp"
+       android:layout_marginEnd="10dp"
+       android:text="@string/swap_currency"/>
+
+ <com.google.android.material.button.MaterialButton
+       android:layout_width="match_parent"
+       android:layout_height="50dp"
+       android:id="@+id/btnCharge"
+       android:layout_marginStart="10dp"
+       android:layout_marginTop="20dp"
+       android:layout_marginEnd="10dp"
+       android:text="@string/accept_crypto"/>
+
+<com.google.android.material.button.MaterialButton
+       android:layout_width="match_parent"
+       android:layout_height="50dp"
+       android:id="@+id/btnAcceptCrypto"
+       android:layout_marginStart="10dp"
+       android:layout_marginTop="20dp"
+       android:layout_marginEnd="10dp"
+       android:text="@string/accept_crypto2"/>
+
+ <com.google.android.material.button.MaterialButton
+       android:layout_width="match_parent"
+       android:layout_height="50dp"
+       android:id="@+id/btnPayout"
+       android:layout_marginStart="10dp"
+       android:layout_marginTop="20dp"
+       android:layout_marginEnd="10dp"
+       android:text="@string/payout"/>
+
+<com.google.android.material.button.MaterialButton
+       android:layout_width="match_parent"
+       android:layout_height="50dp"
+       android:id="@+id/btnConnectToWallet"
+       android:layout_marginStart="10dp"
+       android:layout_marginTop="20dp"
+       android:layout_marginEnd="10dp"
+       android:text="@string/connectwallet"/>
+
+   <TextView
+       android:layout_width="match_parent"
+       android:layout_height="wrap_content"
+      android:id="@+id/tvText"
+      />
+
+
+
+
+</LinearLayout>

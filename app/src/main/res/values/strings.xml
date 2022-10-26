@@ -128,5 +128,32 @@
     <string name="menu_wallet">Wallet</string>
     <string name="menu_timeline">Timeline</string>
     <string name="menu_chat">Chat</string>
+    <string name="deposit">Deposit</string>
+    <string name="withdraw">Withdraw</string>
+    <string name="send">Send</string>
+    <string name="exchange">Exchange</string>
+    <string name="my_portfolio">My Portfolio</string>
+    <string name="view_all">View all</string>
+
+    <!--New strings for crypto-->
+    <string name="tab_text_1">Crypto</string>
+    <string name="tab_text_2">NFTs</string>
+    <string name="dummy_button">Dummy Button</string>
+    <string name="dummy_content">DUMMY\nCONTENT</string>
+    <string name="crypto">Crypto</string>
+    <string name="nft">NFT</string>
+    <string name="payment">Payment</string>
+    <string name="copy">Copy</string>
+    <string name="create_payment_link">Create payment Link</string>
+    <string name="swap_currency">Swap Currency</string>
+    <string name="all_currencies">All Currencies</string>
+    <string name="details">Details</string>
+    <string name="accept_crypto">Accept Crypto through coinbase</string>
+    <string name="connectwallet">Connect with wallet</string>
+    <string name="payout">Create Payout</string>
+    <string name="create_master_wallet">Get master wallet</string>
+    <string name="accept_crypto2">Accept Crypto Payments</string>
+    <string name="enter_amount">Enter Amount</string>
+    <string name="create_request">Create Payment Request</string>
 
 </resources>
